@@ -8,31 +8,31 @@ const puzzleSetup = {
             // Vaihe 1 (indeksi 0)
             expectedInput: "salasana", // Mitä käyttäjän pitää kirjoittaa
             responseMessage: "Salasana on väärin.", // Viesti oikeasta syötteestä
-            promptForNext: "Yritä seuraavaa avainta:" // Kehote seuraavaa syötettä varten
+            promptForNext: "...:" // Kehote seuraavaa syötettä varten
         },
         {
             // Vaihe 2 (indeksi 1)
             expectedInput: "väärin",
             responseMessage: "Kokeile uudestaan",
-            promptForNext: "Entä nyt, mikä sopisi?"
+            promptForNext: "..."
         },
         {
             // Vaihe 3 (indeksi 2)
             expectedInput: "uudestaan",
             responseMessage: "Salasana on edelleen väärin",
-            promptForNext: "Jatka eteenpäin..."
+            promptForNext: "..."
         },
         {
             // Vaihe 4 (indeksi 3) - UUSI VAIHE
             expectedInput: "edelleen väärin", // Esimerkki uudesta vaiheesta
             responseMessage: "Melkein perillä, anna seuraava:",
-            promptForNext: "Hyvä! Olet oikealla polulla..."
+            promptForNext: "..."
         },
         {
             // Vaihe 5 (indeksi 4) - UUSI VAIHE
             expectedInput: "seuraava", // Esimerkki uudesta vaiheesta
             responseMessage: "Kirjoita viimeinen sana, ennen ratkaisua:",
-            promptForNext: "Loistavaa! Vielä yksi ponnistus."
+            promptForNext: "..."
         },
         {
             // Vaihe 6 (indeksi 5) - Alkuperäinen viimeinen "oikea"
