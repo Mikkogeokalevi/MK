@@ -36,7 +36,7 @@ const puzzleSetup = {
         },
         {
             // Vaihe 6 (indeksi 5) - Alkuperäinen viimeinen "oikea"
-            expectedInput: "seuraava", // Tai vaihda tämä loogisemmaksi, esim. "ratkaisu"
+            expectedInput: "viimeinen sana", // Tai vaihda tämä loogisemmaksi, esim. "ratkaisu"
             responseMessage: "Oikein! Kirjoita chekkeriin \"minä tiesin salasanan\".",
             promptForNext: "Valmista! Arvoitus ratkaistu." // Viesti kun kaikki on valmista
         }
