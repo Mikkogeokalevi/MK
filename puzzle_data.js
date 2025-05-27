@@ -19,20 +19,20 @@ const puzzleSetup = {
         {
             // Vaihe 3 (indeksi 2)
             expectedInput: "uudestaan",
-            responseMessage: "Salasana on edelleen väärin.",
+            responseMessage: "Salasana on edelleen väärin",
             promptForNext: "Jatka eteenpäin..."
         },
         {
             // Vaihe 4 (indeksi 3) - UUSI VAIHE
             expectedInput: "edelleen väärin", // Esimerkki uudesta vaiheesta
-            responseMessage: "Hyvä! Olet polulla...",
-            promptForNext: "Melkein perillä, anna seuraava:"
+            responseMessage: "Melkein perillä, anna seuraava:",
+            promptForNext: "Hyvä! Olet oikealla polulla..."
         },
         {
             // Vaihe 5 (indeksi 4) - UUSI VAIHE
             expectedInput: "seuraava", // Esimerkki uudesta vaiheesta
-            responseMessage: "Loistavaa! Vielä yksi ponnistus.",
-            promptForNext: "Kirjoita viimeinen sana, ennen ratkaisua:"
+            responseMessage: "Kirjoita viimeinen sana, ennen ratkaisua:",
+            promptForNext: "Loistavaa! Vielä yksi ponnistus."
         },
         {
             // Vaihe 6 (indeksi 5) - Alkuperäinen viimeinen "oikea"
