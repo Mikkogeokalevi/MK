@@ -13,31 +13,38 @@ const puzzleSetup = {
         {
             // Vaihe 2 (indeksi 1)
             expectedInput: "väärin",
-            responseMessage: "Kokeile uudestaan",
+            responseMessage: "Väärin, kokeile uudestaan",
             promptForNext: "Oletko nyt aivan varma tuosta?"
         },
         {
             // Vaihe 3 (indeksi 2)
             expectedInput: "uudestaan",
-            responseMessage: "Salasana on edelleen väärin",
+            responseMessage: "Ei, salasana on edelleen väärin",
             promptForNext: "Et taida muistaa?"
         },
         {
             // Vaihe 4 (indeksi 3) - UUSI VAIHE
             expectedInput: "edelleen väärin", // Esimerkki uudesta vaiheesta
-            responseMessage: "Melkein perillä, anna seuraava:",
+            responseMessage: "Ei vieläkään, kokeile seuraavaa",
             promptForNext: "Miten tämä on nyt näin vaikeaa?"
         },
         {
             // Vaihe 5 (indeksi 4) - UUSI VAIHE
-            expectedInput: "seuraava", // Esimerkki uudesta vaiheesta
-            responseMessage: "Kirjoita viimeinen sana, ennen ratkaisua:",
-            promptForNext: "Jokohan nyt osuisi oikeaan"
+            expectedInput: "seuraavaa", // Esimerkki uudesta vaiheesta
+            responseMessage: "Nyt ei nappaa, yritä jotain uutta",
+            promptForNext: "Jokohan nyt osuisit oikeaan"
         },
+ 	{
+            // Vaihe 6 (indeksi 5) - UUSI VAIHE
+            expectedInput: "jotain uutta", // Esimerkki uudesta vaiheesta
+            responseMessage: "vieläkään ei osunut, voisiko ratkaisu olla jokin muu",
+            promptForNext: "alkaako ideat oikeasta jo loppumaan?"
+        },
+
         {
-            // Vaihe 6 (indeksi 5) - Alkuperäinen viimeinen "oikea"
-            expectedInput: "viimeinen sana", // Tai vaihda tämä loogisemmaksi, esim. "ratkaisu"
-            responseMessage: "Oikein! Kirjoita chekkeriin \"minä tiesin salasanan\".",
+            // Vaihe 7 (indeksi 6) - Alkuperäinen viimeinen "oikea"
+            expectedInput: "jokin muu", // Tai vaihda tämä loogisemmaksi, esim. "ratkaisu"
+            responseMessage: "Sait kaikki Oikein! Kirjoita chekkeriin \"minä tiesin salasanan\".",
             promptForNext: "Valmista! Arvoitus ratkaistu." // Viesti kun kaikki on valmista
         }
     ]
