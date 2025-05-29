@@ -133,7 +133,8 @@
 <body>
 
     <div id="logoContainer">
-        <img src="logo.png" alt="Mikko Kalevi Logo"> </div>
+        <img src="logo.png" alt="Mikko Kalevi Logo">
+    </div>
 
     <div class="container">
         <label for="salasanaInput" id="kysymysLabel">Ladataan arvoitusta...</label>
@@ -160,13 +161,15 @@
         const promptKuva = document.getElementById('promptKuva');
 
         function updateChallengeDisplay(challengeImage, challengeText) {
-            kysymysLabel.style.display = 'none'; // Piilota pääotsikko
+            // Piilota kaikki elementit ensin
+            kysymysLabel.style.display = 'none'; 
             kuvaContainer.style.display = 'none';
-            promptKuva.src = "";
+            promptKuva.src = ""; // Tyhjennä kuvalähde
             kuvaTekstiLabel.style.display = 'none';
             kuvaTekstiLabel.textContent = "";
 
             if (challengeImage) {
+                // Jos on kuva, näytä kuva ja mahdollinen tekstikehote kuvan alle
                 promptKuva.src = challengeImage;
                 kuvaContainer.style.display = 'block';
                 if (challengeText) {
@@ -174,10 +177,11 @@
                     kuvaTekstiLabel.style.display = 'block';
                 }
             } else if (challengeText) {
-                kysymysLabel.textContent = challengeText; // Käytä pääotsikkoa tekstikehotteelle ilman kuvaa
+                // Jos ei kuvaa mutta on tekstikehote, näytä se pääotsikkona
+                kysymysLabel.textContent = challengeText; 
                 kysymysLabel.style.display = 'block';
             } else {
-                // Tämä tila on vain alussa tai jos haastetta ei ole määritelty
+                // Oletus/alkutilanne, näytä initialPrompt
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
                 kysymysLabel.style.display = 'block';
             }
@@ -192,7 +196,12 @@
                 return;
             }
             currentStepIndex = 0;
-            updateChallengeDisplay(null, puzzleSetup.initialPrompt); // Näytä vain alkuperäinen teksti
+            // Alustetaan näyttö ensimmäisen vaiheen perusteella
+            // Koska ensimmäinen vaihe (indeksi 0) on "salasana" ilman kuvaa,
+            // käytetään initialPromptia tai currentStepData.challengeText/Image.
+            // Tässä tapauksessa initialPrompt näytetään, koska challengeImage/Text ovat null.
+            const initialStepData = puzzleSetup.steps[currentStepIndex];
+            updateChallengeDisplay(initialStepData.challengeImage, initialStepData.challengeText || puzzleSetup.initialPrompt);
             
             viestiElementti.textContent = "";
             viestiElementti.className = '';
@@ -229,8 +238,11 @@
                 // Väärä syöte: palauta alkuperäiseen tilaan
                 viestiElementti.textContent = puzzleSetup.wrongInputMessage;
                 viestiElementti.className = '';
-                currentStepIndex = 0;
-                initializePuzzle(); // Alusta peli uudelleen, jotta alkuperäinen kehote näkyy
+                currentStepIndex = 0; // Palataan ensimmäiseen vaiheeseen
+                // Alustetaan näyttö uudelleen, jotta oikea alkuperäinen kehote/kuva näkyy
+                const firstStepData = puzzleSetup.steps[currentStepIndex];
+                updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText || puzzleSetup.initialPrompt);
+                inputField.value = "";
                 inputField.focus();
             }
         }
