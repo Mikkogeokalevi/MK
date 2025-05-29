@@ -80,15 +80,48 @@
             border-radius: 4px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
+        /* LOGO */
+        #logoContainer {
+            position: fixed; /* Pysyy paikoillaan vierityksessä */
+            top: 20px; /* 20px ylhäältä */
+            right: 20px; /* 20px oikealta */
+            width: 150px;
+            height: 150px;
+            /* Lisää responsiivisuutta pienemmille näytöille */
+            max-width: 25vw; /* Max 25% viewportin leveydestä */
+            max-height: 25vw; /* Max 25% viewportin leveydestä */
+            z-index: 1000; /* Varmistaa, että on muiden elementtien päällä */
+        }
+        #logoContainer img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Varmistaa, että kuva skaalautuu säilyttäen kuvasuhteensa */
+            background-color: white; /* Valkoinen tausta logon ympärille */
+            border-radius: 8px; /* Hieman pyöristetyt kulmat */
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Pieni varjo */
+        }
+        /* Pienemmille näytöille, siirrä logo hieman sisemmälle tai pienennä */
+        @media (max-width: 600px) {
+            #logoContainer {
+                top: 10px;
+                right: 10px;
+                width: 100px; /* Pienempi koko mobiilissa */
+                height: 100px;
+            }
+        }
     </style>
 </head>
 <body>
+
+    <div id="logoContainer">
+        <img src="logo.png" alt="Logoni"> </div>
 
     <div class="container">
         <label for="salasanaInput" id="kysymysLabel">Ladataan arvoitusta...</label>
         <div id="kuvaContainer" style="display: none;">
             <img id="promptKuva" src="" alt="Vihje">
         </div>
+        <p id="kuvaTekstiLabel" style="display: none; margin-top: 10px; font-size: 1em; color: #555;"></p>
         <br>
         <input type="text" id="salasanaInput" autofocus disabled><br>
         <button onclick="tarkistaSalasana()" disabled>Tarkista</button>
@@ -101,10 +134,38 @@
         let currentStepIndex = 0;
         const inputField = document.getElementById('salasanaInput');
         const viestiElementti = document.getElementById('viesti');
-        const kysymysLabel = document.getElementById('kysymysLabel');
+        const kysymysLabel = document.getElementById('kysymysLabel'); // Tämä on pääotsikkolabel
+        const kuvaTekstiLabel = document.getElementById('kuvaTekstiLabel'); // Tämä on kuvan alla oleva tekstilabel
         const submitButton = document.querySelector('button');
         const kuvaContainer = document.getElementById('kuvaContainer');
         const promptKuva = document.getElementById('promptKuva');
+
+        function updatePromptDisplay(stepData) {
+            // Piilotetaan kaikki aluksi
+            kysymysLabel.style.display = 'none';
+            kuvaContainer.style.display = 'none';
+            promptKuva.src = "";
+            kuvaTekstiLabel.style.display = 'none';
+            kuvaTekstiLabel.textContent = "";
+
+            if (stepData.imagePrompt) {
+                // Jos on kuva (ja mahdollisesti kuvan alla oleva teksti)
+                promptKuva.src = stepData.imagePrompt;
+                kuvaContainer.style.display = 'block';
+                if (stepData.textPrompt) {
+                    kuvaTekstiLabel.textContent = stepData.textPrompt;
+                    kuvaTekstiLabel.style.display = 'block';
+                }
+            } else if (stepData.textPrompt) {
+                // Jos on pelkkä teksti-kehote (ei kuvaa)
+                kysymysLabel.textContent = stepData.textPrompt;
+                kysymysLabel.style.display = 'block';
+            } else {
+                // Oletus/aloitusviesti jos ei kuvaa eikä textPromptia (esim. initialPrompt)
+                kysymysLabel.textContent = puzzleSetup.initialPrompt;
+                kysymysLabel.style.display = 'block';
+            }
+        }
 
         function initializePuzzle() {
             if (typeof puzzleSetup === 'undefined' || !puzzleSetup.steps || puzzleSetup.steps.length === 0) {
@@ -115,10 +176,9 @@
                 return;
             }
             currentStepIndex = 0;
+            // Aloituksessa näytetään initialPrompt
             kysymysLabel.textContent = puzzleSetup.initialPrompt;
-            kysymysLabel.style.display = 'block'; // Varmista, että label näkyy
-            kuvaContainer.style.display = 'none'; // Piilota kuva-container
-            promptKuva.src = ""; // Tyhjennä kuva
+            kysymysLabel.style.display = 'block';
 
             viestiElementti.textContent = "";
             viestiElementti.className = ''; // Poistetaan mahdolliset aiemmat luokat
@@ -131,39 +191,22 @@
         function tarkistaSalasana() {
             if (typeof puzzleSetup === 'undefined') return; // Varmistus
 
-            const syote = inputField.value.trim().toLowerCase(); // Muutetaan pieniksi kirjaimiksi -> ei väliä onko iso vai pieni
+            const syote = inputField.value.trim().toLowerCase();
             const currentStepData = puzzleSetup.steps[currentStepIndex];
 
             if (syote === currentStepData.expectedInput.toLowerCase()) {
                 viestiElementti.textContent = currentStepData.responseMessage;
-                viestiElementti.className = 'info'; // Yleinen info-väri
+                viestiElementti.className = 'info';
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) { // Viimeisen vaiheen syöte oli oikein
-                    const finalPrompt = currentStepData.imagePrompt; // Viimeinen vaihe käyttää imagePrompt-kenttää tekstinä
-                    kysymysLabel.style.display = 'block'; // Varmista, että tekstikehote näkyy
-                    kysymysLabel.textContent = finalPrompt;
-                    kuvaContainer.style.display = 'none'; // Varmista, että kuva on piilotettu
-                    promptKuva.src = ""; // Tyhjennä kuvan lähde
-                    viestiElementti.className = 'success'; // Onnistumisväri
+                    updatePromptDisplay(currentStepData); // Näytä viimeisen vaiheen prompt (teksti)
+                    viestiElementti.className = 'success';
                     inputField.disabled = true;
                     submitButton.disabled = true;
                 } else {
                     currentStepIndex++;
-                    const nextPromptContent = puzzleSetup.steps[currentStepIndex].imagePrompt; // Seuraavan vaiheen imagePrompt
-                    
-                    if (nextPromptContent && (nextPromptContent.endsWith('.jpg') || nextPromptContent.endsWith('.png') || nextPromptContent.endsWith('.gif'))) {
-                        kysymysLabel.style.display = 'none'; // Piilota tekstikehote
-                        promptKuva.src = nextPromptContent; // Aseta kuvan lähde
-                        kuvaContainer.style.display = 'block'; // Näytä kuvakontti
-                    } else if (nextPromptContent) { // Jos nextPromptContent on tekstiä (eikä kuvatiedosto)
-                        kysymysLabel.style.display = 'block'; // Näytä tekstikehote
-                        kysymysLabel.textContent = nextPromptContent;
-                        kuvaContainer.style.display = 'none'; // Piilota kuvakontti
-                    } else { // Jos nextPromptContent on null/undefined (ei kuvaa eikä tekstiä)
-                        kysymysLabel.style.display = 'block'; // Näytä tekstikehote
-                        kysymysLabel.textContent = "Jatka tehtävää."; // Oletusviesti
-                        kuvaContainer.style.display = 'none'; // Piilota kuvakontti
-                    }
+                    // Päivitä näyttö seuraavan vaiheen datalla
+                    updatePromptDisplay(puzzleSetup.steps[currentStepIndex]); 
                     inputField.value = "";
                     inputField.focus();
                 }
@@ -171,20 +214,14 @@
                 // Väärä syöte
                 viestiElementti.textContent = puzzleSetup.wrongInputMessage;
                 viestiElementti.className = ''; // Palautetaan oletus (punertava) virheväri
-                currentStepIndex = 0;
-                kysymysLabel.textContent = puzzleSetup.initialPrompt;
-                kysymysLabel.style.display = 'block'; // Varmista, että label näkyy
-                kuvaContainer.style.display = 'none'; // Piilota kuva-container
-                promptKuva.src = ""; // Tyhjennä kuva
-                inputField.value = "";
+                currentStepIndex = 0; // Palataan alkuun
+                initializePuzzle(); // Alustetaan peli uudelleen, jotta initialPrompt näkyy
                 inputField.focus();
             }
         }
 
-        // Kun sivu on ladannut, alustetaan arvoitus
         document.addEventListener('DOMContentLoaded', () => {
             initializePuzzle();
-            // Lisätään Enter-näppäimen toiminnallisuus
             inputField.addEventListener('keypress', function(event) {
                 if (event.key === 'Enter' && !submitButton.disabled) {
                     tarkistaSalasana();
