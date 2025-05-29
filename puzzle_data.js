@@ -1,13 +1,13 @@
 // puzzle_data.js
 
 const puzzleSetup = {
-    initialPrompt: "Kirjoita salasana:", // Aloitusviesti käyttäjälle
+    initialPrompt: "Kirjoita salasana", // Aloitusviesti käyttäjälle
     wrongInputMessage: "Väärin meni! Palataan takaisin alkuun.", // Viesti väärästä syötteestä
     steps: [
         {
             // Vaihe 1 (indeksi 0)
             expectedInput: "salasana", // Mitä käyttäjän pitää kirjoittaa
-            responseMessage: "Salasana on väärin.", // Viesti oikeasta syötteestä
+            responseMessage: "Salasana on väärin", // Viesti oikeasta syötteestä
             promptForNext: "Nyt ei mennyt oikein:" // Kehote seuraavaa syötettä varten
         },
         {
@@ -40,11 +40,16 @@ const puzzleSetup = {
             responseMessage: "vieläkään ei osunut, voisiko ratkaisu olla jokin muu",
             promptForNext: "alkaako ideat oikeasta jo loppumaan?"
         },
-
+{
+            // Vaihe 7 (indeksi 6) - UUSI VAIHE
+            expectedInput: "jokin muu", // Esimerkki uudesta vaiheesta
+            responseMessage: "Eikö sekään käyny, entäs olisiko se ihan vaan abc124",
+            promptForNext: "sinä et vaan muista?"
+        },
         {
-            // Vaihe 7 (indeksi 6) - Alkuperäinen viimeinen "oikea"
-            expectedInput: "jokin muu", // Tai vaihda tämä loogisemmaksi, esim. "ratkaisu"
-            responseMessage: "Sait kaikki Oikein! Kirjoita chekkeriin \"minä tiesin salasanan\".",
+            // Vaihe 8 (indeksi 7) - Alkuperäinen viimeinen "oikea"
+            expectedInput: "abc124", // Tai vaihda tämä loogisemmaksi, esim. "ratkaisu"
+            responseMessage: "Menihän se vihdoin kohdilleen! Kirjoita chekkeriin \"minä tiesin salasanan\".",
             promptForNext: "Valmista! Arvoitus ratkaistu." // Viesti kun kaikki on valmista
         }
     ]
