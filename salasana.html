@@ -188,18 +188,18 @@
         }
 
         function initializePuzzle() {
+            // Tärkeää: Tämä tarkistaa, onko puzzleSetup latautunut
             if (typeof puzzleSetup === 'undefined' || !puzzleSetup.steps || puzzleSetup.steps.length === 0) {
+                // Tänne emme halua päätyä, jos virhe ei ole "dataa ei ladattu" vaan "jäädään lataamaan".
+                // Jos virhe "Ladataan arvoitusta..." tapahtuu, tämä koodi ei edes käynnisty.
+                // Se tarkoittaa, että joku muu virhe tapahtuu ENNEN kuin puzzleSetup on määritelty.
                 kysymysLabel.textContent = "Virhe: Arvoituksen dataa ei voitu ladata.";
                 viestiElementti.textContent = "Tarkista, että puzzle_data.js on olemassa ja oikein muotoiltu.";
                 inputField.disabled = true;
                 submitButton.disabled = true;
-                return;
+                return; // Lopeta funktion suoritus virheen vuoksi
             }
             currentStepIndex = 0;
-            // Alustetaan näyttö ensimmäisen vaiheen perusteella
-            // Koska ensimmäinen vaihe (indeksi 0) on "salasana" ilman kuvaa,
-            // käytetään initialPromptia tai currentStepData.challengeText/Image.
-            // Tässä tapauksessa initialPrompt näytetään, koska challengeImage/Text ovat null.
             const initialStepData = puzzleSetup.steps[currentStepIndex];
             updateChallengeDisplay(initialStepData.challengeImage, initialStepData.challengeText || puzzleSetup.initialPrompt);
             
@@ -239,7 +239,6 @@
                 viestiElementti.textContent = puzzleSetup.wrongInputMessage;
                 viestiElementti.className = '';
                 currentStepIndex = 0; // Palataan ensimmäiseen vaiheeseen
-                // Alustetaan näyttö uudelleen, jotta oikea alkuperäinen kehote/kuva näkyy
                 const firstStepData = puzzleSetup.steps[currentStepIndex];
                 updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText || puzzleSetup.initialPrompt);
                 inputField.value = "";
