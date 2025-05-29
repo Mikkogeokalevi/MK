@@ -1,7 +1,7 @@
 // puzzle_data.js
 
 const puzzleSetup = {
-    initialPrompt: "Kirjoita salasana:", // Aivan ensimmäinen aloitusviesti
+    initialPrompt: "Kirjoita salasana", // Aivan ensimmäinen aloitusviesti
     wrongInputMessage: "Väärin meni! Palataan takaisin alkuun.", // Viesti väärästä syötteestä
     steps: [
         {
