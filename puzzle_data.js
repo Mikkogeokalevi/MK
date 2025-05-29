@@ -63,94 +63,94 @@ const puzzleSetup = {
         },
         {
             // Vaihe 9 (indeksi 8): Kahdeksas kuva-arvoitus
-            expectedInput: "vastaus8", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "keijupuisto", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Loistavaa!",
             challengeText: "Tämä kaupunginosa on:",
-            challengeImage: "kuva08.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "keijupuisto.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 10 (indeksi 9): Yhdeksäs kuva-arvoitus
-            expectedInput: "vastaus9", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "leponiemi", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Hyvä! ",
             challengeText: "Kaupunginosa?:",
-            challengeImage: "kuva09.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "leponiemi.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 11 (indeksi 10): Kymmenes kuva-arvoitus
-            expectedInput: "vastaus10", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "metsäkangas", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Puolivälikö häämöttää vai montako näitä on! ",
             challengeText: "Tunnista kuvasta kaupunginosa:",
-            challengeImage: "kuva10.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "metsakangas.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 12 (indeksi 11): Yhdestoista kuva-arvoitus
-            expectedInput: "vastaus11", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "patoniitty", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Et ole yksin!",
             challengeText: "Mikä kaupunginosa tässä:",
-            challengeImage: "kuva11.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "patoniitty.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 13 (indeksi 12): Kahdestoista kuva-arvoitus
-            expectedInput: "vastaus12", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "kolava", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Hyvin vedetty!",
             challengeText: "missä kaupunginosassa olla tässä:",
-            challengeImage: "kuva12.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "kolava.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 14 (indeksi 13): Kolmastoista kuva-arvoitus
-            expectedInput: "vastaus13", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "koivukumpu", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Mahtavaa! ",
             challengeText: "Tunnista kaupunginosa:",
-            challengeImage: "kuva13.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "koivukumpu.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 15 (indeksi 14): Neljästoista kuva-arvoitus
-            expectedInput: "vastaus14", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "venetsia", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Vielä jaksaa! ",
             challengeText: "Missä olemme tässä:",
-            challengeImage: "kuva14.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "venetsia.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 16 (indeksi 15): Viidestoista kuva-arvoitus
-            expectedInput: "vastaus15", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "sydankangas", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Kohta valmis! ehkä?",
             challengeText: "Tämäkin kaupunginosa tarvitaan jotta pääsee eteenpäin:",
-            challengeImage: "kuva15.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "sydankangas.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 17 (indeksi 16): Kuudestoista kuva-arvoitus
-            expectedInput: "vastaus16", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "pesäkallio", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Enää muutamia! ",
             challengeText: "Kaupunginosa:",
-            challengeImage: "kuva16.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "pesakallio.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 18 (indeksi 17): Seitsemästoista kuva-arvoitus
-            expectedInput: "vastaus17", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "vartiolaakso", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Melkein perillä!",
             challengeText: "Tunnista kaupunginosa:",
-            challengeImage: "kuva17.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "vartiolaakso.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 19 (indeksi 18): Kahdeksastoista kuva-arvoitus
-            expectedInput: "vastaus18", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "kukonkoski", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Viimeiset vedot! ",
             challengeText: "Missä kaupungiosassa olla tässä:",
-            challengeImage: "kuva18.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "kukonkoski.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 20 (indeksi 19): Yhdeksästoista kuva-arvoitus
-            expectedInput: "vastaus19", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "myllypohja", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Viimeinen kuva-arvoitus kohta?!",
             challengeText: "Kaupunginosa :",
-            challengeImage: "kuva19.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "myllypohja.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 21 (indeksi 20): Yhdeksästoista kuva-arvoitus
-            expectedInput: "vastaus20", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "kuusiniitty", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Joko tämä jo olis tässä?",
             challengeText: "Kaupunginosa:",
-            challengeImage: "kuva20.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "kuusiniitty.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
 
         {
