@@ -14,10 +14,10 @@ const puzzleSetup = {
         },
         {
             // Vaihe 2 (indeksi 1): Ensimmäinen kuva-arvoitus (vastataan tähän)
-            expectedInput: "vastaus1", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "jalkaranta", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Hienoa! Jatka seuraavaan:",
             challengeText: "Kirjoita kuvasta selviävä kaupunginosa (1/20):", // <--- MUUTA TÄMÄ HALUTESSASI
-            challengeImage: "kuva01.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "jalkaranta.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 3 (indeksi 2): Toinen kuva-arvoitus
