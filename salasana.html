@@ -24,7 +24,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             text-align: center;
             width: 100%;
-            max-width: 400px;
+            max-width: 400px; /* Maksimileveys containerille */
         }
         label {
             display: block;
@@ -71,12 +71,25 @@
         p#viesti.info {
             color: #337ab7; /* Väri normaalille infolle */
         }
+        #kuvaContainer {
+            margin-bottom: 15px; /* Lisää väliä kuvan ja syötekentän välille */
+        }
+        #promptKuva {
+            max-width: 100%; /* Kuva ei mene containerin ulkopuolelle */
+            height: auto; /* Säilyttää kuvasuhteen */
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <label for="salasanaInput" id="kysymysLabel">Ladataan arvoitusta...</label><br>
+        <label for="salasanaInput" id="kysymysLabel">Ladataan arvoitusta...</label>
+        <div id="kuvaContainer" style="display: none;">
+            <img id="promptKuva" src="" alt="Vihje">
+        </div>
+        <br>
         <input type="text" id="salasanaInput" autofocus disabled><br>
         <button onclick="tarkistaSalasana()" disabled>Tarkista</button>
         <p id="viesti"></p>
@@ -90,6 +103,8 @@
         const viestiElementti = document.getElementById('viesti');
         const kysymysLabel = document.getElementById('kysymysLabel');
         const submitButton = document.querySelector('button');
+        const kuvaContainer = document.getElementById('kuvaContainer');
+        const promptKuva = document.getElementById('promptKuva');
 
         function initializePuzzle() {
             if (typeof puzzleSetup === 'undefined' || !puzzleSetup.steps || puzzleSetup.steps.length === 0) {
@@ -101,6 +116,10 @@
             }
             currentStepIndex = 0;
             kysymysLabel.textContent = puzzleSetup.initialPrompt;
+            kysymysLabel.style.display = 'block'; // Varmista, että label näkyy
+            kuvaContainer.style.display = 'none'; // Piilota kuva-container
+            promptKuva.src = ""; // Tyhjennä kuva
+
             viestiElementti.textContent = "";
             viestiElementti.className = ''; // Poistetaan mahdolliset aiemmat luokat
             inputField.value = "";
@@ -120,14 +139,31 @@
                 viestiElementti.className = 'info'; // Yleinen info-väri
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) { // Viimeisen vaiheen syöte oli oikein
-                    kysymysLabel.textContent = currentStepData.promptForNext; // Esim. "Valmista!"
+                    const finalPrompt = currentStepData.imagePrompt; // Viimeinen vaihe käyttää imagePrompt-kenttää tekstinä
+                    kysymysLabel.style.display = 'block'; // Varmista, että tekstikehote näkyy
+                    kysymysLabel.textContent = finalPrompt;
+                    kuvaContainer.style.display = 'none'; // Varmista, että kuva on piilotettu
+                    promptKuva.src = ""; // Tyhjennä kuvan lähde
                     viestiElementti.className = 'success'; // Onnistumisväri
                     inputField.disabled = true;
                     submitButton.disabled = true;
                 } else {
                     currentStepIndex++;
-                    // Päivitä kehote seuraavaa vaihetta varten käyttäen edellisen vaiheen `promptForNext`
-                    kysymysLabel.textContent = puzzleSetup.steps[currentStepIndex -1].promptForNext;
+                    const nextPromptContent = puzzleSetup.steps[currentStepIndex].imagePrompt; // Seuraavan vaiheen imagePrompt
+                    
+                    if (nextPromptContent && (nextPromptContent.endsWith('.jpg') || nextPromptContent.endsWith('.png') || nextPromptContent.endsWith('.gif'))) {
+                        kysymysLabel.style.display = 'none'; // Piilota tekstikehote
+                        promptKuva.src = nextPromptContent; // Aseta kuvan lähde
+                        kuvaContainer.style.display = 'block'; // Näytä kuvakontti
+                    } else if (nextPromptContent) { // Jos nextPromptContent on tekstiä (eikä kuvatiedosto)
+                        kysymysLabel.style.display = 'block'; // Näytä tekstikehote
+                        kysymysLabel.textContent = nextPromptContent;
+                        kuvaContainer.style.display = 'none'; // Piilota kuvakontti
+                    } else { // Jos nextPromptContent on null/undefined (ei kuvaa eikä tekstiä)
+                        kysymysLabel.style.display = 'block'; // Näytä tekstikehote
+                        kysymysLabel.textContent = "Jatka tehtävää."; // Oletusviesti
+                        kuvaContainer.style.display = 'none'; // Piilota kuvakontti
+                    }
                     inputField.value = "";
                     inputField.focus();
                 }
@@ -137,6 +173,9 @@
                 viestiElementti.className = ''; // Palautetaan oletus (punertava) virheväri
                 currentStepIndex = 0;
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
+                kysymysLabel.style.display = 'block'; // Varmista, että label näkyy
+                kuvaContainer.style.display = 'none'; // Piilota kuva-container
+                promptKuva.src = ""; // Tyhjennä kuva
                 inputField.value = "";
                 inputField.focus();
             }
