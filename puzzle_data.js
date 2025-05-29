@@ -49,17 +49,17 @@ const puzzleSetup = {
         },
         {
             // Vaihe 7 (indeksi 6): Kuudes kuva-arvoitus
-            expectedInput: "vastaus6", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "Jokimaa", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Jatka samaan malliin!",
             challengeText: "Tunnista kaupunginosa:",
-            challengeImage: "kuva06.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "jokimaa.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 8 (indeksi 7): Seitsemäs kuva-arvoitus
-            expectedInput: "vastaus7", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "Karjusaari", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Se alkaa olla hallussa!",
             challengeText: "Mikä kaupunginosa tässä:",
-            challengeImage: "kuva07.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "karjusaari.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 9 (indeksi 8): Kahdeksas kuva-arvoitus
