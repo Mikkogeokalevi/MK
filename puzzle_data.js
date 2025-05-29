@@ -6,63 +6,63 @@ const puzzleSetup = {
     steps: [
         {
             // Vaihe 1 (indeksi 0)
-            expectedInput: "salasana",
+            expectedInput: "sa" + "lasana", // Koodattu
             responseMessage: "Salasana on väärin.",
-            promptForNext: "kuva01.jpg" // Ensimmäinen kuva
+            imagePrompt: "kuva01.jpg" // Ensimmäinen kuva
         },
         {
             // Vaihe 2 (indeksi 1)
-            expectedInput: "väärin",
+            expectedInput: String.fromCharCode(118, 228, 228, 114, 105, 110), // "väärin" - Koodattu
             responseMessage: "Kokeile uudestaan",
-            promptForNext: "kuva02.jpg"
+            imagePrompt: "kuva02.jpg"
         },
         {
             // Vaihe 3 (indeksi 2)
-            expectedInput: "uudestaan",
+            expectedInput: atob("dXVkZXN0YWFhbg=="), // "uudestaan" - Koodattu
             responseMessage: "Salasana on edelleen väärin",
-            promptForNext: "kuva03.jpg"
+            imagePrompt: "kuva03.jpg"
         },
         {
             // Vaihe 4 (indeksi 3)
-            expectedInput: "edelleen väärin",
+            expectedInput: "edelle" + "en vää" + "rin", // Koodattu
             responseMessage: "Melkein perillä, anna seuraava:",
-            promptForNext: "kuva04.jpg"
+            imagePrompt: "kuva04.jpg"
         },
         {
             // Vaihe 5 (indeksi 4)
-            expectedInput: "seuraava",
+            expectedInput: ['s', 'e', 'u', 'r', 'a', 'a', 'v', 'a'].join(''), // "seuraava" - Koodattu
             responseMessage: "Kirjoita viimeinen sana, ennen ratkaisua:",
-            promptForNext: "kuva05.jpg"
+            imagePrompt: "kuva05.jpg"
         },
         {
             // Vaihe 6 (indeksi 5)
-            expectedInput: "viimeinen sana",
+            expectedInput: "viimeinen" + " sana", // Koodattu
             responseMessage: "Hienoa! Olet löytänyt ensimmäisen ratkaisun. Mikä on geokätköilijän paras ystävä?",
-            promptForNext: "kuva06.jpg"
+            imagePrompt: "kuva06.jpg"
         },
         {
             // Vaihe 7 (indeksi 6)
-            expectedInput: "gps",
+            expectedInput: "gps", // Vastaus edelliseen kysymykseen
             responseMessage: "Juuri niin! GPS ohjaa meitä. Entä ilman mitä emme kätköile edes GPS:n kanssa?",
-            promptForNext: "kuva07.jpg"
+            imagePrompt: "kuva07.jpg"
         },
         {
             // Vaihe 8 (indeksi 7)
-            expectedInput: "patte",
+            expectedInput: "patte", // tai esim. "paristot", "energia" jne.
             responseMessage: "Akku on tärkeä. Mikä on kätköilijän piilotettu aarre, joka odottaa löytäjäänsä?",
-            promptForNext: "kuva08.jpg"
+            imagePrompt: "kuva08.jpg"
         },
         {
             // Vaihe 9 (indeksi 8)
             expectedInput: "lokikirja",
             responseMessage: "Oikein! Lokikirja sisältää tarinoita. Mikä on viimeinen sana ennen finaalia?",
-            promptForNext: "kuva09.jpg"
+            imagePrompt: "kuva09.jpg"
         },
         {
             // Vaihe 10 (indeksi 9) - Loppuratkaisu (EI KUVA, VAAN TEKSTI)
             expectedInput: "finaali",
-            responseMessage: "Erinomaista työtä! Olet ratkaissut tämän mysteerin! Kirjoita chekkeriin \"geokätköilijä on nero\".",
-            promptForNext: "Onneksi olkoon, tehtävä suoritettu!" // Teksti
+            responseMessage: "Erinomaista työtä! Olet ratkaissut tämän mysteerin! Kirjoita chekkeriin \"" + btoa("geokätköilijä on nero") + "\" ja purkaa se.", // Koodattu
+            imagePrompt: null // Ei kuvaa viimeisessä vaiheessa, tässä voi olla null tai undefined
         }
     ]
 };
