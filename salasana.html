@@ -140,28 +140,29 @@
         const kuvaContainer = document.getElementById('kuvaContainer');
         const promptKuva = document.getElementById('promptKuva');
 
-        function updatePromptDisplay(stepData) {
-            // Piilotetaan kaikki aluksi
+        // Funktio, joka päivittää näytettävän haasteen (kuvan/tekstin)
+        function updateChallengeDisplay(challengeImage, challengeText) {
+            // Piilotetaan kaikki mahdolliset kehote-elementit ensin
             kysymysLabel.style.display = 'none';
             kuvaContainer.style.display = 'none';
-            promptKuva.src = "";
+            promptKuva.src = ""; // Tyhjennä kuvan lähde
             kuvaTekstiLabel.style.display = 'none';
             kuvaTekstiLabel.textContent = "";
 
-            if (stepData.imagePrompt) {
-                // Jos on kuva (ja mahdollisesti kuvan alla oleva teksti)
-                promptKuva.src = stepData.imagePrompt;
+            if (challengeImage) {
+                // Jos haasteessa on kuva
+                promptKuva.src = challengeImage;
                 kuvaContainer.style.display = 'block';
-                if (stepData.textPrompt) {
-                    kuvaTekstiLabel.textContent = stepData.textPrompt;
+                if (challengeText) { // Näytä teksti kuvan alla, jos se on määritelty
+                    kuvaTekstiLabel.textContent = challengeText;
                     kuvaTekstiLabel.style.display = 'block';
                 }
-            } else if (stepData.textPrompt) {
-                // Jos on pelkkä teksti-kehote (ei kuvaa)
-                kysymysLabel.textContent = stepData.textPrompt;
+            } else if (challengeText) {
+                // Jos haasteessa on vain tekstiä (ei kuvaa)
+                kysymysLabel.textContent = challengeText;
                 kysymysLabel.style.display = 'block';
             } else {
-                // Oletus/aloitusviesti jos ei kuvaa eikä textPromptia (esim. initialPrompt)
+                // Oletusarvo, jos haastetta ei ole määritelty (esim. ensimmäinen, alustava tila)
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
                 kysymysLabel.style.display = 'block';
             }
@@ -176,12 +177,14 @@
                 return;
             }
             currentStepIndex = 0;
-            // Aloituksessa näytetään initialPrompt
+            // Alustuksessa näytetään vain alkuperäinen kehote-teksti. Ei kuvaa.
             kysymysLabel.textContent = puzzleSetup.initialPrompt;
             kysymysLabel.style.display = 'block';
+            kuvaContainer.style.display = 'none'; // Varmista, että kuva on piilotettu
+            kuvaTekstiLabel.style.display = 'none'; // Varmista, että kuvan teksti on piilotettu
 
             viestiElementti.textContent = "";
-            viestiElementti.className = ''; // Poistetaan mahdolliset aiemmat luokat
+            viestiElementti.className = '';
             inputField.value = "";
             inputField.disabled = false;
             submitButton.disabled = false;
@@ -189,33 +192,35 @@
         }
 
         function tarkistaSalasana() {
-            if (typeof puzzleSetup === 'undefined') return; // Varmistus
+            if (typeof puzzleSetup === 'undefined') return;
 
             const syote = inputField.value.trim().toLowerCase();
-            const currentStepData = puzzleSetup.steps[currentStepIndex];
+            const currentStepData = puzzleSetup.steps[currentStepIndex]; // Käsiteltävän vaiheen data
 
             if (syote === currentStepData.expectedInput.toLowerCase()) {
-                viestiElementti.textContent = currentStepData.responseMessage;
+                viestiElementti.textContent = currentStepData.responseMessage; // Näytä menestysviesti
                 viestiElementti.className = 'info';
 
-                if (currentStepIndex === puzzleSetup.steps.length - 1) { // Viimeisen vaiheen syöte oli oikein
-                    updatePromptDisplay(currentStepData); // Näytä viimeisen vaiheen prompt (teksti)
+                if (currentStepIndex === puzzleSetup.steps.length - 1) {
+                    // Viimeinen vaihe vastattu oikein: näytä lopullinen viesti.
+                    updateChallengeDisplay(currentStepData.challengeImage, currentStepData.challengeText); // Lopullinen teksti, ei kuvaa
                     viestiElementti.className = 'success';
                     inputField.disabled = true;
                     submitButton.disabled = true;
                 } else {
-                    currentStepIndex++;
-                    // Päivitä näyttö seuraavan vaiheen datalla
-                    updatePromptDisplay(puzzleSetup.steps[currentStepIndex]); 
+                    currentStepIndex++; // Siirry seuraavaan haasteeseen
+                    const nextChallengeData = puzzleSetup.steps[currentStepIndex];
+                    // Päivitä näyttö uudella haasteella (kuva ja/tai teksti)
+                    updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
                     inputField.value = "";
                     inputField.focus();
                 }
             } else {
-                // Väärä syöte
+                // Väärä syöte: palauta alkuperäiseen tilaan
                 viestiElementti.textContent = puzzleSetup.wrongInputMessage;
-                viestiElementti.className = ''; // Palautetaan oletus (punertava) virheväri
-                currentStepIndex = 0; // Palataan alkuun
-                initializePuzzle(); // Alustetaan peli uudelleen, jotta initialPrompt näkyy
+                viestiElementti.className = '';
+                currentStepIndex = 0; // Palauta aloitustilaan
+                initializePuzzle(); // Alusta peli uudelleen, jotta alkuperäinen kehote näkyy
                 inputField.focus();
             }
         }
