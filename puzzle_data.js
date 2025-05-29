@@ -14,17 +14,17 @@ const puzzleSetup = {
         },
         {
             // Vaihe 2 (indeksi 1): Ensimmäinen kuva-arvoitus (vastataan tähän)
-            expectedInput: "jalkaranta", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "Jalkaranta", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Hienoa! Jatka seuraavaan:",
             challengeText: "Kirjoita kuvasta selviävä kaupunginosa (1/20):", // <--- MUUTA TÄMÄ HALUTESSASI
             challengeImage: "jalkaranta.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 3 (indeksi 2): Toinen kuva-arvoitus
-            expectedInput: "vastaus2", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "Ämmälä", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Hyvin menee! Tässä seuraava:",
             challengeText: "Mikä kaupunginosa kuvassa on (2/20):", // <--- MUUTA TÄMÄ HALUTESSASI
-            challengeImage: "kuva02.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+            challengeImage: "ammala.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
         },
         {
             // Vaihe 4 (indeksi 3): Kolmas kuva-arvoitus
