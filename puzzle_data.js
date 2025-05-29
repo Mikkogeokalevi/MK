@@ -112,7 +112,7 @@ const puzzleSetup = {
         },
         {
             // Vaihe 16 (indeksi 15): Viidestoista kuva-arvoitus
-            expectedInput: "sydankangas", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            expectedInput: "sydänkangas", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
             responseMessage: "Kohta valmis! ehkä?",
             challengeText: "Tämäkin kaupunginosa tarvitaan jotta pääsee eteenpäin:",
             challengeImage: "sydankangas.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
