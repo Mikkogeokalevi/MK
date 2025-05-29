@@ -1,13 +1,13 @@
 // puzzle_data.js
 
 const puzzleSetup = {
-    initialPrompt: "Kirjoita salasana:", // Aivan ensimmäinen aloitusviesti
+    initialPrompt: "Kirjoita salasana", // Aivan ensimmäinen aloitusviesti
     wrongInputMessage: "Väärin meni! Palataan takaisin alkuun.", // Viesti väärästä syötteestä
     steps: [
         {
             // Vaihe 1 (indeksi 0) - "Salasana" vaihe
             expectedInput: "salasana", // Mitä käyttäjän pitää kirjoittaa
-            responseMessage: "Oikein! Tässä ensimmäinen kuva-arvoitus:", // Viesti oikeasta syötteestä
+            responseMessage: "Oikein!", // Viesti oikeasta syötteestä
             // HUOM: Tähän tulee nyt kuva, joka näytetään heti "salasana"-vastauksen jälkeen
             textPrompt: "Kirjoita kuvasta selviävä kaupunginosa:", // Teksti, joka tulee kuvan alle
             imagePrompt: "jalkaranta.jpg" // Ensimmäinen kuva tähän!
