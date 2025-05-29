@@ -10,11 +10,11 @@ const puzzleSetup = {
             responseMessage: "Oikein! Tässä ensimmäinen kuva-arvoitus:", // Viesti oikeasta syötteestä
             // HUOM: Tähän tulee nyt kuva, joka näytetään heti "salasana"-vastauksen jälkeen
             textPrompt: "Kirjoita kuvasta selviävä kaupunginosa:", // Teksti, joka tulee kuvan alle
-            imagePrompt: "kuva01.jpg" // Ensimmäinen kuva tähän!
+            imagePrompt: "jalkaranta.jpg" // Ensimmäinen kuva tähän!
         },
         {
             // Vaihe 2 (indeksi 1) - Toinen kuva-arvoitus (kuva02.jpg)
-            expectedInput: "osa1", // Odotettu vastaus kuva01.jpg:hen
+            expectedInput: "jalkaranta", // Odotettu vastaus kuva01.jpg:hen
             responseMessage: "Hienoa! Jatka seuraavaan:",
             textPrompt: "Mikä kaupunginosa kuvassa on?",
             imagePrompt: "kuva02.jpg"
