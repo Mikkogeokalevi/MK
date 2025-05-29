@@ -6,107 +6,126 @@
     <title>Salasanakysely Mysteeri</title>
     <style>
         body {
-            font-family: sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start; /* Muutettu starttiin, jotta yläpuolelle jää tilaa */
             min-height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
             padding: 20px;
             box-sizing: border-box;
+
+            /* Maastomainen tausta */
+            background-color: #3e4a36; /* Tummanvihreä pohja */
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 800"><defs><filter id="f" x="0" y="0"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch" result="noise" /><feGaussianBlur in="noise" stdDeviation="15" /><feColorMatrix type="saturate" values="0.7" /><feBlend in="SourceGraphic" in2="noise" mode="multiply" /></filter></defs><rect width="100%" height="100%" fill="#3e4a36" /><rect width="100%" height="100%" fill="#4a5a40" style="filter:url(#f);opacity:0.6" /><rect width="100%" height="100%" fill="#5f6d58" style="filter:url(#f);opacity:0.4" /><rect width="100%" height="100%" fill="#2a3324" style="filter:url(#f);opacity:0.2" /></svg>');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            padding-top: 40px; /* Tilaa logolle ja vähän marginaalia yläreunasta */
         }
         .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.1);
             padding: 25px 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             text-align: center;
             width: 100%;
-            max-width: 400px; /* Maksimileveys containerille */
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            margin-top: 20px; /* Marginaalia logon ja containerin väliin */
         }
         label {
             display: block;
             margin-bottom: 10px;
             font-size: 1.1em;
-            color: #333;
+            color: #dbe0d7;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         input[type="text"] {
             padding: 12px;
             margin-bottom: 20px;
-            border: 1px solid #ccc;
+            border: 1px solid #7c8e6d;
             border-radius: 4px;
-            width: calc(100% - 26px); /* huomioi padding */
+            width: calc(100% - 26px);
             box-sizing: border-box;
             font-size: 1em;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #333;
         }
         button {
             padding: 12px 25px;
-            background-color: #007bff;
+            background-color: #5cb85c;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 1em;
-            transition: background-color 0.2s;
+            transition: background-color 0.2s, transform 0.1s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #449d44;
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
         }
         button:disabled {
-            background-color: #ccc;
+            background-color: #8c9c82;
             cursor: not-allowed;
+            box-shadow: none;
         }
         p#viesti {
             margin-top: 20px;
             font-weight: bold;
-            min-height: 22px; /* Varmistaa, että tilaa on viestille */
+            min-height: 22px;
             font-size: 1.05em;
-            color: #d9534f; /* Oletusväri virheelle */
+            color: #d9534f;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
         p#viesti.success {
-            color: #5cb85c; /* Väri onnistumiselle */
+            color: #92e071;
         }
         p#viesti.info {
-            color: #337ab7; /* Väri normaalille infolle */
+            color: #a4d8fa;
         }
         #kuvaContainer {
-            margin-bottom: 15px; /* Lisää väliä kuvan ja syötekentän välille */
+            margin-bottom: 15px;
         }
         #promptKuva {
-            max-width: 100%; /* Kuva ei mene containerin ulkopuolelle */
-            height: auto; /* Säilyttää kuvasuhteen */
+            max-width: 100%;
+            height: auto;
             border-radius: 4px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255, 255, 255, 0.3);
         }
-        /* LOGO */
         #logoContainer {
-            position: fixed; /* Pysyy paikoillaan vierityksessä */
-            top: 20px; /* 20px ylhäältä */
-            right: 20px; /* 20px oikealta */
-            width: 150px;
-            height: 150px;
-            /* Lisää responsiivisuutta pienemmille näytöille */
-            max-width: 25vw; /* Max 25% viewportin leveydestä */
-            max-height: 25vw; /* Max 25% viewportin leveydestä */
-            z-index: 1000; /* Varmistaa, että on muiden elementtien päällä */
+            /* Logo ei ole enää fixed, vaan flow:n mukana */
+            width: 120px; /* Pienempi koko */
+            height: 120px;
+            margin-bottom: 20px; /* Tilaa containeriin */
+            text-align: center; /* Keskitä logo, jos se on inline-block */
         }
         #logoContainer img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Varmistaa, että kuva skaalautuu säilyttäen kuvasuhteensa */
-            background-color: white; /* Valkoinen tausta logon ympärille */
-            border-radius: 8px; /* Hieman pyöristetyt kulmat */
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15); /* Pieni varjo */
+            object-fit: contain;
+            background-color: rgba(255, 255, 255, 0.2); /* Läpinäkyvä tausta, jotta camovärit näkyvät läpi */
+            border-radius: 50%; /* Tee pyöreä, jos kuva sallii */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 5px;
+            display: block; /* Varmista, että on lohkoelementti, jotta margin auto toimii */
+            margin: 0 auto; /* Keskitä kuva */
         }
-        /* Pienemmille näytöille, siirrä logo hieman sisemmälle tai pienennä */
+        /* Pienemmille näytöille */
         @media (max-width: 600px) {
             #logoContainer {
-                top: 10px;
-                right: 10px;
-                width: 100px; /* Pienempi koko mobiilissa */
-                height: 100px;
+                width: 90px;
+                height: 90px;
             }
         }
     </style>
@@ -114,14 +133,14 @@
 <body>
 
     <div id="logoContainer">
-        <img src="logo.png" alt="Logoni"> </div>
+        <img src="logo.png" alt="Mikko Kalevi Logo"> </div>
 
     <div class="container">
         <label for="salasanaInput" id="kysymysLabel">Ladataan arvoitusta...</label>
         <div id="kuvaContainer" style="display: none;">
             <img id="promptKuva" src="" alt="Vihje">
         </div>
-        <p id="kuvaTekstiLabel" style="display: none; margin-top: 10px; font-size: 1em; color: #555;"></p>
+        <p id="kuvaTekstiLabel" style="display: none; margin-top: 10px; font-size: 1em; color: #dbe0d7; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);"></p>
         <br>
         <input type="text" id="salasanaInput" autofocus disabled><br>
         <button onclick="tarkistaSalasana()" disabled>Tarkista</button>
@@ -134,35 +153,31 @@
         let currentStepIndex = 0;
         const inputField = document.getElementById('salasanaInput');
         const viestiElementti = document.getElementById('viesti');
-        const kysymysLabel = document.getElementById('kysymysLabel'); // Tämä on pääotsikkolabel
-        const kuvaTekstiLabel = document.getElementById('kuvaTekstiLabel'); // Tämä on kuvan alla oleva tekstilabel
+        const kysymysLabel = document.getElementById('kysymysLabel');
+        const kuvaTekstiLabel = document.getElementById('kuvaTekstiLabel');
         const submitButton = document.querySelector('button');
         const kuvaContainer = document.getElementById('kuvaContainer');
         const promptKuva = document.getElementById('promptKuva');
 
-        // Funktio, joka päivittää näytettävän haasteen (kuvan/tekstin)
         function updateChallengeDisplay(challengeImage, challengeText) {
-            // Piilotetaan kaikki mahdolliset kehote-elementit ensin
-            kysymysLabel.style.display = 'none';
+            kysymysLabel.style.display = 'none'; // Piilota pääotsikko
             kuvaContainer.style.display = 'none';
-            promptKuva.src = ""; // Tyhjennä kuvan lähde
+            promptKuva.src = "";
             kuvaTekstiLabel.style.display = 'none';
             kuvaTekstiLabel.textContent = "";
 
             if (challengeImage) {
-                // Jos haasteessa on kuva
                 promptKuva.src = challengeImage;
                 kuvaContainer.style.display = 'block';
-                if (challengeText) { // Näytä teksti kuvan alla, jos se on määritelty
+                if (challengeText) {
                     kuvaTekstiLabel.textContent = challengeText;
                     kuvaTekstiLabel.style.display = 'block';
                 }
             } else if (challengeText) {
-                // Jos haasteessa on vain tekstiä (ei kuvaa)
-                kysymysLabel.textContent = challengeText;
+                kysymysLabel.textContent = challengeText; // Käytä pääotsikkoa tekstikehotteelle ilman kuvaa
                 kysymysLabel.style.display = 'block';
             } else {
-                // Oletusarvo, jos haastetta ei ole määritelty (esim. ensimmäinen, alustava tila)
+                // Tämä tila on vain alussa tai jos haastetta ei ole määritelty
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
                 kysymysLabel.style.display = 'block';
             }
@@ -177,12 +192,8 @@
                 return;
             }
             currentStepIndex = 0;
-            // Alustuksessa näytetään vain alkuperäinen kehote-teksti. Ei kuvaa.
-            kysymysLabel.textContent = puzzleSetup.initialPrompt;
-            kysymysLabel.style.display = 'block';
-            kuvaContainer.style.display = 'none'; // Varmista, että kuva on piilotettu
-            kuvaTekstiLabel.style.display = 'none'; // Varmista, että kuvan teksti on piilotettu
-
+            updateChallengeDisplay(null, puzzleSetup.initialPrompt); // Näytä vain alkuperäinen teksti
+            
             viestiElementti.textContent = "";
             viestiElementti.className = '';
             inputField.value = "";
@@ -195,22 +206,21 @@
             if (typeof puzzleSetup === 'undefined') return;
 
             const syote = inputField.value.trim().toLowerCase();
-            const currentStepData = puzzleSetup.steps[currentStepIndex]; // Käsiteltävän vaiheen data
+            const currentStepData = puzzleSetup.steps[currentStepIndex];
 
             if (syote === currentStepData.expectedInput.toLowerCase()) {
-                viestiElementti.textContent = currentStepData.responseMessage; // Näytä menestysviesti
+                viestiElementti.textContent = currentStepData.responseMessage;
                 viestiElementti.className = 'info';
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
                     // Viimeinen vaihe vastattu oikein: näytä lopullinen viesti.
-                    updateChallengeDisplay(currentStepData.challengeImage, currentStepData.challengeText); // Lopullinen teksti, ei kuvaa
+                    updateChallengeDisplay(currentStepData.challengeImage, currentStepData.challengeText);
                     viestiElementti.className = 'success';
                     inputField.disabled = true;
                     submitButton.disabled = true;
                 } else {
-                    currentStepIndex++; // Siirry seuraavaan haasteeseen
+                    currentStepIndex++;
                     const nextChallengeData = puzzleSetup.steps[currentStepIndex];
-                    // Päivitä näyttö uudella haasteella (kuva ja/tai teksti)
                     updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
                     inputField.value = "";
                     inputField.focus();
@@ -219,7 +229,7 @@
                 // Väärä syöte: palauta alkuperäiseen tilaan
                 viestiElementti.textContent = puzzleSetup.wrongInputMessage;
                 viestiElementti.className = '';
-                currentStepIndex = 0; // Palauta aloitustilaan
+                currentStepIndex = 0;
                 initializePuzzle(); // Alusta peli uudelleen, jotta alkuperäinen kehote näkyy
                 inputField.focus();
             }
