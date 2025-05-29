@@ -155,9 +155,9 @@ const puzzleSetup = {
 
         {
             // Vaihe 22 (indeksi 21): Viimeinen kuva-arvoitus (20/20)
-            expectedInput: "vastausXX", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
-            responseMessage: "Erinomaista työtä! Olet ratkaissut kaikki kuvat! Kirjoita chekkeriin \"geokätköilijä on nero\".",
-            challengeText: "Onneksi olkoon, kaikki tehtävät suoritettu! (20/20)", // Loppuviesti
+            expectedInput: "Mikkokalevi", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Erinomaista työtä! Olet ratkaissut kaikki kuvat ja loppu kysymyksen! Kirjoita chekkeriin \"geokätköilijä on nero\".",
+            challengeText: "Onneksi olkoon, kaikki tehtävät suoritettu! Kirjoita vielä että kenen mysteeri tämä saadaksesi vastauksen chekkerille!", // Loppuviesti
             challengeImage: null // Ei kuvaa viimeisessä vaiheessa
         }
     ]
