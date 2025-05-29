@@ -7,48 +7,42 @@ const puzzleSetup = {
         {
             // Vaihe 1 (indeksi 0) - "Salasana" vaihe
             expectedInput: "salasana", // Mitä käyttäjän pitää kirjoittaa
-            responseMessage: "Oikein! Tässä seuraava vihje:", // Viesti oikeasta syötteestä
-            // Huom: Tähän vaiheeseen ei tule kuvaa, joten imagePrompt on null tai pois
-            imagePrompt: null 
-        },
-        {
-            // Vaihe 2 (indeksi 1) - Ensimmäinen kuva-arvoitus
-            expectedInput: "osa1", // Odotettu vastaus kuvaan
-            responseMessage: "Hienoa! Jatka seuraavaan:", // Viesti oikeasta syötteestä
+            responseMessage: "Oikein! Tässä ensimmäinen kuva-arvoitus:", // Viesti oikeasta syötteestä
+            // HUOM: Tähän tulee nyt kuva, joka näytetään heti "salasana"-vastauksen jälkeen
             textPrompt: "Kirjoita kuvasta selviävä kaupunginosa:", // Teksti, joka tulee kuvan alle
-            imagePrompt: "kuva01.jpg" // Kuva tähän vaiheeseen
+            imagePrompt: "kuva01.jpg" // Ensimmäinen kuva tähän!
         },
         {
-            // Vaihe 3 (indeksi 2) - Toinen kuva-arvoitus
-            expectedInput: "osa2",
-            responseMessage: "Hyvin menee! Tässä seuraava:",
+            // Vaihe 2 (indeksi 1) - Toinen kuva-arvoitus (kuva02.jpg)
+            expectedInput: "osa1", // Odotettu vastaus kuva01.jpg:hen
+            responseMessage: "Hienoa! Jatka seuraavaan:",
             textPrompt: "Mikä kaupunginosa kuvassa on?",
             imagePrompt: "kuva02.jpg"
         },
         {
-            // Vaihe 4 (indeksi 3) - Kolmas kuva-arvoitus
-            expectedInput: "osa3",
-            responseMessage: "Loistavaa! Seuraava odottaa:",
+            // Vaihe 3 (indeksi 2) - Kolmas kuva-arvoitus (kuva03.jpg)
+            expectedInput: "osa2", // Odotettu vastaus kuva02.jpg:hen
+            responseMessage: "Hyvin menee! Tässä seuraava:",
             textPrompt: "Tunnista kuvasta kaupunginosa:",
             imagePrompt: "kuva03.jpg"
         },
         {
-            // Vaihe 5 (indeksi 4) - Neljäs kuva-arvoitus
-            expectedInput: "osa4",
-            responseMessage: "Melkein perillä! Tässä vielä yksi:",
+            // Vaihe 4 (indeksi 3) - Neljäs kuva-arvoitus (kuva04.jpg)
+            expectedInput: "osa3", // Odotettu vastaus kuva03.jpg:hen
+            responseMessage: "Loistavaa! Seuraava odottaa:",
             textPrompt: "Mistä päin kaupunkia tämä kuva on?",
             imagePrompt: "kuva04.jpg"
         },
         {
-            // Vaihe 6 (indeksi 5) - Viides kuva-arvoitus
-            expectedInput: "osa5",
-            responseMessage: "Erinomaista! Viimeinen kaupunginosa:",
+            // Vaihe 5 (indeksi 4) - Viides kuva-arvoitus (kuva05.jpg)
+            expectedInput: "osa4", // Odotettu vastaus kuva04.jpg:hen
+            responseMessage: "Melkein perillä! Tässä vielä yksi:",
             textPrompt: "Viimeinen kaupunginosa, kirjoita nimi:",
             imagePrompt: "kuva05.jpg"
         },
         {
-            // Vaihe 7 (indeksi 6) - Loppuratkaisu (EI KUVA, VAAN TEKSTI)
-            expectedInput: "finaali", // Loppuratkaisun sana
+            // Vaihe 6 (indeksi 5) - Loppuratkaisu (EI KUVA, VAAN TEKSTI)
+            expectedInput: "osa5", // Odotettu vastaus kuva05.jpg:hen
             responseMessage: "Erinomaista työtä! Olet ratkaissut tämän mysteerin! Kirjoita chekkeriin \"geokätköilijä on nero\".",
             textPrompt: "Onneksi olkoon, tehtävä suoritettu!", // Loppuviesti
             imagePrompt: null // Ei kuvaa viimeisessä vaiheessa
