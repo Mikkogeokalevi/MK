@@ -1,165 +1,166 @@
-// puzzle_data.js - "Salattu" versio
+// puzzle_data.js - "Salattu" versio (kommentit siistitty)
 
 const puzzleSetup = {
     initialPrompt: "Kirjoita salasana",
     wrongInputMessage: "Väärin meni! Palataan takaisin alkuun.",
     steps: [
         {
-            // Vaihe 1: "Salasana"
-            expectedInput: (() => String.fromCharCode(115, 97, 108, 97, 115, 97, 110, 97))(), // "salasana"
+            // Vaihe 1
+            expectedInput: (() => String.fromCharCode(115, 97, 108, 97, 115, 97, 110, 97))(),
             responseMessage: "Oikein! Tässä ensimmäinen kuva-arvoitus:",
             challengeText: null,
             challengeImage: null
         },
         {
-            // Vaihe 2: Jalkaranta
-            expectedInput: (() => "Ja" + "lka" + "ran" + "ta")(), // "Jalkaranta"
+            // Vaihe 2
+            expectedInput: (() => "ja" + "lka" + String.fromCharCode(114, 97, 110) + "ta")(),
             responseMessage: "Hienoa! Jatka seuraavaan:",
             challengeText: "Kirjoita kuvasta selviävä kaupunginosa:",
             challengeImage: "01.jpg"
         },
         {
-            // Vaihe 3: Ämmälä
-            expectedInput: atob("w4RtbMOkbMOk"), // "Ämmälä"
+            // Vaihe 3
+            expectedInput: (() => String.fromCharCode(228, 109, 109, 228, 108, 228))(),
             responseMessage: "Hyvin menee! Tässä seuraava:",
             challengeText: "Mikä kaupunginosa kuvassa on:",
             challengeImage: "02.jpg"
         },
         {
-            // Vaihe 4: Kottero
-            expectedInput: String.fromCharCode(75, 111, 116, 116, 101, 114, 111), // "Kottero"
+            // Vaihe 4
+            expectedInput: (() => String.fromCharCode(107, 111, 116, 116, 101, 114, 111))(),
             responseMessage: "Loistavaa! Seuraava odottaa:",
             challengeText: "Tunnista kuvasta kaupunginosa:",
             challengeImage: "03.jpg"
         },
         {
-            // Vaihe 5: Kukonkoivu
-            expectedInput: (() => "kukon" + "koivu")(), // "kukonkoivu"
+            // Vaihe 5
+            expectedInput: (() => "ku" + String.fromCharCode(107, 111) + "nk" + "oivu")(),
             responseMessage: "Melkein perillä! Tässä vielä ainakin yksi:",
             challengeText: "Mistä päin kaupunkia tämä kuva on:",
             challengeImage: "04.jpg"
         },
         {
-            // Vaihe 6: Radiomäki
-            expectedInput: atob("UmFkaW9tw6RraQ=="), // "Radiomäki"
+            // Vaihe 6
+            expectedInput: (() => "radio" + String.fromCharCode(109, 228, 107, 105))(),
             responseMessage: "Hienoa!",
             challengeText: "Kaupunginosa kuvassa:",
             challengeImage: "05.jpg"
         },
         {
-            // Vaihe 7: Jokimaa
-            expectedInput: String.fromCharCode(74, 111, 107, 105, 109, 97, 97), // "Jokimaa"
+            // Vaihe 7
+            expectedInput: (() => "joki" + String.fromCharCode(109, 97, 97))(),
             responseMessage: "Jatka samaan malliin!",
             challengeText: "Tunnista kaupunginosa:",
             challengeImage: "06.jpg"
         },
         {
-            // Vaihe 8: Karjusaari
-            expectedInput: (() => "Karju" + "saari")(), // "Karjusaari"
+            // Vaihe 8
+            expectedInput: (() => "karju" + "saari")(),
             responseMessage: "Se alkaa olla hallussa!",
             challengeText: "Mikä kaupunginosa tässä:",
             challengeImage: "07.jpg"
         },
         {
-            // Vaihe 9: Keijupuisto
-            expectedInput: atob("a2VpamVwdWlzdG8="), // "keijupuisto"
+            // Vaihe 9
+            expectedInput: (() => String.fromCharCode(107, 101, 105, 106, 117) + "puisto")(),
             responseMessage: "Loistavaa!",
             challengeText: "Tämä kaupunginosa on:",
             challengeImage: "08.jpg"
         },
         {
-            // Vaihe 10: Leponiemi
-            expectedInput: String.fromCharCode(108, 101, 112, 111, 110, 105, 101, 109, 105), // "leponiemi"
+            // Vaihe 10
+            expectedInput: (() => "lepo" + String.fromCharCode(110, 105, 101, 109, 105))(),
             responseMessage: "Hyvä!",
             challengeText: "Kaupunginosa?:",
             challengeImage: "09.jpg"
         },
         {
-            // Vaihe 11: Metsäkangas
-            expectedInput: (() => "metsä" + "kangas")(), // "metsäkangas"
+            // Vaihe 11
+            expectedInput: (() => "metsä" + String.fromCharCode(107, 97, 110, 103, 97, 115))(),
             responseMessage: "Puolivälikö häämöttää vai montako näitä on! ",
             challengeText: "Tunnista kuvasta kaupunginosa:",
             challengeImage: "10.jpg"
         },
         {
-            // Vaihe 12: Patoniitty
-            expectedInput: atob("cGF0b25paXR0eQ=="), // "patoniitty"
+            // Vaihe 12
+            expectedInput: (() => String.fromCharCode(112, 97, 116, 111, 110, 105, 105, 116, 116, 121))(),
             responseMessage: "Et ole yksin!",
             challengeText: "Mikä kaupunginosa tässä:",
             challengeImage: "11.jpg"
         },
         {
-            // Vaihe 13: Kolava
-            expectedInput: String.fromCharCode(107, 111, 108, 97, 118, 97), // "kolava"
+            // Vaihe 13
+            expectedInput: (() => "ko" + String.fromCharCode(108, 97, 118, 97))(),
             responseMessage: "Hyvin vedetty!",
             challengeText: "missä kaupunginosassa olla tässä:",
             challengeImage: "12.jpg"
         },
         {
-            // Vaihe 14: Koivukumpu
-            expectedInput: (() => "koivu" + "kumpu")(), // "koivukumpu"
+            // Vaihe 14
+            expectedInput: (() => String.fromCharCode(107, 111, 105, 118) + "ukumpu")(),
             responseMessage: "Mahtavaa!",
             challengeText: "Tunnista kaupunginosa:",
             challengeImage: "13.jpg"
         },
         {
-            // Vaihe 15: Venetsia
-            expectedInput: atob("dmVuZXRzaWE="), // "venetsia"
+            // Vaihe 15
+            expectedInput: (() => "vene" + String.fromCharCode(116, 115, 105, 97))(),
             responseMessage: "Vielä jaksaa! ",
             challengeText: "Missä olemme tässä:",
             challengeImage: "14.jpg"
         },
         {
-            // Vaihe 16: Sydänkangas
-            expectedInput: String.fromCharCode(115, 121, 100, 102, 110, 107, 97, 110, 103, 97, 115), // "sydänkangas" (typo korjattu tähän)
+            // Vaihe 16
+            expectedInput: (() => String.fromCharCode(115, 121, 100, 228, 110, 107, 97, 110, 103, 97, 115))(),
             responseMessage: "Kohta valmis! ehkä?",
             challengeText: "Tämäkin kaupunginosa tarvitaan jotta pääsee eteenpäin:",
             challengeImage: "15.jpg"
         },
         {
-            // Vaihe 17: Pesäkallio
-            expectedInput: (() => "pesä" + "kallio")(), // "pesäkallio"
+            // Vaihe 17
+            expectedInput: (() => "pesä" + String.fromCharCode(107, 97, 108, 108, 105, 111))(),
             responseMessage: "Enää muutamia!",
             challengeText: "Kaupunginosa:",
             challengeImage: "16.jpg"
         },
         {
-            // Vaihe 18: Vartiolaakso
-            expectedInput: atob("dmFydGlvbGFha3Nv"), // "vartiolaakso"
+            // Vaihe 18
+            expectedInput: (() => "vartio" + String.fromCharCode(108, 97, 97, 107, 115, 111))(),
             responseMessage: "Melkein perillä!",
             challengeText: "Tunnista kaupunginosa:",
             challengeImage: "17.jpg"
         },
         {
-            // Vaihe 19: Kukonkoski
-            expectedInput: String.fromCharCode(107, 117, 107, 111, 110, 107, 111, 115, 107, 105), // "kukonkoski"
+            // Vaihe 19
+            expectedInput: (() => String.fromCharCode(107, 117, 107, 111, 110) + "koski")(),
             responseMessage: "Viimeiset vedot! ",
             challengeText: "Missä kaupungiosassa olla tässä:",
             challengeImage: "18.jpg"
         },
         {
-            // Vaihe 20: Myllypohja
-            expectedInput: (() => "mylly" + "pohja")(), // "myllypohja"
+            // Vaihe 20
+            expectedInput: (() => "mylly" + String.fromCharCode(112, 111, 104, 106, 97))(),
             responseMessage: "Viimeinen kuva-arvoitus kohta?!",
             challengeText: "Kaupunginosa :",
             challengeImage: "19.jpg"
         },
         {
-            // Vaihe 21: Kuusiniitty
-            expectedInput: atob("a3V1c2luaWl0dHk="), // "kuusiniitty"
+            // Vaihe 21
+            expectedInput: (() => String.fromCharCode(107, 117, 117, 115, 105, 110, 105, 105, 116, 116, 121))(),
             responseMessage: "Joko tämä jo olis tässä?",
             challengeText: "Kaupunginosa:",
             challengeImage: "20.jpg"
         },
         {
-            // Vaihe 22: Loppuviesti ja loppusalasana
-            expectedInput: String.fromCharCode(77, 105, 107, 107, 111, 107, 97, 108, 101, 118, 105), // "Mikkokalevi"
+            // Vaihe 22 (Loppuviesti ja loppusalasana)
+            expectedInput: (() => String.fromCharCode(109, 105, 107, 107, 111, 107, 97, 108, 101, 118, 105))(),
             responseMessage: (() => {
-                const part1 = "Erinomaista työtä! Olet ratkaissut kaikki kuvat ja loppu kysymyksen! ";
-                const part2 = "Kirjoita chekkeriin \"geokätköilijä on nero\".";
-                return part1 + part2;
+                const p1 = String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97);
+                const p2 = " työtä! Olet ratkaissut kaikki kuvat ja loppukysymyksen! ";
+                const p3 = String.fromCharCode(75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46);
+                return p1 + p2 + p3;
             })(),
-            challengeText: "Onneksi olkoon, kaikki tehtävät suoritettu! Kirjoita vielä että kenen mysteeri tämä saadaksesi vastauksen chekkerille!",
+            challengeText: "Onneksi olkoon, kaikki tehtävät suoritettu! Kirjoita vielä että kenen mysteeri tämä, saadaksesi vastauksen chekkerille!",
             challengeImage: null
         }
     ]
