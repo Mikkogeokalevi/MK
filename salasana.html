@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salasanakysely Mysteeri</title>
+    <title>Lahen kaupunginosat Mysteeri</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -190,14 +190,11 @@
         function initializePuzzle() {
             // Tärkeää: Tämä tarkistaa, onko puzzleSetup latautunut
             if (typeof puzzleSetup === 'undefined' || !puzzleSetup.steps || puzzleSetup.steps.length === 0) {
-                // Tänne emme halua päätyä, jos virhe ei ole "dataa ei ladattu" vaan "jäädään lataamaan".
-                // Jos virhe "Ladataan arvoitusta..." tapahtuu, tämä koodi ei edes käynnisty.
-                // Se tarkoittaa, että joku muu virhe tapahtuu ENNEN kuin puzzleSetup on määritelty.
                 kysymysLabel.textContent = "Virhe: Arvoituksen dataa ei voitu ladata.";
                 viestiElementti.textContent = "Tarkista, että puzzle_data.js on olemassa ja oikein muotoiltu.";
                 inputField.disabled = true;
                 submitButton.disabled = true;
-                return; // Lopeta funktion suoritus virheen vuoksi
+                return; 
             }
             currentStepIndex = 0;
             const initialStepData = puzzleSetup.steps[currentStepIndex];
@@ -217,12 +214,21 @@
             const syote = inputField.value.trim().toLowerCase();
             const currentStepData = puzzleSetup.steps[currentStepIndex];
 
-            if (syote === currentStepData.expectedInput.toLowerCase()) {
-                viestiElementti.textContent = currentStepData.responseMessage;
+            // expectedInput voi olla joko suora merkkijono tai funktio
+            const expected = typeof currentStepData.expectedInput === 'function' ? 
+                             currentStepData.expectedInput() : 
+                             currentStepData.expectedInput;
+
+
+            if (syote === expected.toLowerCase()) {
+                // responseMessage voi olla myös funktio
+                const responseMsg = typeof currentStepData.responseMessage === 'function' ?
+                                    currentStepData.responseMessage() :
+                                    currentStepData.responseMessage;
+                viestiElementti.textContent = responseMsg;
                 viestiElementti.className = 'info';
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
-                    // Viimeinen vaihe vastattu oikein: näytä lopullinen viesti.
                     updateChallengeDisplay(currentStepData.challengeImage, currentStepData.challengeText);
                     viestiElementti.className = 'success';
                     inputField.disabled = true;
@@ -235,10 +241,9 @@
                     inputField.focus();
                 }
             } else {
-                // Väärä syöte: palauta alkuperäiseen tilaan
                 viestiElementti.textContent = puzzleSetup.wrongInputMessage;
                 viestiElementti.className = '';
-                currentStepIndex = 0; // Palataan ensimmäiseen vaiheeseen
+                currentStepIndex = 0; 
                 const firstStepData = puzzleSetup.steps[currentStepIndex];
                 updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText || puzzleSetup.initialPrompt);
                 inputField.value = "";
