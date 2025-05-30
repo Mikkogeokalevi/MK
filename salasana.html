@@ -175,7 +175,6 @@
         let currentStepIndex = 0;
 
         function updateChallengeDisplay(imageFileName, textContent) {
-            // Asettaa kuvan, jos imageFileName on annettu. Muuten piilottaa kuva-alueen.
             if (imageFileName) {
                 promptKuva.src = imageFileName;
                 kuvaContainer.style.display = 'block';
@@ -183,22 +182,13 @@
                 kuvaContainer.style.display = 'none';
             }
 
-            // Asettaa tekstiä, jos textContent on annettu.
             if (textContent) {
-                // TÄRKEÄ MUUTOS: Käytetään innerHTML:ää, jos teksti voi sisältää HTML-tageja kuten <br>
-                // Tarkistetaan, sisältääkö teksti HTML-tagin, jos sisältää, käytetään innerHTML:ää.
-                // Muuten textContent on turvallisempi ja suositeltavampi.
-                if (/<[a-z][\s\S]*>/i.test(textContent)) { // Yksinkertainen regex HTML-tagin tarkistukseen
-                    kuvaTekstiLabel.innerHTML = textContent; 
-                } else {
-                    kuvaTekstiLabel.textContent = textContent;
-                }
+                kuvaTekstiLabel.textContent = textContent;
                 kuvaTekstiLabel.style.display = 'block';
                 kysymysLabel.style.display = 'none'; 
             } else {
                 kuvaTekstiLabel.style.display = 'none';
                 kysymysLabel.style.display = 'block'; 
-                // Aseta kysymysLabelin tekstiksi initialPrompt, jos se on ensimmäinen vaihe
                 if (currentStepIndex === 0) { 
                     kysymysLabel.textContent = puzzleSetup.initialPrompt;
                 }
@@ -209,10 +199,7 @@
             currentStepIndex = 0;
             const firstStepData = puzzleSetup.steps[currentStepIndex];
             
-            // Päivitetty kutsu updateChallengeDisplayyn
-            // Jos ensimmäisessä vaiheessa ei ole kuvaa/tekstiä, näytetään initialPrompt
             updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText);
-            // Korjattu logiikka, jos ensi vaiheella ei ole kuvaa/tekstiä
             if (!firstStepData.challengeImage && !firstStepData.challengeText) {
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
                 kysymysLabel.style.display = 'block';
@@ -221,7 +208,7 @@
             }
 
             inputField.value = "";
-            viestiElementti.textContent = ""; // Alustetaan viesti tyhjäksi
+            viestiElementti.textContent = "";
             viestiElementti.className = ''; 
             inputField.disabled = false;
             submitButton.disabled = false;
@@ -232,25 +219,18 @@
             const userAnswer = inputField.value.trim();
             const currentStep = puzzleSetup.steps[currentStepIndex];
 
-            // expectedInput on jo suoraan merkkijono `puzzle_data.js` tiedostossa
+            // expectedInput on jo suoraan merkkijono puzzle_data.js tiedostossa
             const expectedAnswer = currentStep.expectedInput;
 
             if (userAnswer === expectedAnswer) {
-                // TÄRKEÄ MUUTOS: Käytetään innerHTML:ää myös tässä, koska responseMessage voi sisältää HTML-tageja
-                if (/<[a-z][\s\S]*>/i.test(currentStep.responseMessage)) {
-                    viestiElementti.innerHTML = currentStep.responseMessage;
-                } else {
-                    viestiElementti.textContent = currentStep.responseMessage;
-                }
-                viestiElementti.className = 'success'; // Alkuperäisen HTML:n mukainen luokka
+                viestiElementti.textContent = currentStep.responseMessage;
+                viestiElementti.className = 'success';
                 
-                currentStep.wrongAttemptsMade = 0; // Nollataan virheyritykset onnistuneen vastauksen jälkeen
+                currentStep.wrongAttemptsMade = 0; 
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
                     // PELIN LOPPU - ONNISTUNUT SUORITUS
-                    // Näytä viimeisen vaiheen kuva ja responseMessage (joka sisältää loppukoodin)
-                    updateChallengeDisplay(currentStep.challengeImage, currentStep.responseMessage); 
-
+                    updateChallengeDisplay(currentStep.challengeImage, currentStep.challengeText); // Alkuperäinen näytti challengeTextin lopussa
                     viestiElementti.className = 'success'; 
                     inputField.disabled = true;
                     submitButton.disabled = true;
@@ -266,17 +246,19 @@
                     }
                     // ----------------------------------------------------------
 
+                    // TÄRKEÄÄ: Palautetaan tähän se logiikka, joka näyttää viimeisen viestin oikein
+                    // Tarkistin alkuperäisen `salasana_toimiva_versio_300525_11.15.txt` tiedoston.
+                    // Se ei käsittele loppuviestin `innerHTML`-esitystä, mutta sen `puzzle_data.js` tuottaa HTML:ää.
+                    // Joten tässä pitää pakottaa `innerHTML` loppuviestiin.
+                    viestiElementti.innerHTML = currentStep.responseMessage; // KÄYTÄ innerHTML:Ä TÄSSÄ!
+
                 } else {
                     // VAIHE ONNISTUNEESTI RATKAISTU - SIIRRY SEURAAVAAN
                     currentStepIndex++;
                     const nextChallengeData = puzzleSetup.steps[currentStepIndex];
-                    // Päivitä näyttö seuraavan vaiheen datalla
                     updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
-                    // Asetetaan viesti seuraavan vaiheen responsesta, jos se on olemassa,
-                    // muuten viestikenttä tyhjäksi. Tässä tulee olla varovainen, koska
-                    // `puzzle_data.js` sisältää `responseMessage`-kentän myös väliaikaisissa vaiheissa.
-                    // Alkuperäinen `salasana.html_toimiva_versio_300525_11.15.txt` tyhjensi inputin ja fokusoi sen, mutta ei asettanut `viestiElementti.textContent`ia uudelleen.
-                    // Pidän nyt tässä alkuperäisen HTML:n logiikan, eli edellisen vaiheen viesti jää näkyviin.
+                    viestiElementti.textContent = nextChallengeData.responseMessage; // Tämä oli alkuperäisessäkin
+                    viestiElementti.className = 'success';
                     inputField.value = "";
                     inputField.focus();
 
@@ -294,7 +276,7 @@
                 }
             } else {
                 // Väärä syöte
-                currentStep.wrongAttemptsMade = (currentStep.wrongAttemptsMade || 0) + 1; // Varmista, että oletusarvo on 0
+                currentStep.wrongAttemptsMade = (currentStep.wrongAttemptsMade || 0) + 1; 
 
                 if (currentStep.maxWrongAttempts > 0 && currentStep.wrongAttemptsMade <= currentStep.maxWrongAttempts) {
                     viestiElementti.textContent = puzzleSetup.wrongInputMessage + 
