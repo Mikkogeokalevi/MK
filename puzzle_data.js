@@ -3,21 +3,22 @@ const puzzleSetup = {
     wrongInputMessage: "Väärin meni! Yritä uudelleen.",
     finalFailMessage: "Väärin meni liian monta kertaa! Palataan alkuun.",
     
-    // Obfuskoitu codeString: Jaettu useampaan osaan
+    // codeString obfuskoitu jakamalla useampaan String.fromCharCode-kutsuun
     codeString: (() => {
-        const part1 = String.fromCharCode(55, 71, 75, 80);
-        const part2 = String.fromCharCode(52, 88, 68, 77);
-        const part3 = String.fromCharCode(56, 51, 81, 89);
-        const part4 = String.fromCharCode(85, 90, 78, 86);
-        const part5 = String.fromCharCode(84, 57, 67, 50);
-        const part6 = String.fromCharCode(82, 87, 65, 69);
-        const part7 = String.fromCharCode(72, 70, 74, 66);
-        const part8 = String.fromCharCode(75, 77, 84, 71);
-        const part9 = String.fromCharCode(56, 69, 57, 68); // Viimeiset 4 merkkiä, alunperin tässä oli 36 merkkiä.
-        return part1 + part2 + part3 + part4 + part5 + part6 + part7 + part8 + part9;
+        const p1 = String.fromCharCode(55, 71, 75, 80);
+        const p2 = String.fromCharCode(52, 88, 68, 77);
+        const p3 = String.fromCharCode(56, 51, 81, 89);
+        const p4 = String.fromCharCode(85, 90, 78, 86);
+        const p5 = String.fromCharCode(84, 57, 67, 50);
+        const p6 = String.fromCharCode(82, 87, 65, 69);
+        const p7 = String.fromCharCode(72, 70, 74, 66);
+        const p8 = String.fromCharCode(75, 77, 84, 71);
+        const p9 = String.fromCharCode(56, 69, 57, 68);
+        return p1 + p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9;
     })(),
 
     // Loppuviestin salaus XOR-algoritmilla
+    // Viesti ja avain ovat String.fromCharCode-muodossa, mutta piilotettuna anon-funktion sisään
     encryptedFinalMessage: (() => {
         const msg = String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46);
         const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // "GeoCache"
@@ -198,6 +199,7 @@ const puzzleSetup = {
             maxWrongAttempts: 2
         },
         {
+            // Viimeinen vaihe: expectedInput on codeString itself
             expectedInput: (() => puzzleSetup.codeString)(),
             responseMessage: (() => {
                 const encrypted = puzzleSetup.encryptedFinalMessage;
