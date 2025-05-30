@@ -1,10 +1,11 @@
-// puzzle_data.js - "Salattu" versio (kommentit siistitty, lisätty väärien vastausten laskurit ja koodinpätkät)
+// puzzle_data.js - "Salattu" versio (kommentit ja salatut stringit päivitetty)
 
 const puzzleSetup = {
     initialPrompt: "Kirjoita salasana",
     wrongInputMessage: "Väärin meni! Yritä uudelleen.",
     finalFailMessage: "Väärin meni liian monta kertaa! Palataan alkuun.",
-    codeString: "7GKP4XDM83QYUZNVT9C2RWAEHFJBKMTG8E9D", // UUSI KENTTÄ: Kokonainen koodimerkkijono
+    // Kokonainen koodimerkkijono salattuna
+    codeString: (() => String.fromCharCode(55, 71, 75, 80, 52, 88, 68, 77, 56, 51, 81, 89, 85, 90, 78, 86, 84, 57, 67, 50, 82, 87, 65, 69, 72, 70, 74, 66, 75, 77, 84, 71, 56, 69, 57, 68))(),
     steps: [
         {
             // Vaihe 1
@@ -13,20 +14,16 @@ const puzzleSetup = {
             challengeText: null,
             challengeImage: null,
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null // Ei koodia tähän vaiheeseen
+            maxWrongAttempts: 2
         },
         {
-            // Vaihe 2 (Ensimmäinen kuva, alkaa koodinpätkien antamisen)
+            // Vaihe 2
             expectedInput: (() => "ja" + "lka" + String.fromCharCode(114, 97, 110) + "ta")(),
             responseMessage: "Hienoa! Jatka seuraavaan:",
             challengeText: "Kirjoita kuvasta selviävä kaupunginosa:",
             challengeImage: "01.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null // Tämä koodinpätkä lisätään vasta kun on vastattu OIKEIN tähän vaiheeseen
-                               // ja siirrytään SEURAAVAAN vaiheeseen (Vaihe 3).
-                               // Tämän takia koodin lisäys tapahtuu responseMessage-käsittelyssä.
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 3
@@ -35,8 +32,7 @@ const puzzleSetup = {
             challengeText: "Mikä kaupunginosa kuvassa on:",
             challengeImage: "02.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 4
@@ -45,8 +41,7 @@ const puzzleSetup = {
             challengeText: "Tunnista kuvasta kaupunginosa:",
             challengeImage: "03.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 5
@@ -55,8 +50,7 @@ const puzzleSetup = {
             challengeText: "Mistä päin kaupunkia tämä kuva on:",
             challengeImage: "04.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 6
@@ -65,8 +59,7 @@ const puzzleSetup = {
             challengeText: "Kaupunginosa kuvassa:",
             challengeImage: "05.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 7
@@ -75,8 +68,7 @@ const puzzleSetup = {
             challengeText: "Tunnista kaupunginosa:",
             challengeImage: "06.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 8
@@ -85,8 +77,7 @@ const puzzleSetup = {
             challengeText: "Mikä kaupunginosa tässä:",
             challengeImage: "07.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 9
@@ -95,8 +86,7 @@ const puzzleSetup = {
             challengeText: "Tämä kaupunginosa on:",
             challengeImage: "08.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 10
@@ -105,8 +95,7 @@ const puzzleSetup = {
             challengeText: "Kaupunginosa?:",
             challengeImage: "09.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 11
@@ -115,8 +104,7 @@ const puzzleSetup = {
             challengeText: "Tunnista kuvasta kaupunginosa:",
             challengeImage: "10.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 12
@@ -125,8 +113,7 @@ const puzzleSetup = {
             challengeText: "Mikä kaupunginosa tässä:",
             challengeImage: "11.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 13
@@ -135,8 +122,7 @@ const puzzleSetup = {
             challengeText: "missä kaupunginosassa olla tässä:",
             challengeImage: "12.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 14
@@ -145,8 +131,7 @@ const puzzleSetup = {
             challengeText: "Tunnista kaupunginosa:",
             challengeImage: "13.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 15
@@ -155,8 +140,7 @@ const puzzleSetup = {
             challengeText: "Missä olemme tässä:",
             challengeImage: "14.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 16
@@ -165,8 +149,7 @@ const puzzleSetup = {
             challengeText: "Tämäkin kaupunginosa tarvitaan jotta pääsee eteenpäin:",
             challengeImage: "15.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 17
@@ -175,8 +158,7 @@ const puzzleSetup = {
             challengeText: "Kaupunginosa:",
             challengeImage: "16.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 18
@@ -185,8 +167,7 @@ const puzzleSetup = {
             challengeText: "Tunnista kaupunginosa:",
             challengeImage: "17.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 19
@@ -195,8 +176,7 @@ const puzzleSetup = {
             challengeText: "Missä kaupungiosassa olla tässä:",
             challengeImage: "18.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 20
@@ -205,8 +185,7 @@ const puzzleSetup = {
             challengeText: "Kaupunginosa :",
             challengeImage: "19.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 21
@@ -215,20 +194,18 @@ const puzzleSetup = {
             challengeText: "Kaupunginosa:",
             challengeImage: "20.jpg",
             wrongAttemptsMade: 0,
-            maxWrongAttempts: 2,
-            codeSnippet: null
+            maxWrongAttempts: 2
         },
         {
             // Vaihe 22 (Loppuviesti ja loppusalasana)
-            // Koodinpätkän kokoaminen tapahtuu nyt tässä vaiheessa viimeisenä vastauksena
-            expectedInput: (() => String.fromCharCode(55, 71, 75, 80, 52, 88, 68, 77, 56, 51, 81, 89, 85, 90, 78, 86, 84, 57, 67, 50, 82, 87, 65, 69, 72, 70, 74, 66, 75, 77, 84, 71, 56, 69, 57, 68))(), // "7GKP4XDM83QYUZNVT9C2RWAEHFJBKMTG8E9D" salattuna
+            expectedInput: (() => String.fromCharCode(55, 71, 75, 80, 52, 88, 68, 77, 56, 51, 81, 89, 85, 90, 78, 86, 84, 57, 67, 50, 82, 87, 65, 69, 72, 70, 74, 66, 75, 77, 84, 71, 56, 69, 57, 68))(),
             responseMessage: (() => {
                 const p1 = String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97); // "Erinomaista"
                 const p2 = " työtä! Olet ratkaissut kaikki kuvat ja loppukysymyksen! ";
-                const p3 = String.fromCharCode(75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46); // "Kirjoita chekkeriin \"geokätköilijä on nero\"."
+                const p3 = String.fromCharCode(75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 101, 114, 111, 34, 46);
                 return p1 + p2 + p3;
             })(),
-            challengeText: "Syötä vielä viimeiseksi numero / kirjain sarja minkä sait edellä kuvien ratkaisuista ilman välilyöntiä jotta saat tiedon mitä syöttää chekkeriin.", // UUSI TEKSTI
+            challengeText: "Syötä vielä viimeiseksi numero / kirjain sarja minkä sait edellä kuvien ratkaisuista ilman välilyöntiä jotta saat tiedon mitä syöttää chekkeriin.",
             challengeImage: null,
             wrongAttemptsMade: 0,
             maxWrongAttempts: 2
