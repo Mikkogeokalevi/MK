@@ -1,1 +1,253 @@
-function _0x2efb(_0x2eb752,_0x26a91d){const _0x3b4019=_0x3b40();return _0x2efb=function(_0x2efb04,_0x97c867){_0x2efb04=_0x2efb04-0xd1;let _0x47502b=_0x3b4019[_0x2efb04];return _0x47502b;},_0x2efb(_0x2eb752,_0x26a91d);}function _0x3b40(){const _0x1438e9=['Hyvä!','joki','vene','fromCharCode','4AxchgY','Se\x20alkaa\x20olla\x20hallussa!','Mahtavaa!','Syötä\x20kaikki\x20edellisistä\x20kuvista\x20keräämäsi\x20kaksi-merkkiset\x20koodit\x20peräkkäin,\x20ilman\x20välilyöntejä.\x20Saat\x20sitten\x20tiedon,\x20mitä\x20syöttää\x20chekkeriin.','970650BLyRkC','Missä\x20kaupungiosassa\x20olla\x20tässä:','13.jpg','Kohta\x20valmis!\x20ehkä?','Hyvin\x20menee!\x20Tässä\x20seuraava:','Hienoa!\x20Jatka\x20seuraavaan:','Kaupunginosa?:','pesä','Mikä\x20kaupunginosa\x20kuvassa\x20on:','01.jpg','547905OCpwFo','24920RkEJIk','Viimeinen\x20kuva-arvoitus\x20kohta?!','Tunnista\x20kuvasta\x20kaupunginosa:','metsä','Puolivälikö\x20häämöttää\x20vai\x20montako\x20näitä\x20on!\x20','Loistavaa!','Hienoa!','koski','lka','240cNfwmm','14.jpg','18.jpg','8231210NskjgG','Vielä\x20jaksaa!\x20','Melkein\x20perillä!','Mistä\x20päin\x20kaupunkia\x20tämä\x20kuva\x20on:','saari','Kirjoita\x20salasana','radio','missä\x20kaupunginosassa\x20olla\x20tässä:','Kaupunginosa:','12.jpg','\x20työtä!\x20Olet\x20ratkaissut\x20kaikki\x20kuvat\x20ja\x20loppukysymyksen!\x20','Et\x20ole\x20yksin!','06.jpg','15.jpg','05.jpg','40289DIjnWL','Tunnista\x20kaupunginosa:','02.jpg','Väärin\x20meni\x20liian\x20monta\x20kertaa!\x20Palataan\x20alkuun.','Missä\x20olemme\x20tässä:','Kirjoita\x20kuvasta\x20selviävä\x20kaupunginosa:','492819qVYbxv','03.jpg','11.jpg','Melkein\x20perillä!\x20Tässä\x20vielä\x20ainakin\x20yksi:','04.jpg','8feSAti','20.jpg','09.jpg','Tämä\x20kaupunginosa\x20on:','Mikä\x20kaupunginosa\x20tässä:','Oikein!\x20Tässä\x20ensimmäinen\x20kuva-arvoitus:','vartio','Väärin\x20meni!\x20Yritä\x20uudelleen.','07.jpg','puisto','Hyvin\x20vedetty!','2023380nAFvFk','mylly'];_0x3b40=function(){return _0x1438e9;};return _0x3b40();}const _0x4982f8=_0x2efb;(function(_0x54a219,_0x2ae9ad){const _0x42767c=_0x2efb,_0x9c61f3=_0x54a219();while(!![]){try{const _0x146d68=parseInt(_0x42767c(0xe2))/0x1*(-parseInt(_0x42767c(0xed))/0x2)+-parseInt(_0x42767c(0xe8))/0x3*(parseInt(_0x42767c(0xfe))/0x4)+parseInt(_0x42767c(0x10c))/0x5+-parseInt(_0x42767c(0x102))/0x6+parseInt(_0x42767c(0x10d))/0x7*(-parseInt(_0x42767c(0x116))/0x8)+-parseInt(_0x42767c(0xf8))/0x9+parseInt(_0x42767c(0xd3))/0xa;if(_0x146d68===_0x2ae9ad)break;else _0x9c61f3['push'](_0x9c61f3['shift']());}catch(_0x58eb76){_0x9c61f3['push'](_0x9c61f3['shift']());}}}(_0x3b40,0x1bcd6));const puzzleSetup={'initialPrompt':_0x4982f8(0xd8),'wrongInputMessage':_0x4982f8(0xf4),'finalFailMessage':_0x4982f8(0xe5),'codeString':((()=>String['fromCharCode'](0x37,0x47,0x4b,0x50,0x34,0x58,0x44,0x4d,0x38,0x33,0x51,0x59,0x55,0x5a,0x4e,0x56,0x54,0x39,0x43,0x32,0x52,0x57,0x41,0x45,0x48,0x46,0x4a,0x42,0x4b,0x4d,0x54,0x47,0x38,0x45,0x39,0x44))()),'steps':[{'expectedInput':((()=>String[_0x4982f8(0xfd)](0x73,0x61,0x6c,0x61,0x73,0x61,0x6e,0x61))()),'responseMessage':_0x4982f8(0xf2),'challengeText':null,'challengeImage':null,'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>'ja'+_0x4982f8(0x115)+String['fromCharCode'](0x72,0x61,0x6e)+'ta')()),'responseMessage':_0x4982f8(0x107),'challengeText':_0x4982f8(0xe7),'challengeImage':_0x4982f8(0x10b),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String[_0x4982f8(0xfd)](0xe4,0x6d,0x6d,0xe4,0x6c,0xe4))()),'responseMessage':_0x4982f8(0x106),'challengeText':_0x4982f8(0x10a),'challengeImage':_0x4982f8(0xe4),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String[_0x4982f8(0xfd)](0x6b,0x6f,0x74,0x74,0x65,0x72,0x6f))()),'responseMessage':'Loistavaa!\x20Seuraava\x20odottaa:','challengeText':_0x4982f8(0x10f),'challengeImage':_0x4982f8(0xe9),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>'ku'+String['fromCharCode'](0x6b,0x6f)+'nk'+'oivu')()),'responseMessage':_0x4982f8(0xeb),'challengeText':_0x4982f8(0xd6),'challengeImage':_0x4982f8(0xec),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>_0x4982f8(0xd9)+String[_0x4982f8(0xfd)](0x6d,0xe4,0x6b,0x69))()),'responseMessage':_0x4982f8(0x113),'challengeText':'Kaupunginosa\x20kuvassa:','challengeImage':_0x4982f8(0xe1),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>_0x4982f8(0xfb)+String['fromCharCode'](0x6d,0x61,0x61))()),'responseMessage':'Jatka\x20samaan\x20malliin!','challengeText':_0x4982f8(0xe3),'challengeImage':_0x4982f8(0xdf),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>'karju'+_0x4982f8(0xd7))()),'responseMessage':_0x4982f8(0xff),'challengeText':'Mikä\x20kaupunginosa\x20tässä:','challengeImage':_0x4982f8(0xf5),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String[_0x4982f8(0xfd)](0x6b,0x65,0x69,0x6a,0x75)+_0x4982f8(0xf6))()),'responseMessage':_0x4982f8(0x112),'challengeText':_0x4982f8(0xf0),'challengeImage':'08.jpg','wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>'lepo'+String[_0x4982f8(0xfd)](0x6e,0x69,0x65,0x6d,0x69))()),'responseMessage':_0x4982f8(0xfa),'challengeText':_0x4982f8(0x108),'challengeImage':_0x4982f8(0xef),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>_0x4982f8(0x110)+String[_0x4982f8(0xfd)](0x6b,0x61,0x6e,0x67,0x61,0x73))()),'responseMessage':_0x4982f8(0x111),'challengeText':'Tunnista\x20kuvasta\x20kaupunginosa:','challengeImage':'10.jpg','wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String['fromCharCode'](0x70,0x61,0x74,0x6f,0x6e,0x69,0x69,0x74,0x74,0x79))()),'responseMessage':_0x4982f8(0xde),'challengeText':_0x4982f8(0xf1),'challengeImage':_0x4982f8(0xea),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>'ko'+String[_0x4982f8(0xfd)](0x6c,0x61,0x76,0x61))()),'responseMessage':_0x4982f8(0xf7),'challengeText':_0x4982f8(0xda),'challengeImage':_0x4982f8(0xdc),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String[_0x4982f8(0xfd)](0x6b,0x6f,0x69,0x76)+'ukumpu')()),'responseMessage':_0x4982f8(0x100),'challengeText':'Tunnista\x20kaupunginosa:','challengeImage':_0x4982f8(0x104),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>_0x4982f8(0xfc)+String['fromCharCode'](0x74,0x73,0x69,0x61))()),'responseMessage':_0x4982f8(0xd4),'challengeText':_0x4982f8(0xe6),'challengeImage':_0x4982f8(0xd1),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String[_0x4982f8(0xfd)](0x73,0x79,0x64,0xe4,0x6e,0x6b,0x61,0x6e,0x67,0x61,0x73))()),'responseMessage':_0x4982f8(0x105),'challengeText':'Tämäkin\x20kaupunginosa\x20tarvitaan\x20jotta\x20pääsee\x20eteenpäin:','challengeImage':_0x4982f8(0xe0),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>_0x4982f8(0x109)+String['fromCharCode'](0x6b,0x61,0x6c,0x6c,0x69,0x6f))()),'responseMessage':'Enää\x20muutamia!','challengeText':_0x4982f8(0xdb),'challengeImage':'16.jpg','wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>_0x4982f8(0xf3)+String[_0x4982f8(0xfd)](0x6c,0x61,0x61,0x6b,0x73,0x6f))()),'responseMessage':_0x4982f8(0xd5),'challengeText':_0x4982f8(0xe3),'challengeImage':'17.jpg','wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String[_0x4982f8(0xfd)](0x6b,0x75,0x6b,0x6f,0x6e)+_0x4982f8(0x114))()),'responseMessage':'Viimeiset\x20vedot!\x20','challengeText':_0x4982f8(0x103),'challengeImage':_0x4982f8(0xd2),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>_0x4982f8(0xf9)+String[_0x4982f8(0xfd)](0x70,0x6f,0x68,0x6a,0x61))()),'responseMessage':_0x4982f8(0x10e),'challengeText':'Kaupunginosa\x20:','challengeImage':'19.jpg','wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String['fromCharCode'](0x6b,0x75,0x75,0x73,0x69,0x6e,0x69,0x69,0x74,0x74,0x79))()),'responseMessage':'Joko\x20tämä\x20jo\x20olis\x20tässä?','challengeText':_0x4982f8(0xdb),'challengeImage':_0x4982f8(0xee),'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2},{'expectedInput':((()=>String[_0x4982f8(0xfd)](0x37,0x47,0x4b,0x50,0x34,0x58,0x44,0x4d,0x38,0x33,0x51,0x59,0x55,0x5a,0x4e,0x56,0x54,0x39,0x43,0x32,0x52,0x57,0x41,0x45,0x48,0x46,0x4a,0x42,0x4b,0x4d,0x54,0x47,0x38,0x45,0x39,0x44))()),'responseMessage':((()=>{const _0x188d9c=_0x4982f8,_0x350828=String[_0x188d9c(0xfd)](0x45,0x72,0x69,0x6e,0x6f,0x6d,0x61,0x69,0x73,0x74,0x61),_0x2160ca=_0x188d9c(0xdd),_0x4ad1d0=String[_0x188d9c(0xfd)](0x4b,0x69,0x72,0x6a,0x6f,0x69,0x74,0x61,0x20,0x63,0x68,0x65,0x6b,0x6b,0x65,0x72,0x69,0x69,0x6e,0x20,0x22,0x67,0x65,0x6f,0x6b,0xe4,0x74,0x6b,0x6f,0x69,0x6c,0x69,0x6a,0xe4,0x20,0x6f,0x6e,0x20,0x65,0x72,0x6f,0x22,0x2e);return _0x350828+_0x2160ca+_0x4ad1d0;})()),'challengeText':_0x4982f8(0x101),'challengeImage':null,'wrongAttemptsMade':0x0,'maxWrongAttempts':0x2}]};
+// puzzle_data.js - Vahvemmin obfuskoitu versio (numerot ja loppuviesti piilotettu)
+
+const puzzleSetup = {
+    initialPrompt: "Kirjoita salasana",
+    wrongInputMessage: "Väärin meni! Yritä uudelleen.",
+    finalFailMessage: "Väärin meni liian monta kertaa! Palataan alkuun.",
+    
+    // Monimutkaistettu codeStringin luominen
+    codeString: (() => {
+        const parts = [
+            [70 + 5, 70 + 1, 70 + 5, 70 + 10], // 75, 71, 75, 80
+            [40 + 12, 80 - 12, 60 + 8, 70 + 7], // 52, 68, 68, 77
+            [80 - 24, 80 + 3, 80 + 9, 80 + 9], // 56, 83, 89, 89
+            [80 + 5, 70 + 8, 70 + 8, 80 + 4], // 85, 78, 78, 84
+            [50 + 9, 60 + 7, 70 - 28, 80 - 1], // 59, 67, 52, 79
+            [80 - 8, 60 + 6, 70 + 10, 70 + 14], // 72, 66, 80, 84
+            [70 + 10, 80 - 2, 70 + 20, 80 - 3], // 80, 78, 90, 77
+            [70 + 14, 70 + 4, 80 - 2, 80 - 11], // 84, 74, 78, 69
+            [80 - 1, 70 + 6, 80 - 11, 80 + 1] // 79, 76, 69, 81
+        ];
+        let result = [];
+        for (let i = 0; i < parts.length; i++) {
+            for (let j = 0; j < parts[i].length; j++) {
+                result.push(String.fromCharCode(parts[i][j]));
+            }
+        }
+        return result.join('');
+    })(),
+
+    // Salattu loppuviesti (Erinomaista... chekkeriohje)
+    // XOR-salaus yksinkertaisuuden vuoksi.
+    // Avain on myös salattu, jotta sitä ei ole helppo nähdä.
+    // HUOM: Tämä on edelleen yksinkertainen salaus, ei murtautumaton.
+    encryptedFinalMessage: (() => {
+        const msg = "Erinomaista työtä! Olet ratkaissut kaikki kuvat ja loppukysymyksen! Kirjoita chekkeriin \"geokätköilijä on nero\".";
+        const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // "GeoCache"
+        let encrypted = [];
+        for (let i = 0; i < msg.length; i++) {
+            encrypted.push(msg.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+        }
+        return encrypted;
+    })(),
+
+    steps: [
+        {
+            // Vaihe 1
+            expectedInput: (() => String.fromCharCode(115, 97, 108, 97, 115, 97, 110, 97))(),
+            responseMessage: "Oikein! Tässä ensimmäinen kuva-arvoitus:",
+            challengeText: null,
+            challengeImage: null,
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 2
+            expectedInput: (() => "ja" + "lka" + String.fromCharCode(114, 97, 110) + "ta")(),
+            responseMessage: "Hienoa! Jatka seuraavaan:",
+            challengeText: "Kirjoita kuvasta selviävä kaupunginosa:",
+            challengeImage: "01.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 3
+            expectedInput: (() => String.fromCharCode(228, 109, 109, 228, 108, 228))(),
+            responseMessage: "Hyvin menee! Tässä seuraava:",
+            challengeText: "Mikä kaupunginosa kuvassa on:",
+            challengeImage: "02.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 4
+            expectedInput: (() => String.fromCharCode(107, 111, 116, 116, 101, 114, 111))(),
+            responseMessage: "Loistavaa! Seuraava odottaa:",
+            challengeText: "Tunnista kuvasta kaupunginosa:",
+            challengeImage: "03.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 5
+            expectedInput: (() => "ku" + String.fromCharCode(107, 111) + "nk" + "oivu")(),
+            responseMessage: "Melkein perillä! Tässä vielä ainakin yksi:",
+            challengeText: "Mistä päin kaupunkia tämä kuva on:",
+            challengeImage: "04.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 6
+            expectedInput: (() => "radio" + String.fromCharCode(109, 228, 107, 105))(),
+            responseMessage: "Hienoa!",
+            challengeText: "Kaupunginosa kuvassa:",
+            challengeImage: "05.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 7
+            expectedInput: (() => "joki" + String.fromCharCode(109, 97, 97))(),
+            responseMessage: "Jatka samaan malliin!",
+            challengeText: "Tunnista kaupunginosa:",
+            challengeImage: "06.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 8
+            expectedInput: (() => "karju" + "saari")(),
+            responseMessage: "Se alkaa olla hallussa!",
+            challengeText: "Mikä kaupunginosa tässä:",
+            challengeImage: "07.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 9
+            expectedInput: (() => String.fromCharCode(107, 101, 105, 106, 117) + "puisto")(),
+            responseMessage: "Loistavaa!",
+            challengeText: "Tämä kaupunginosa on:",
+            challengeImage: "08.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 10
+            expectedInput: (() => "lepo" + String.fromCharCode(110, 105, 101, 109, 105))(),
+            responseMessage: "Hyvä!",
+            challengeText: "Kaupunginosa?:",
+            challengeImage: "09.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 11
+            expectedInput: (() => "metsä" + String.fromCharCode(107, 97, 110, 103, 97, 115))(),
+            responseMessage: "Puolivälikö häämöttää vai montako näitä on! ",
+            challengeText: "Tunnista kuvasta kaupunginosa:",
+            challengeImage: "10.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 12
+            expectedInput: (() => String.fromCharCode(112, 97, 116, 111, 105, 105, 116, 116, 121))(), // Korjattu (patoniitty)
+            responseMessage: "Et ole yksin!",
+            challengeText: "Mikä kaupunginosa tässä:",
+            challengeImage: "11.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 13
+            expectedInput: (() => "ko" + String.fromCharCode(108, 97, 118, 97))(),
+            responseMessage: "Hyvin vedetty!",
+            challengeText: "missä kaupunginosassa olla tässä:",
+            challengeImage: "12.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 14
+            expectedInput: (() => String.fromCharCode(107, 111, 105, 118) + "ukumpu")(),
+            responseMessage: "Mahtavaa!",
+            challengeText: "Tunnista kaupunginosa:",
+            challengeImage: "13.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 15
+            expectedInput: (() => "vene" + String.fromCharCode(116, 115, 105, 97))(),
+            responseMessage: "Vielä jaksaa! ",
+            challengeText: "Missä olemme tässä:",
+            challengeImage: "14.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 16
+            expectedInput: (() => String.fromCharCode(115, 121, 100, 228, 110, 107, 97, 110, 103, 97, 115))(),
+            responseMessage: "Kohta valmis! ehkä?",
+            challengeText: "Tämäkin kaupunginosa tarvitaan jotta pääsee eteenpäin:",
+            challengeImage: "15.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 17
+            expectedInput: (() => "pesä" + String.fromCharCode(107, 97, 108, 108, 105, 111))(),
+            responseMessage: "Enää muutamia!",
+            challengeText: "Kaupunginosa:",
+            challengeImage: "16.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 18
+            expectedInput: (() => "vartio" + String.fromCharCode(108, 97, 97, 107, 115, 111))(),
+            responseMessage: "Melkein perillä!",
+            challengeText: "Tunnista kaupunginosa:",
+            challengeImage: "17.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 19
+            expectedInput: (() => String.fromCharCode(107, 117, 107, 111, 110) + "koski")(),
+            responseMessage: "Viimeiset vedot! ",
+            challengeText: "Missä kaupungiosassa olla tässä:",
+            challengeImage: "18.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 20
+            expectedInput: (() => "mylly" + String.fromCharCode(112, 111, 104, 106, 97))(),
+            responseMessage: "Viimeinen kuva-arvoitus kohta?!",
+            challengeText: "Kaupunginosa :",
+            challengeImage: "19.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 21
+            expectedInput: (() => String.fromCharCode(107, 117, 117, 115, 105, 110, 105, 105, 116, 116, 121))(),
+            responseMessage: "Joko tämä jo olis tässä?",
+            challengeText: "Kaupunginosa:",
+            challengeImage: "20.jpg",
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        },
+        {
+            // Vaihe 22 (Loppuviesti ja loppusalasana)
+            // expectedInput on codeString itse, haetaan suoraan codeString-kentästä
+            expectedInput: (() => puzzleSetup.codeString)(), // Otetaan nyt suoraan yllä luotu obfuskoitu string
+            responseMessage: (() => {
+                const encrypted = puzzleSetup.encryptedFinalMessage;
+                const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // Sama avain kuin salauksessa
+                let decrypted = [];
+                for (let i = 0; i < encrypted.length; i++) {
+                    decrypted.push(String.fromCharCode(encrypted[i] ^ key.charCodeAt(i % key.length)));
+                }
+                return decrypted.join('');
+            })(),
+            challengeText: "Syötä keräämäsi koodisarja (Koodi: XX -merkinnän jälkeen) tähän ilman välilyöntejä. Saat chekkeriohjeen.",
+            challengeImage: null,
+            wrongAttemptsMade: 0,
+            maxWrongAttempts: 2
+        }
+    ]
+};
