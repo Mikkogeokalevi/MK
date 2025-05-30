@@ -3,11 +3,12 @@ const puzzleSetup = {
     wrongInputMessage: "Väärin meni! Yritä uudelleen.",
     finalFailMessage: "Väärin meni liian monta kertaa! Palataan alkuun.",
     
-    // Monimutkaistettu codeStringin luominen
     codeString: (() => {
-        const p1 = String.fromCharCode(50 + 5, 60 + 11, 70 - 2, 70 + 10); 
-        const p2 = String.fromCharCode(40 + 12, 90 - 2, 60 + 8, 70 + 7); 
-        const p3 = String.fromCharCode(80 - 24, 70 + 13, 80 + 9, 80 + 9); 
+        // Tässä on codeStringin obfuskointi. Numerot on jaettu ja lasketaan yhteen.
+        // Esim: 70+5 = 75 (merkkikoodi 'K'), 70+1 = 71 (merkkikoodi 'G') jne.
+        const p1 = String.fromCharCode(70 + 5, 70 + 1, 70 + 5, 70 + 10); 
+        const p2 = String.fromCharCode(40 + 12, 80 - 12, 60 + 8, 70 + 7); 
+        const p3 = String.fromCharCode(80 - 24, 80 + 3, 80 + 9, 80 + 9); 
         const p4 = String.fromCharCode(80 + 5, 70 + 8, 70 + 8, 80 + 4); 
         const p5 = String.fromCharCode(50 + 9, 60 + 7, 70 - 28, 80 - 1); 
         const p6 = String.fromCharCode(80 - 8, 60 + 6, 70 + 10, 70 + 14); 
@@ -18,12 +19,12 @@ const puzzleSetup = {
     })(),
 
     // Loppuviestin salaus: Viesti ja avain molemmat generoidaan obfuskoidusti
-    // Käytetään tässä samaa "avainta" ja "viestiä", mutta luodaan ne dynaamisesti
-    // eri numeroarvojen kautta
+    // Käytetään XOR-salausta, jossa sekä viesti että avain rakennetaan String.fromCharCode()-kutsuilla
+    // sisäisten funktioiden avulla, jotta ne eivät näy selvästi missään vaiheessa koodissa.
     encryptedFinalMessage: (() => {
-        // Generoi viesti (string.fromCharCode)
+        // Generoi viesti käyttäen String.fromCharCode() -kutsuja
         const generateMsg = () => String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46);
-        // Generoi avain (string.fromCharCode)
+        // Generoi avain käyttäen String.fromCharCode() -kutsuja
         const generateKey = () => String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101);
 
         const msg = generateMsg();
@@ -205,9 +206,10 @@ const puzzleSetup = {
             maxWrongAttempts: 2
         },
         {
+            // Tässä vaiheessa expectedInput on codeString itse
             expectedInput: (() => puzzleSetup.codeString)(),
             responseMessage: (() => {
-                // Toista viestin ja avaimen generointi purkamista varten
+                // Generoidaan viesti ja avain purkamista varten
                 const generateMsgForDecrypt = () => String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46);
                 const generateKeyForDecrypt = () => String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101);
 
