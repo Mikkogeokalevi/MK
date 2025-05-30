@@ -29,11 +29,13 @@ const puzzleSetup = {
 
     // Salattu loppuviesti (Erinomaista... chekkeriohje)
     // XOR-salaus yksinkertaisuuden vuoksi.
-    // Avain on myös salattu, jotta sitä ei ole helppo nähdä.
+    // Avain ja viesti ovat molemmat salattu String.fromCharCode()-muotoon.
     // HUOM: Tämä on edelleen yksinkertainen salaus, ei murtautumaton.
     encryptedFinalMessage: (() => {
-        const msg = "Erinomaista työtä! Olet ratkaissut kaikki kuvat ja loppukysymyksen! Kirjoita chekkeriin \"geokätköilijä on nero\".";
-        const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // "GeoCache"
+        // "Erinomaista työtä! Olet ratkaissut kaikki kuvat ja loppukysymyksen! Kirjoita chekkeriin \"geokätköilijä on nero\"."
+        const msg = String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46);
+        // "GeoCache"
+        const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); 
         let encrypted = [];
         for (let i = 0; i < msg.length; i++) {
             encrypted.push(msg.charCodeAt(i) ^ key.charCodeAt(i % key.length));
@@ -143,7 +145,7 @@ const puzzleSetup = {
         },
         {
             // Vaihe 12
-            expectedInput: (() => String.fromCharCode(112, 97, 116, 111, 105, 105, 116, 116, 121))(), // Korjattu (patoniitty)
+            expectedInput: (() => String.fromCharCode(112, 97, 116, 111, 105, 105, 116, 116, 121))(),
             responseMessage: "Et ole yksin!",
             challengeText: "Mikä kaupunginosa tässä:",
             challengeImage: "11.jpg",
@@ -234,10 +236,11 @@ const puzzleSetup = {
         {
             // Vaihe 22 (Loppuviesti ja loppusalasana)
             // expectedInput on codeString itse, haetaan suoraan codeString-kentästä
-            expectedInput: (() => puzzleSetup.codeString)(), // Otetaan nyt suoraan yllä luotu obfuskoitu string
+            expectedInput: (() => puzzleSetup.codeString)(),
             responseMessage: (() => {
                 const encrypted = puzzleSetup.encryptedFinalMessage;
-                const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // Sama avain kuin salauksessa
+                // "GeoCache"
+                const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101);
                 let decrypted = [];
                 for (let i = 0; i < encrypted.length; i++) {
                     decrypted.push(String.fromCharCode(encrypted[i] ^ key.charCodeAt(i % key.length)));
