@@ -10,7 +10,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-start; /* Muutettu starttiin, jotta yläpuolelle jää tilaa */
             min-height: 100vh;
             margin: 0;
             padding: 20px;
@@ -18,264 +18,218 @@
 
             /* Maastomainen tausta */
             background-color: #3e4a36; /* Tummanvihreä pohja */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 800"><defs><filter id="f" x="0" y="0"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch" result="noise" /><feGaussianBlur in="noise" stdDeviation="15" /><feColorMatrix type="saturate" values="0.7" /><feBlend in="SourceGraphic" in2="noise" mode="multiply" /></filter></defs><rect width="100%" height="100%" fill="#3e4a36" /><rect width="100%" height="100%" fill="#4a5a40" style="filter:url(#f);opacity:0.6" /><rect width="100%" height="100%" fill="#5f6d58" style="filter:url(#f);opacity:0.4" /><rect width="100%" height="100%" fill="#2a3324" style="filter:url(#f);opacity:0.2" /></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 800 800\"><defs><filter id=\"f\" x=\"0\" y=\"0\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.7\" numOctaves=\"4\" stitchTiles=\"stitch\" result=\"noise\" /><feGaussianBlur in=\"noise\" stdDeviation=\"15\" /><feColorMatrix type=\"saturate\" values=\"0.7\" /><feBlend in=\"SourceGraphic\" in2=\"noise\" mode=\"overlay\" /></filter></defs><rect width=\"100%\" height=\"100%\" fill=\"#3e4a36\" filter=\"url(#f)\" /></svg>');
             background-size: cover;
-            background-repeat: no-repeat;
             background-attachment: fixed;
-            padding-top: 40px;
-        }
-        .container {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 25px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            margin-top: 20px;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-            color: #dbe0d7;
+            color: #ecf0f1; /* Vaalea teksti */
             text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        input[type="text"] {
-            padding: 12px;
+
+        .header-logo {
+            width: 150px; /* Säädä kokoa tarpeen mukaan */
+            height: auto;
             margin-bottom: 20px;
-            border: 1px solid #7c8e6d;
-            border-radius: 4px;
-            width: calc(100% - 26px);
+        }
+
+        .container {
+            background-color: rgba(44, 62, 80, 0.9); /* Tummempi läpinäkyvä laatikko */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
             box-sizing: border-box;
-            font-size: 1em;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #333;
         }
-        button {
-            padding: 12px 25px;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.2s, transform 0.1s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+
+        h1 {
+            color: #ecf0f1;
+            margin-bottom: 20px;
+            font-size: 1.8em;
         }
-        button:hover {
-            background-color: #449d44;
-            transform: translateY(-1px);
-        }
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-        button:disabled {
-            background-color: #8c9c82;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        p#viesti {
-            margin-top: 20px;
-            font-weight: bold;
-            min-height: 22px;
-            font-size: 1.05em;
-            color: #d9534f;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        p#viesti.success {
-            color: #92e071;
-        }
-        p#viesti.info {
-            color: #a4d8fa;
-        }
-        #kuvaContainer {
-            margin-bottom: 15px;
-        }
-        #promptKuva {
+
+        .challenge-image {
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        #logoContainer {
-            width: 120px;
-            height: 120px;
             margin-bottom: 20px;
-            text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        #logoContainer img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 5px;
-            display: block;
-            margin: 0 auto;
+
+        .challenge-text {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #bdc3c7;
         }
-        /* Pienemmille näytöille */
-        @media (max-width: 600px) {
-            #logoContainer {
-                width: 90px;
-                height: 90px;
-            }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #555;
+            border-radius: 5px;
+            background-color: #333;
+            color: #ecf0f1;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #27ae60; /* Vihreä nappi */
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2ecc71;
+        }
+
+        button:disabled {
+            background-color: #7f8c8d;
+            cursor: not-allowed;
+        }
+
+        .message {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #e74c3c; /* Punainen virheviesti */
+        }
+
+        .message.success {
+            color: #2ecc71; /* Vihreä onnistumisviesti */
+        }
+
+        .attempts-left {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #bdc3c7;
         }
     </style>
 </head>
 <body>
-
-    <div id="logoContainer">
-        <img src="logo.png" alt="Mikko Kalevi Logo">
-    </div>
-
+    <img src="logo.png" alt="Logo" class="header-logo">
     <div class="container">
-        <label for="salasanaInput" id="kysymysLabel">Ladataan arvoitusta...</label>
-        <div id="kuvaContainer" style="display: none;">
-            <img id="promptKuva" src="" alt="Vihje">
-        </div>
-        <p id="kuvaTekstiLabel" style="display: none; margin-top: 10px; font-size: 1em; color: #dbe0d7; text-shadow: 1px 1px 2px rgba(0,0,0,0.5);"></p>
-        <br>
-        <input type="text" id="salasanaInput" autofocus disabled><br>
-        <button onclick="tarkistaSalasana()" disabled>Tarkista</button>
-        <p id="viesti"></p>
+        <h1>Salasanapeli</h1>
+        <img id="challengeImage" class="challenge-image" src="" alt="Haastekuva" style="display:none;">
+        <p id="challengeText" class="challenge-text"></p>
+        <input type="text" id="passwordInput" placeholder="Syötä vastaus">
+        <button id="submitButton">Tarkista</button>
+        <p id="message" class="message"></p>
+        <p id="attemptsLeft" class="attempts-left" style="display:none;"></p>
     </div>
 
     <script src="puzzle_data.js"></script>
-
     <script>
+        const inputField = document.getElementById('passwordInput');
+        const submitButton = document.getElementById('submitButton');
+        const messageElement = document.getElementById('message');
+        const challengeImageElement = document.getElementById('challengeImage');
+        const challengeTextElement = document.getElementById('challengeText');
+        const attemptsLeftElement = document.getElementById('attemptsLeft');
+
         let currentStepIndex = 0;
-        const inputField = document.getElementById('salasanaInput');
-        const viestiElementti = document.getElementById('viesti');
-        const kysymysLabel = document.getElementById('kysymysLabel');
-        const kuvaTekstiLabel = document.getElementById('kuvaTekstiLabel');
-        const submitButton = document.querySelector('button');
-        const kuvaContainer = document.getElementById('kuvaContainer');
-        const promptKuva = document.getElementById('promptKuva');
 
-        function updateChallengeDisplay(challengeImage, challengeText) {
-            kysymysLabel.style.display = 'none'; 
-            kuvaContainer.style.display = 'none';
-            promptKuva.src = "";
-            kuvaTekstiLabel.style.display = 'none';
-            kuvaTekstiLabel.textContent = "";
-
-            if (challengeImage) {
-                promptKuva.src = challengeImage;
-                kuvaContainer.style.display = 'block';
-                if (challengeText) {
-                    kuvaTekstiLabel.textContent = challengeText;
-                    kuvaTekstiLabel.style.display = 'block';
-                }
-            } else if (challengeText) {
-                kysymysLabel.textContent = challengeText; 
-                kysymysLabel.style.display = 'block';
+        function updateChallengeDisplay(imageFileName, textContent) {
+            if (imageFileName) {
+                challengeImageElement.src = imageFileName;
+                challengeImageElement.style.display = 'block';
             } else {
-                kysymysLabel.textContent = puzzleSetup.initialPrompt;
-                kysymysLabel.display = 'block';
+                challengeImageElement.style.display = 'none';
+                challengeImageElement.src = ''; // Tyhjennä src varmuuden vuoksi
             }
+            challengeTextElement.textContent = textContent;
         }
 
         function initializePuzzle() {
-            if (typeof puzzleSetup === 'undefined' || !puzzleSetup.steps || puzzleSetup.steps.length === 0) {
-                kysymysLabel.textContent = "Virhe: Arvoituksen dataa ei voitu ladata.";
-                viestiElementti.textContent = "Tarkista, että puzzle_data.js on olemassa ja oikein muotoiltu.";
-                inputField.disabled = true;
-                submitButton.disabled = true;
-                return; 
-            }
+            currentStepIndex = 0;
+            const firstStepData = puzzleSetup.steps[currentStepIndex];
+            updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText || puzzleSetup.initialPrompt);
+            inputField.value = "";
+            messageElement.textContent = "";
+            messageElement.className = 'message';
+            inputField.disabled = false;
+            submitButton.disabled = false;
+            attemptsLeftElement.style.display = 'none'; // Piilota yritykset alussa
+            resetAttempts();
+        }
+
+        function resetAttempts() {
             puzzleSetup.steps.forEach(step => {
                 step.wrongAttemptsMade = 0;
             });
-
-            currentStepIndex = 0;
-            const initialStepData = puzzleSetup.steps[currentStepIndex];
-            updateChallengeDisplay(initialStepData.challengeImage, initialStepData.challengeText || puzzleSetup.initialPrompt);
-            
-            viestiElementti.textContent = "";
-            viestiElementti.className = '';
-            inputField.value = "";
-            inputField.disabled = false;
-            submitButton.disabled = false;
-            inputField.focus();
         }
 
         function tarkistaSalasana() {
-            if (typeof puzzleSetup === 'undefined') return;
+            const userAnswer = inputField.value.trim();
+            const currentStepData = puzzleSetup.steps[currentStepIndex];
 
-            const syote = inputField.value.trim().toLowerCase();
-            const currentStep = puzzleSetup.steps[currentStepIndex];
+            let expectedAnswer;
+            // Tarkista, onko expectedInput funktio, jotta sitä voidaan kutsua
+            if (typeof currentStepData.expectedInput === 'function') {
+                expectedAnswer = currentStepData.expectedInput();
+            } else {
+                expectedAnswer = currentStepData.expectedInput;
+            }
 
-            const expected = typeof currentStep.expectedInput === 'function' ? 
-                             currentStep.expectedInput() : 
-                             currentStep.expectedInput;
-
-            if (syote === expected.toLowerCase()) {
-                // Oikea vastaus
-                let responseMsg = typeof currentStep.responseMessage === 'function' ?
-                                    currentStep.responseMessage() :
-                                    currentStep.responseMessage;
-
-                // Lisää koodinpätkä responseMessageen, jos on Vaihe 2 tai myöhempi, eikä viimeinen vaihe
-                if (currentStepIndex >= 1 && currentStepIndex < puzzleSetup.steps.length - 1) { // Vaihe 1 on index 0, Vaihe 2 on index 1
-                    const codeStartIndex = (currentStepIndex - 1) * 2;
-                    const codeSnippet = puzzleSetup.codeString.substring(codeStartIndex, codeStartIndex + 2);
-                    responseMsg = `Koodi: ${codeSnippet} - ${responseMsg}`; // <-- MUUTETTU TÄSTÄ
-                }
+            if (userAnswer === expectedAnswer) {
+                messageElement.textContent = currentStepData.responseMessage;
+                messageElement.className = 'message success';
                 
-                viestiElementti.textContent = responseMsg;
-                viestiElementti.className = 'info';
-
-                currentStep.wrongAttemptsMade = 0; 
-
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
-                    // Viimeinen vaihe vastattu oikein
-                    updateChallengeDisplay(currentStep.challengeImage, currentStep.challengeText);
-                    viestiElementti.className = 'success';
+                    // Viimeinen vaihe saavutettu (eli loppuratkaisu annettu)
+                    // Loppuviesti on responseMessagessa, ja se on jo asetettu.
                     inputField.disabled = true;
                     submitButton.disabled = true;
+                    attemptsLeftElement.style.display = 'none';
                 } else {
-                    // Siirry seuraavaan vaiheeseen
                     currentStepIndex++;
                     const nextChallengeData = puzzleSetup.steps[currentStepIndex];
                     updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
                     inputField.value = "";
                     inputField.focus();
+                    attemptsLeftElement.style.display = 'none'; // Piilota yritykset oikean vastauksen jälkeen
                 }
             } else {
-                // Väärä syöte
-                currentStep.wrongAttemptsMade++;
+                currentStepData.wrongAttemptsMade++;
+                const attemptsRemaining = currentStepData.maxWrongAttempts - currentStepData.wrongAttemptsMade;
 
-                if (currentStep.maxWrongAttempts > 0 && currentStep.wrongAttemptsMade <= currentStep.maxWrongAttempts) {
-                    viestiElementti.textContent = puzzleSetup.wrongInputMessage + 
-                                                  ` (${currentStep.wrongAttemptsMade}/${currentStep.maxWrongAttempts} väärää yritystä)`;
-                    viestiElementti.className = '';
+                if (attemptsRemaining > 0) {
+                    messageElement.textContent = puzzleSetup.wrongInputMessage;
+                    messageElement.className = 'message';
+                    attemptsLeftElement.textContent = `Vääriä yrityksiä jäljellä: ${attemptsRemaining}`;
+                    attemptsLeftElement.style.display = 'block';
                     inputField.value = "";
                     inputField.focus();
                 } else {
-                    viestiElementti.textContent = puzzleSetup.finalFailMessage;
-                    viestiElementti.className = '';
-                    
-                    initializePuzzle();
-                    inputField.value = "";
-                    inputField.focus();
+                    messageElement.textContent = puzzleSetup.finalFailMessage;
+                    messageElement.className = 'message';
+                    inputField.disabled = true;
+                    submitButton.disabled = true;
+                    attemptsLeftElement.style.display = 'none';
+                    // Palataan alkuun 3 sekunnin viiveellä
+                    setTimeout(initializePuzzle, 3000);
                 }
             }
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
+        // TÄRKEÄ MUUTOS: initializePuzzle kutsutaan vasta, kun koko sivu on ladattu
+        window.onload = function() {
             initializePuzzle();
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
             inputField.addEventListener('keypress', function(event) {
                 if (event.key === 'Enter' && !submitButton.disabled) {
                     tarkistaSalasana();
                 }
             });
+
+            submitButton.addEventListener('click', tarkistaSalasana);
         });
     </script>
 
