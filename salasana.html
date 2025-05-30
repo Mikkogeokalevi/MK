@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lahen kaunpunginosat mysteeri</title>
-    <style>
+    <title>Lahen kaunpunginosat mysteeri</title> <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
@@ -122,14 +121,14 @@
             box-shadow: none;
         }
 
-        #viesti { /* Käytetään suoraan #viesti ID:tä */
+        #viesti { 
             margin-top: 20px;
             font-size: 1.1em;
             font-weight: bold;
             color: #e0e0e0;
         }
 
-        #viesti.success { /* Luokka ID:lle */
+        #viesti.success { 
             color: #a4c973; 
             text-shadow: 0 0 5px rgba(164, 201, 115, 0.7);
         }
@@ -164,9 +163,7 @@
     <script src="puzzle_data.js"></script>
 
     <script>
-        // Elementtien viittaukset on nyt mukautettu vastaamaan HTML-tiedostosi ID-nimiä
         const inputField = document.getElementById('salasanaInput');
-        // Koska napilla ei ollut ID:tä, käytetään querySelectoria, joka etsii ensimmäisen button-elementin
         const submitButton = document.querySelector('button'); 
         const viestiElementti = document.getElementById('viesti');
         const kuvaContainer = document.getElementById('kuvaContainer');
@@ -177,7 +174,6 @@
 
         let currentStepIndex = 0;
 
-        // updateChallengeDisplay päivitetty käyttämään oikeita elementtejä
         function updateChallengeDisplay(imageFileName, textContent) {
             if (imageFileName) {
                 promptKuva.src = imageFileName;
@@ -186,15 +182,13 @@
                 kuvaContainer.style.display = 'none';
             }
 
-            // Asetetaan kysymysLabelin teksti, jos se on saatavilla ja kuvia ei ole
             if (textContent) {
                 kuvaTekstiLabel.textContent = textContent;
                 kuvaTekstiLabel.style.display = 'block';
-                kysymysLabel.style.display = 'none'; // Piilota kysymysLabel jos kuvaTekstiLabel on
+                kysymysLabel.style.display = 'none'; 
             } else {
                 kuvaTekstiLabel.style.display = 'none';
-                kysymysLabel.style.display = 'block'; // Näytä kysymysLabel jos kuvaTekstiLabel ei ole
-                // Aseta kysymysLabelin tekstiksi initialPrompt, jos se on ensimmäinen vaihe
+                kysymysLabel.style.display = 'block'; 
                 if (currentStepIndex === 0) { 
                     kysymysLabel.textContent = puzzleSetup.initialPrompt;
                 }
@@ -205,8 +199,6 @@
             currentStepIndex = 0;
             const firstStepData = puzzleSetup.steps[currentStepIndex];
             
-            // Päivitetty kutsu updateChallengeDisplayyn
-            // Jos ensimmäisessä vaiheessa ei ole kuvaa/tekstiä, näytetään initialPrompt
             updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText);
             if (!firstStepData.challengeImage && !firstStepData.challengeText) {
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
@@ -228,24 +220,31 @@
             const currentStep = puzzleSetup.steps[currentStepIndex];
 
             let expectedAnswer;
-            if (typeof currentStep.expectedInput === 'function') {
-                expectedAnswer = currentStep.expectedInput();
-            } else {
-                expectedAnswer = currentStep.expectedInput;
-            }
+            // Alkuperäisessä koodissa oli suoraan expectedInput, tämä on sen mukainen
+            expectedAnswer = currentStep.expectedInput; 
+            
+            // HUOM: Alkuperäinen koodisi salatusta puzzle_data.js:stä käytti funktioita
+            // expectedInput: (() => String.fromCharCode(115, 97, 108, 97, 115, 97, 110, 97))(),
+            // Joten jos käytät sitä puzzle_data.js:ää, `expectedInput` on jo arvo, ei funktio enää tässä vaiheessa.
+            // Jos jokin vaihe odottaa *edelleen* funktion kutsua, silloin tähän pitää lisätä tarkistus.
+            // Oletan nyt, että obfuskoitu tiedosto "ratkaisee" tämän jo, ja `expectedInput` on suora merkkijono.
 
             if (userAnswer === expectedAnswer) {
                 viestiElementti.textContent = currentStep.responseMessage;
-                viestiElementti.className = 'message success';
+                viestiElementti.className = 'success'; // Huom: Alkuperäisessä koodissa oli 'success', ei 'message success'
                 
-                currentStep.wrongAttemptsMade = 0; // Nollataan virheyritykset onnistuneen vastauksen jälkeen
+                // Nollataan virheyritykset onnistuneen vastauksen jälkeen
+                currentStep.wrongAttemptsMade = 0; // Oletan, että tämä ominaisuus on olemassa puzzle_data.js:ssä.
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
                     // PELIN LOPPU - ONNISTUNUT SUORITUS
-                    // Näytä viimeisen vaiheen kuva ja responseMessage (joka sisältää loppukoodin)
+                    // Tässä käytetään nykyisen vaiheen responseMessagea loppuviestinä.
+                    // Jos responseMessage sisältää sen loppukoodin, se näkyy tässä.
+                    // Alkuperäinen koodisi ei päivittänyt kuvaa ja tekstiä tässä suoraan
+                    // päivitän tämän nyt näyttämään oikein viimeisen viestin.
                     updateChallengeDisplay(currentStep.challengeImage, currentStep.responseMessage); 
 
-                    viestiElementti.className = 'message success'; 
+                    viestiElementti.className = 'success'; // Huom: Alkuperäisessä oli 'success', ei 'message success'
                     inputField.disabled = true;
                     submitButton.disabled = true;
 
@@ -264,7 +263,10 @@
                     // VAIHE ONNISTUNEESTI RATKAISTU - SIIRRY SEURAAVAAN
                     currentStepIndex++;
                     const nextChallengeData = puzzleSetup.steps[currentStepIndex];
-                    updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText || nextChallengeData.responseMessage);
+                    // updateChallengeDisplay (oli jo alkuperäisessä)
+                    updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
+                    viestiElementti.textContent = nextChallengeData.responseMessage; // Näytä seuraavan vaiheen viesti
+                    viestiElementti.className = 'success'; // Alkuperäisessä oli 'success'
                     inputField.value = "";
                     inputField.focus();
 
@@ -275,14 +277,18 @@
                             'event_label': 'Vaihe ratkaistu',
                             'puzzle_name': 'Lahen kaupunginosat mysteeri', 
                             'step_number': currentStepIndex, 
-                            'challenge_text': nextChallengeData.challengeText || 'Salasana'
+                            'challenge_text': nextChallengeData.challengeText || 'Salasana' 
                         });
                     }
                     // ----------------------------------------------------------
                 }
             } else {
                 // Väärä syöte
-                currentStep.wrongAttemptsMade = (currentStep.wrongAttemptsMade || 0) + 1; 
+                currentStep.wrongAttemptsMade = (currentStep.wrongAttemptsMade || 0) + 1; // Varmista, että oletusarvo on 0
+
+                // Alkuperäisessä HTML-tiedostossasi oli vain kaksi vaihtoehtoa: wrongInputMessage tai finalFailMessage
+                // Ja se palasi alkuun, jos vastaus meni väärin.
+                // Muutin tämän nyt vastaamaan puzzle_data.js:n maxWrongAttempts -logiikkaa.
 
                 if (currentStep.maxWrongAttempts > 0 && currentStep.wrongAttemptsMade <= currentStep.maxWrongAttempts) {
                     viestiElementti.textContent = puzzleSetup.wrongInputMessage + 
@@ -329,13 +335,10 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializePuzzle();
             inputField.addEventListener('keypress', function(event) {
-                if (event.key === 'Enter' && !inputField.disabled) { 
+                if (event.key === 'Enter' && !submitButton.disabled) {
                     tarkistaSalasana();
                 }
             });
-            // Tarkista-napin onclick-attribuutti hoitaa tämän, joten emme tarvitse erillistä kuuntelijaa tässä.
-            // Jos haluat, voit lisätä submitButtonille id="submitButton" HTML-koodiin ja käyttää tätä:
-            // submitButton.addEventListener('click', tarkistaSalasana);
         });
     </script>
 
