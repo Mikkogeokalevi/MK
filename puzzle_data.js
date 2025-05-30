@@ -1,1 +1,164 @@
-function _0x37e1(_0x11ca9b,_0x4dd74d){const _0x4b95c8=_0x4b95();return _0x37e1=function(_0x37e1b5,_0x20260a){_0x37e1b5=_0x37e1b5-0x1ad;let _0xb72ec4=_0x4b95c8[_0x37e1b5];return _0xb72ec4;},_0x37e1(_0x11ca9b,_0x4dd74d);}const _0x4312c3=_0x37e1;(function(_0x4d2c48,_0x263dd6){const _0x19a594=_0x37e1,_0x20e8d6=_0x4d2c48();while(!![]){try{const _0x28ae7d=parseInt(_0x19a594(0x1c3))/0x1+-parseInt(_0x19a594(0x1c6))/0x2*(-parseInt(_0x19a594(0x1cb))/0x3)+-parseInt(_0x19a594(0x1be))/0x4+-parseInt(_0x19a594(0x1e8))/0x5*(parseInt(_0x19a594(0x1e1))/0x6)+parseInt(_0x19a594(0x1da))/0x7+parseInt(_0x19a594(0x1d3))/0x8+-parseInt(_0x19a594(0x1c7))/0x9*(parseInt(_0x19a594(0x1bc))/0xa);if(_0x28ae7d===_0x263dd6)break;else _0x20e8d6['push'](_0x20e8d6['shift']());}catch(_0x26044c){_0x20e8d6['push'](_0x20e8d6['shift']());}}}(_0x4b95,0xe7032));function _0x4b95(){const _0x47ea69=['1611tExORv','karjusaari.jpg','kolava.jpg','metsäkangas','65889YNTWQu','Kaupunginosa\x20kuvassa:','Kohta\x20valmis!\x20ehkä?','Ämmälä','Puolivälikö\x20häämöttää\x20vai\x20montako\x20näitä\x20on!\x20','Missä\x20olemme\x20tässä:','salasana','sydankangas.jpg','12038208eWMoMo','venetsia.jpg','Tunnista\x20kaupunginosa:','Erinomaista\x20työtä!\x20Olet\x20ratkaissut\x20kaikki\x20kuvat\x20ja\x20loppu\x20kysymyksen!\x20Kirjoita\x20chekkeriin\x20\x22geokätköilijä\x20on\x20nero\x22.','koivukumpu.jpg','patoniitty.jpg','Kaupunginosa\x20:','9590133MhywuP','Hyvä!\x20','missä\x20kaupunginosassa\x20olla\x20tässä:','Viimeiset\x20vedot!\x20','Tunnista\x20kuvasta\x20kaupunginosa:','pesäkallio','sydänkangas','8339844BOTtzg','Karjusaari','Hienoa!\x20Jatka\x20seuraavaan:','Missä\x20kaupungiosassa\x20olla\x20tässä:','metsakangas.jpg','jokimaa.jpg','kuusiniitty','5GWwpgC','Jatka\x20samaan\x20malliin!','Väärin\x20meni!\x20Palataan\x20takaisin\x20alkuun.','kukonkoski','Jokimaa','Jalkaranta','Mistä\x20päin\x20kaupunkia\x20tämä\x20kuva\x20on:','kukonkoivu.jpg','keijupuisto.jpg','Kirjoita\x20kuvasta\x20selviävä\x20kaupunginosa:','Se\x20alkaa\x20olla\x20hallussa!','Vielä\x20jaksaa!\x20','Kaupunginosa?:','Kaupunginosa:','Kottero','Et\x20ole\x20yksin!','Hyvin\x20vedetty!','kukonkoski.jpg','Melkein\x20perillä!\x20Tässä\x20vielä\x20ainakin\x20yksi:','Joko\x20tämä\x20jo\x20olis\x20tässä?','jalkaranta.jpg','56520dqEeOo','radiomaki.jpg','6381584hKboEm','Hyvin\x20menee!\x20Tässä\x20seuraava:','patoniitty','Tämäkin\x20kaupunginosa\x20tarvitaan\x20jotta\x20pääsee\x20eteenpäin:','pesakallio.jpg','816618GQacAI','Mikä\x20kaupunginosa\x20tässä:','myllypohja','114exRxNB'];_0x4b95=function(){return _0x47ea69;};return _0x4b95();}const puzzleSetup={'initialPrompt':'Kirjoita\x20salasana','wrongInputMessage':_0x4312c3(0x1ea),'steps':[{'expectedInput':_0x4312c3(0x1d1),'responseMessage':'Oikein!\x20Tässä\x20ensimmäinen\x20kuva-arvoitus:','challengeText':null,'challengeImage':null},{'expectedInput':_0x4312c3(0x1ed),'responseMessage':_0x4312c3(0x1e3),'challengeText':_0x4312c3(0x1b0),'challengeImage':_0x4312c3(0x1bb)},{'expectedInput':_0x4312c3(0x1ce),'responseMessage':_0x4312c3(0x1bf),'challengeText':'Mikä\x20kaupunginosa\x20kuvassa\x20on:','challengeImage':'ammala.jpg'},{'expectedInput':_0x4312c3(0x1b5),'responseMessage':'Loistavaa!\x20Seuraava\x20odottaa:','challengeText':_0x4312c3(0x1de),'challengeImage':'kottero.jpg'},{'expectedInput':'kukonkoivu','responseMessage':_0x4312c3(0x1b9),'challengeText':_0x4312c3(0x1ad),'challengeImage':_0x4312c3(0x1ae)},{'expectedInput':'Radiomäki','responseMessage':'Hienoa!','challengeText':_0x4312c3(0x1cc),'challengeImage':_0x4312c3(0x1bd)},{'expectedInput':_0x4312c3(0x1ec),'responseMessage':_0x4312c3(0x1e9),'challengeText':_0x4312c3(0x1d5),'challengeImage':_0x4312c3(0x1e6)},{'expectedInput':_0x4312c3(0x1e2),'responseMessage':_0x4312c3(0x1b1),'challengeText':_0x4312c3(0x1c4),'challengeImage':_0x4312c3(0x1c8)},{'expectedInput':'keijupuisto','responseMessage':'Loistavaa!','challengeText':'Tämä\x20kaupunginosa\x20on:','challengeImage':_0x4312c3(0x1af)},{'expectedInput':'leponiemi','responseMessage':_0x4312c3(0x1db),'challengeText':_0x4312c3(0x1b3),'challengeImage':'leponiemi.jpg'},{'expectedInput':_0x4312c3(0x1ca),'responseMessage':_0x4312c3(0x1cf),'challengeText':_0x4312c3(0x1de),'challengeImage':_0x4312c3(0x1e5)},{'expectedInput':_0x4312c3(0x1c0),'responseMessage':_0x4312c3(0x1b6),'challengeText':_0x4312c3(0x1c4),'challengeImage':_0x4312c3(0x1d8)},{'expectedInput':'kolava','responseMessage':_0x4312c3(0x1b7),'challengeText':_0x4312c3(0x1dc),'challengeImage':_0x4312c3(0x1c9)},{'expectedInput':'koivukumpu','responseMessage':'Mahtavaa!\x20','challengeText':'Tunnista\x20kaupunginosa:','challengeImage':_0x4312c3(0x1d7)},{'expectedInput':'venetsia','responseMessage':_0x4312c3(0x1b2),'challengeText':_0x4312c3(0x1d0),'challengeImage':_0x4312c3(0x1d4)},{'expectedInput':_0x4312c3(0x1e0),'responseMessage':_0x4312c3(0x1cd),'challengeText':_0x4312c3(0x1c1),'challengeImage':_0x4312c3(0x1d2)},{'expectedInput':_0x4312c3(0x1df),'responseMessage':'Enää\x20muutamia!\x20','challengeText':_0x4312c3(0x1b4),'challengeImage':_0x4312c3(0x1c2)},{'expectedInput':'vartiolaakso','responseMessage':'Melkein\x20perillä!','challengeText':_0x4312c3(0x1d5),'challengeImage':'vartiolaakso.jpg'},{'expectedInput':_0x4312c3(0x1eb),'responseMessage':_0x4312c3(0x1dd),'challengeText':_0x4312c3(0x1e4),'challengeImage':_0x4312c3(0x1b8)},{'expectedInput':_0x4312c3(0x1c5),'responseMessage':'Viimeinen\x20kuva-arvoitus\x20kohta?!','challengeText':_0x4312c3(0x1d9),'challengeImage':'myllypohja.jpg'},{'expectedInput':_0x4312c3(0x1e7),'responseMessage':_0x4312c3(0x1ba),'challengeText':_0x4312c3(0x1b4),'challengeImage':'kuusiniitty.jpg'},{'expectedInput':'Mikkokalevi','responseMessage':_0x4312c3(0x1d6),'challengeText':'Onneksi\x20olkoon,\x20kaikki\x20tehtävät\x20suoritettu!\x20Kirjoita\x20vielä\x20että\x20kenen\x20mysteeri\x20tämä\x20saadaksesi\x20vastauksen\x20chekkerille!','challengeImage':null}]};
+// puzzle_data.js
+
+const puzzleSetup = {
+    initialPrompt: "Kirjoita salasana", // Aivan ensimmäinen aloitusviesti
+    wrongInputMessage: "Väärin meni! Palataan takaisin alkuun.", // Viesti väärästä syötteestä
+    steps: [
+        {
+            // Vaihe 1 (indeksi 0): "Salasana" -haaste.
+            // Kun tämä on vastattu oikein, siirrytään vaiheeseen 2 (indeksi 1), joka näyttää ensimmäisen kuva-arvoituksen.
+            expectedInput: "salasana", // Mitä käyttäjän pitää kirjoittaa
+            responseMessage: "Oikein! Tässä ensimmäinen kuva-arvoitus:", // Viesti oikeasta syötteestä
+            challengeText: null, // Ei omaa tekstiä tähän vaiheeseen ennen vastausta
+            challengeImage: null // Ei omaa kuvaa tähän vaiheeseen ennen vastausta
+        },
+        {
+            // Vaihe 2 (indeksi 1): Ensimmäinen kuva-arvoitus (vastataan tähän)
+            expectedInput: "Jalkaranta", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Hienoa! Jatka seuraavaan:",
+            challengeText: "Kirjoita kuvasta selviävä kaupunginosa:", // <--- MUUTA TÄMÄ HALUTESSASI
+            challengeImage: "01.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 3 (indeksi 2): Toinen kuva-arvoitus
+            expectedInput: "Ämmälä", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Hyvin menee! Tässä seuraava:",
+            challengeText: "Mikä kaupunginosa kuvassa on:", // <--- MUUTA TÄMÄ HALUTESSASI
+            challengeImage: "01.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 4 (indeksi 3): Kolmas kuva-arvoitus
+            expectedInput: "Kottero", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Loistavaa! Seuraava odottaa:",
+            challengeText: "Tunnista kuvasta kaupunginosa:", // <--- MUUTA TÄMÄ HALUTESSASI
+            challengeImage: "03.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 5 (indeksi 4): Neljäs kuva-arvoitus
+            expectedInput: "kukonkoivu", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Melkein perillä! Tässä vielä ainakin yksi:",
+            challengeText: "Mistä päin kaupunkia tämä kuva on:", // <--- MUUTA TÄMÄ HALUTESSASI
+            challengeImage: "04.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 6 (indeksi 5): Viides kuva-arvoitus
+            expectedInput: "Radiomäki", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Hienoa!",
+            challengeText: "Kaupunginosa kuvassa:",
+            challengeImage: "05.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 7 (indeksi 6): Kuudes kuva-arvoitus
+            expectedInput: "Jokimaa", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Jatka samaan malliin!",
+            challengeText: "Tunnista kaupunginosa:",
+            challengeImage: "06.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 8 (indeksi 7): Seitsemäs kuva-arvoitus
+            expectedInput: "Karjusaari", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Se alkaa olla hallussa!",
+            challengeText: "Mikä kaupunginosa tässä:",
+            challengeImage: "07.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 9 (indeksi 8): Kahdeksas kuva-arvoitus
+            expectedInput: "keijupuisto", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Loistavaa!",
+            challengeText: "Tämä kaupunginosa on:",
+            challengeImage: "08.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 10 (indeksi 9): Yhdeksäs kuva-arvoitus
+            expectedInput: "leponiemi", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Hyvä! ",
+            challengeText: "Kaupunginosa?:",
+            challengeImage: "09.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 11 (indeksi 10): Kymmenes kuva-arvoitus
+            expectedInput: "metsäkangas", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Puolivälikö häämöttää vai montako näitä on! ",
+            challengeText: "Tunnista kuvasta kaupunginosa:",
+            challengeImage: "10.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 12 (indeksi 11): Yhdestoista kuva-arvoitus
+            expectedInput: "patoniitty", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Et ole yksin!",
+            challengeText: "Mikä kaupunginosa tässä:",
+            challengeImage: "11.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 13 (indeksi 12): Kahdestoista kuva-arvoitus
+            expectedInput: "kolava", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Hyvin vedetty!",
+            challengeText: "missä kaupunginosassa olla tässä:",
+            challengeImage: "12.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 14 (indeksi 13): Kolmastoista kuva-arvoitus
+            expectedInput: "koivukumpu", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Mahtavaa! ",
+            challengeText: "Tunnista kaupunginosa:",
+            challengeImage: "13.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 15 (indeksi 14): Neljästoista kuva-arvoitus
+            expectedInput: "venetsia", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Vielä jaksaa! ",
+            challengeText: "Missä olemme tässä:",
+            challengeImage: "14.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 16 (indeksi 15): Viidestoista kuva-arvoitus
+            expectedInput: "sydänkangas", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Kohta valmis! ehkä?",
+            challengeText: "Tämäkin kaupunginosa tarvitaan jotta pääsee eteenpäin:",
+            challengeImage: "15.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 17 (indeksi 16): Kuudestoista kuva-arvoitus
+            expectedInput: "pesäkallio", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Enää muutamia! ",
+            challengeText: "Kaupunginosa:",
+            challengeImage: "16.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 18 (indeksi 17): Seitsemästoista kuva-arvoitus
+            expectedInput: "vartiolaakso", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Melkein perillä!",
+            challengeText: "Tunnista kaupunginosa:",
+            challengeImage: "17.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 19 (indeksi 18): Kahdeksastoista kuva-arvoitus
+            expectedInput: "kukonkoski", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Viimeiset vedot! ",
+            challengeText: "Missä kaupungiosassa olla tässä:",
+            challengeImage: "18.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 20 (indeksi 19): Yhdeksästoista kuva-arvoitus
+            expectedInput: "myllypohja", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Viimeinen kuva-arvoitus kohta?!",
+            challengeText: "Kaupunginosa :",
+            challengeImage: "19.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+        {
+            // Vaihe 21 (indeksi 20): Yhdeksästoista kuva-arvoitus
+            expectedInput: "kuusiniitty", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Joko tämä jo olis tässä?",
+            challengeText: "Kaupunginosa:",
+            challengeImage: "20.jpg" // <--- MUUTA TÄMÄ OIKEAKSI KUVAN NIMEKSI
+        },
+
+        {
+            // Vaihe 22 (indeksi 21): Viimeinen kuva-arvoitus (20/20)
+            expectedInput: "Mikkokalevi", // <--- MUUTA TÄMÄ OIKEAKSI VASTAUKSEKSI
+            responseMessage: "Erinomaista työtä! Olet ratkaissut kaikki kuvat ja loppu kysymyksen! Kirjoita chekkeriin \"geokätköilijä on nero\".",
+            challengeText: "Onneksi olkoon, kaikki tehtävät suoritettu! Kirjoita vielä että kenen mysteeri tämä saadaksesi vastauksen chekkerille!", // Loppuviesti
+            challengeImage: null // Ei kuvaa viimeisessä vaiheessa
+        }
+    ]
+};
