@@ -3,44 +3,27 @@ const puzzleSetup = {
     wrongInputMessage: "Väärin meni! Yritä uudelleen.",
     finalFailMessage: "Väärin meni liian monta kertaa! Palataan alkuun.",
     
-    // Obfuskoitu codeString: Jaa luominen useaan osaan monimutkaisemmilla laskuilla
-    // Jotta codeString ei ole suoraan näkyvissä yhdessä fromCharCode-kutsussa
+    // Obfuskoitu codeString: Jaettu useampaan osaan
     codeString: (() => {
-        const charCodes = [
-            (70 + 5), (70 + 1), (70 + 5), (70 + 10), // K, G, K, P
-            (40 + 12), (80 - 12), (60 + 8), (70 + 7), // 52, 68, 68, 77 (4, X, D, M)
-            (80 - 24), (80 + 3), (80 + 9), (80 + 9), // 56, 83, 89, 89 (8, S, Y, Y)
-            (80 + 5), (70 + 8), (70 + 8), (80 + 4), // 85, 78, 78, 84 (U, N, N, T)
-            (50 + 9), (60 + 7), (70 - 28), (80 - 1), // 59, 67, 42, 79 (;, C, *, O)
-            (80 - 8), (60 + 6), (70 + 10), (70 + 14), // 72, 66, 80, 84 (H, B, P, T)
-            (70 + 10), (80 - 2), (70 + 20), (80 - 3), // 80, 78, 90, 77 (P, N, Z, M)
-            (70 + 14), (70 + 4), (80 - 2), (80 - 11), // 84, 74, 78, 69 (T, J, N, E)
-            (80 - 1), (70 + 6), (80 - 11), (80 + 1) // 79, 76, 69, 81 (O, L, E, Q)
-        ];
-        // Lisää muutamia "roska-arvoja" tai välivaiheita, joita ei käytetä suoraan.
-        // Nämä ovat esimerkkejä, joita voi muuttaa/lisätä.
-        const unusedValue1 = 123 * 45;
-        const unusedArray = [1, 2, 3].map(x => x * 10);
-
-        let finalString = '';
-        for (let i = 0; i < charCodes.length; i++) {
-            finalString += String.fromCharCode(charCodes[i]);
-        }
-        return finalString;
+        const part1 = String.fromCharCode(55, 71, 75, 80);
+        const part2 = String.fromCharCode(52, 88, 68, 77);
+        const part3 = String.fromCharCode(56, 51, 81, 89);
+        const part4 = String.fromCharCode(85, 90, 78, 86);
+        const part5 = String.fromCharCode(84, 57, 67, 50);
+        const part6 = String.fromCharCode(82, 87, 65, 69);
+        const part7 = String.fromCharCode(72, 70, 74, 66);
+        const part8 = String.fromCharCode(75, 77, 84, 71);
+        const part9 = String.fromCharCode(56, 69, 57, 68); // Viimeiset 4 merkkiä, alunperin tässä oli 36 merkkiä.
+        return part1 + part2 + part3 + part4 + part5 + part6 + part7 + part8 + part9;
     })(),
 
-    // Loppuviestin syvempi salaus XOR-algoritmilla, jossa viesti ja avain eivät ole suoraan koodissa
+    // Loppuviestin salaus XOR-algoritmilla
     encryptedFinalMessage: (() => {
-        // Tämä funktio rakentaa varsinaisen viestin vain charCode-numeroiden perusteella
-        const getRawMessageChars = () => [69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46];
-        // Tämä funktio rakentaa salausavaimen charCode-numeroiden perusteella
-        const getRawKeyChars = () => [71, 101, 111, 67, 97, 99, 104, 101]; // "GeoCache"
-
-        const msgChars = getRawMessageChars();
-        const keyChars = getRawKeyChars();
+        const msg = String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46);
+        const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // "GeoCache"
         let encrypted = [];
-        for (let i = 0; i < msgChars.length; i++) {
-            encrypted.push(msgChars[i] ^ keyChars[i % keyChars.length]);
+        for (let i = 0; i < msg.length; i++) {
+            encrypted.push(msg.charCodeAt(i) ^ key.charCodeAt(i % key.length));
         }
         return encrypted;
     })(),
@@ -215,20 +198,13 @@ const puzzleSetup = {
             maxWrongAttempts: 2
         },
         {
-            // Tässä vaiheessa expectedInput on codeString itse, eli viittaus ylempänä määriteltyyn
             expectedInput: (() => puzzleSetup.codeString)(),
             responseMessage: (() => {
-                // Generoidaan viesti ja avain purkamista varten toistamalla salaustoiminto
-                const getRawMessageCharsForDecrypt = () => [69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46];
-                const getRawKeyCharsForDecrypt = () => [71, 101, 111, 67, 97, 99, 104, 101];
-
-                const msgChars = getRawMessageCharsForDecrypt();
-                const keyChars = getRawKeyCharsForDecrypt();
                 const encrypted = puzzleSetup.encryptedFinalMessage;
-                
+                const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // "GeoCache"
                 let decrypted = [];
                 for (let i = 0; i < encrypted.length; i++) {
-                    decrypted.push(String.fromCharCode(encrypted[i] ^ keyChars[i % keyChars.length]));
+                    decrypted.push(String.fromCharCode(encrypted[i] ^ key.charCodeAt(i % key.length)));
                 }
                 return decrypted.join('');
             })(),
