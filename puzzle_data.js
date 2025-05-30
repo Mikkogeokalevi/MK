@@ -205,7 +205,7 @@ const puzzleSetup = {
                 const p3 = String.fromCharCode(75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 101, 114, 111, 34, 46);
                 return p1 + p2 + p3;
             })(),
-            challengeText: "Syötä vielä viimeiseksi numero / kirjain sarja minkä sait edellä kuvien ratkaisuista ilman välilyöntiä jotta saat tiedon mitä syöttää chekkeriin.",
+            challengeText: "Syötä kaikki edellisistä kuvista keräämäsi kaksi-merkkiset koodit peräkkäin, ilman välilyöntejä. Saat sitten tiedon, mitä syöttää chekkeriin.",
             challengeImage: null,
             wrongAttemptsMade: 0,
             maxWrongAttempts: 2
