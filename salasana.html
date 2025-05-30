@@ -49,8 +49,9 @@
             backdrop-filter: blur(5px); /* Kevyt sumennus taustalle (moderni ominaisuus) */
         }
 
-        h1 { /* Huom: Tämä h1 ei ollut alkuperäisessä HTML:ssäsi, mutta pidin sen CSS:ssä, jos haluat lisätä sen myöhemmin */
-            color: #a4c973; /* Maastonvihreän sävy */
+        /* Huom: H1-tyyli on tässä, vaikka HTML:ssäsi ei ole h1-elementtiä */
+        h1 { 
+            color: #a4c973; 
             margin-bottom: 25px;
             font-size: 2.2em;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
@@ -62,13 +63,15 @@
             border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
-            border: 2px solid #5a7a42; /* Viitteellinen kehys kuvalle */
+            border: 2px solid #5a7a42; 
         }
 
         #kuvaTekstiLabel {
             font-size: 1.2em;
-            margin-bottom: 20px;
-            color: #e0e0e0;
+            margin-top: 10px; /* Alkuperäinen margin-top takaisin */
+            margin-bottom: 20px; /* Lisätty selkeyden vuoksi */
+            color: #dbe0d7; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
 
         input[type="text"] {
@@ -91,7 +94,7 @@
         }
 
         button {
-            background-color: #6b9a4c; /* Nappi tummempi vihreä */
+            background-color: #6b9a4c; 
             color: white;
             padding: 12px 25px;
             border: none;
@@ -103,7 +106,7 @@
         }
 
         button:hover {
-            background-color: #82b260; /* Hiukan vaaleampi hoverilla */
+            background-color: #82b260; 
             transform: translateY(-2px);
             box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
         }
@@ -119,15 +122,15 @@
             box-shadow: none;
         }
 
-        .message {
+        #viesti { /* Käytetään suoraan #viesti ID:tä */
             margin-top: 20px;
             font-size: 1.1em;
             font-weight: bold;
             color: #e0e0e0;
         }
 
-        .message.success {
-            color: #a4c973; /* Onnistumisviestin väri */
+        #viesti.success { /* Luokka ID:lle */
+            color: #a4c973; 
             text-shadow: 0 0 5px rgba(164, 201, 115, 0.7);
         }
     </style>
@@ -163,10 +166,8 @@
     <script>
         // Elementtien viittaukset on nyt mukautettu vastaamaan HTML-tiedostosi ID-nimiä
         const inputField = document.getElementById('salasanaInput');
-        // Koska napilla ei ollut ID:tä, käytetään suoraan "button" elementtiä tai poistetaan käytöstä
-        // Jos haluat napille suoran viittauksen, lisää sille id="submitButton" HTML-koodiin
-        // Esim. <button id="submitButton" onclick="tarkistaSalasana()" disabled>Tarkista</button>
-        const submitButton = document.querySelector('button'); // Etsii ensimmäisen button-elementin
+        // Koska napilla ei ollut ID:tä, käytetään querySelectoria, joka etsii ensimmäisen button-elementin
+        const submitButton = document.querySelector('button'); 
         const viestiElementti = document.getElementById('viesti');
         const kuvaContainer = document.getElementById('kuvaContainer');
         const promptKuva = document.getElementById('promptKuva');
@@ -184,6 +185,8 @@
             } else {
                 kuvaContainer.style.display = 'none';
             }
+
+            // Asetetaan kysymysLabelin teksti, jos se on saatavilla ja kuvia ei ole
             if (textContent) {
                 kuvaTekstiLabel.textContent = textContent;
                 kuvaTekstiLabel.style.display = 'block';
@@ -191,30 +194,33 @@
             } else {
                 kuvaTekstiLabel.style.display = 'none';
                 kysymysLabel.style.display = 'block'; // Näytä kysymysLabel jos kuvaTekstiLabel ei ole
+                // Aseta kysymysLabelin tekstiksi initialPrompt, jos se on ensimmäinen vaihe
+                if (currentStepIndex === 0) { 
+                    kysymysLabel.textContent = puzzleSetup.initialPrompt;
+                }
             }
         }
 
         function initializePuzzle() {
             currentStepIndex = 0;
             const firstStepData = puzzleSetup.steps[currentStepIndex];
-            // Ensimmäisessä vaiheessa challengeImage ja challengeText ovat null
-            // updateChallengeDisplay hoitaa oikean näytön (kuvaContainer piilossa, kysymysLabel näkyvissä)
-            updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText || puzzleSetup.initialPrompt);
             
-            inputField.value = "";
-            viestiElementti.textContent = "";
-            viestiElementti.className = ''; // Palauttaa oletusluokan
-            inputField.disabled = false;
-            submitButton.disabled = false;
-            inputField.focus();
-
-            // Varmistetaan, että ensimmäisen vaiheen kohdalla kysymysLabel on näkyvissä
+            // Päivitetty kutsu updateChallengeDisplayyn
+            // Jos ensimmäisessä vaiheessa ei ole kuvaa/tekstiä, näytetään initialPrompt
+            updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText);
             if (!firstStepData.challengeImage && !firstStepData.challengeText) {
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
                 kysymysLabel.style.display = 'block';
                 kuvaTekstiLabel.style.display = 'none';
                 kuvaContainer.style.display = 'none';
             }
+
+            inputField.value = "";
+            viestiElementti.textContent = "";
+            viestiElementti.className = ''; 
+            inputField.disabled = false;
+            submitButton.disabled = false;
+            inputField.focus();
         }
 
         function tarkistaSalasana() {
@@ -232,14 +238,12 @@
                 viestiElementti.textContent = currentStep.responseMessage;
                 viestiElementti.className = 'message success';
                 
-                // Nollataan virheyritykset onnistuneen vastauksen jälkeen
-                currentStep.wrongAttemptsMade = 0;
+                currentStep.wrongAttemptsMade = 0; // Nollataan virheyritykset onnistuneen vastauksen jälkeen
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
                     // PELIN LOPPU - ONNISTUNUT SUORITUS
-                    // Tässä tapauksessa challengeText ja challengeImage saattavat olla itse loppuviesti
-                    // Varmista, että ne ovat oikein määritelty puzzle_data.js tiedostossa
-                    updateChallengeDisplay(currentStep.challengeImage, currentStep.responseMessage); // Tässä näytetään loppuviesti
+                    // Näytä viimeisen vaiheen kuva ja responseMessage (joka sisältää loppukoodin)
+                    updateChallengeDisplay(currentStep.challengeImage, currentStep.responseMessage); 
 
                     viestiElementti.className = 'message success'; 
                     inputField.disabled = true;
@@ -250,7 +254,7 @@
                         gtag('event', 'puzzle_completed', {
                             'event_category': 'Puzzle',
                             'event_label': 'Pelattu loppuun',
-                            'puzzle_name': 'Lahen kaupunginosat mysteeri', // Päivitetty nimi
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
                             'final_step_number': currentStepIndex + 1
                         });
                     }
@@ -269,8 +273,8 @@
                         gtag('event', 'puzzle_step_completed', {
                             'event_category': 'Puzzle',
                             'event_label': 'Vaihe ratkaistu',
-                            'puzzle_name': 'Lahen kaupunginosat mysteeri', // Päivitetty nimi
-                            'step_number': currentStepIndex, // currentStepIndex on jo seuraavaan vaiheeseen siirretty
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
+                            'step_number': currentStepIndex, 
                             'challenge_text': nextChallengeData.challengeText || 'Salasana'
                         });
                     }
@@ -278,7 +282,6 @@
                 }
             } else {
                 // Väärä syöte
-                // Varmista, että puzzle_data.js:ssä on wrongAttemptsMade ja maxWrongAttempts jokaisessa vaiheessa
                 currentStep.wrongAttemptsMade = (currentStep.wrongAttemptsMade || 0) + 1; 
 
                 if (currentStep.maxWrongAttempts > 0 && currentStep.wrongAttemptsMade <= currentStep.maxWrongAttempts) {
@@ -293,7 +296,7 @@
                         gtag('event', 'puzzle_wrong_answer', {
                             'event_category': 'Puzzle',
                             'event_label': 'Väärä vastaus',
-                            'puzzle_name': 'Lahen kaupunginosat mysteeri', // Päivitetty nimi
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
                             'step_number': currentStepIndex + 1,
                             'attempts_left': currentStep.maxWrongAttempts - currentStep.wrongAttemptsMade
                         });
@@ -310,7 +313,7 @@
                         gtag('event', 'puzzle_reset_on_fail', {
                             'event_category': 'Puzzle',
                             'event_label': 'Peli nollautui virheiden vuoksi',
-                            'puzzle_name': 'Lahen kaupunginosat mysteeri', // Päivitetty nimi
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
                             'step_number_at_reset': currentStepIndex + 1
                         });
                     }
@@ -326,17 +329,13 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializePuzzle();
             inputField.addEventListener('keypress', function(event) {
-                // Tarkistus, ettei nappi ole disabled.
-                // Koska buttonissa on onclick="tarkistaSalasana()", emme voi suoraan tarkistaa .disabled ominaisuutta tässä,
-                // ellei buttonille anneta ID:tä ja viitata siihen JavaScriptissä.
-                // Oletetaan, että inputField.disabled vastaa submitButton.disabled tilaa.
                 if (event.key === 'Enter' && !inputField.disabled) { 
                     tarkistaSalasana();
                 }
             });
-            // Tässä buttonin onclick jo hoitaa klikkauksen, joten erillistä addEventListeneriä ei tarvita,
-            // ellei napille lisätä ID:tä ja haluta erillistä JS-kuuntelijaa.
-            // submitButton.addEventListener('click', tarkistaSalasana); // Pois kommentoitu, jos käytät onclick="tarkistaSalasana()"
+            // Tarkista-napin onclick-attribuutti hoitaa tämän, joten emme tarvitse erillistä kuuntelijaa tässä.
+            // Jos haluat, voit lisätä submitButtonille id="submitButton" HTML-koodiin ja käyttää tätä:
+            // submitButton.addEventListener('click', tarkistaSalasana);
         });
     </script>
 
