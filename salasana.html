@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lahen kaupunginosat mysteeri</title>
-    <style>
+    <title>Lahen kaunpunginosat mysteeri</title> <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-start; /* Muutettu starttiin, jotta yläpuolelle jää tilaa */
             min-height: 100vh;
             margin: 0;
             padding: 20px;
@@ -18,116 +17,130 @@
 
             /* Maastomainen tausta */
             background-color: #3e4a36; /* Tummanvihreä pohja */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 800"><defs><filter id="f" x="0" y="0"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="4" stitchTiles="stitch" result="noise" /><feGaussianBlur in="noise" stdDeviation="15" /><feColorMatrix type="saturate" values="0.7" /><feBlend in="SourceGraphic" in2="noise" mode="multiply" /></filter></defs><rect width="100%" height="100%" fill="#3e4a36" /><rect width="100%" height="100%" fill="#4a5a40" style="filter:url(#f);opacity:0.6" /><rect width="100%" height="100%" fill="#5f6d58" style="filter:url(#f);opacity:0.4" /><rect width="100%" height="100%" fill="#2a3324" style="filter:url(#f);opacity:0.2" /></svg>');
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 800 800\"><defs><filter id=\"f\" x=\"0\" y=\"0\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.7\" numOctaves=\"4\" stitchTiles=\"stitch\" result=\"noise\" /><feGaussianBlur in=\"noise\" stdDeviation=\"15\" /><feColorMatrix type=\"saturate\" values=\"0.7\" /><feBlend in=\"SourceGraphic\" in2=\"noise\" mode=\"multiply\" /></filter></defs><rect width=\"100%\" height=\"100%\" fill=\"#3e4a36\" /><rect width=\"100%\" height=\"100%\" filter=\"url(#f)\" opacity=\"0.5\" /><circle cx=\"400\" cy=\"400\" r=\"300\" fill=\"none\" stroke=\"rgba(255,255,255,0.1)\" stroke-width=\"1\" /><circle cx=\"400\" cy=\"400\" r=\"200\" fill=\"none\" stroke=\"rgba(255,255,255,0.05)\" stroke-width=\"1\" /></svg>');
             background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            padding-top: 40px;
+            background-attachment: fixed; /* Taustakuva pysyy paikallaan skrollatessa */
+            color: #d1d1d1; /* Vaalea teksti */
+            line-height: 1.6;
         }
+
+        #logoContainer {
+            margin-bottom: 20px;
+        }
+
+        #logoContainer img {
+            width: 150px; /* Säädä logon kokoa tarpeen mukaan */
+            height: auto;
+            border-radius: 8px; /* Pyöristetyt kulmat logolle */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Varjo logolle */
+        }
+
         .container {
-            background-color: rgba(255, 255, 255, 0.1);
-            padding: 25px 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            background-color: rgba(30, 40, 25, 0.9); /* Tummempi, hieman läpinäkyvä tausta lomakkeelle */
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Vahvempi varjo */
             text-align: center;
             width: 100%;
-            max-width: 400px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(5px);
-            margin-top: 20px;
+            max-width: 500px;
+            margin-top: 20px; /* Tilaa logon ja laatikon väliin */
+            border: 1px solid rgba(70, 80, 60, 0.5); /* Hieno reunus */
+            backdrop-filter: blur(5px); /* Kevyt sumennus taustalle (moderni ominaisuus) */
         }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-size: 1.1em;
-            color: #dbe0d7;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+
+        /* Huom: H1-tyyli on tässä, vaikka HTML:ssäsi ei ole h1-elementtiä */
+        h1 { 
+            color: #a4c973; 
+            margin-bottom: 25px;
+            font-size: 2.2em;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
         }
-        input[type="text"] {
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #7c8e6d;
-            border-radius: 4px;
-            width: calc(100% - 26px);
-            box-sizing: border-box;
-            font-size: 1em;
-            background-color: rgba(255, 255, 255, 0.8);
-            color: #333;
-        }
-        button {
-            padding: 12px 25px;
-            background-color: #5cb85c;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.2s, transform 0.1s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-        button:hover {
-            background-color: #449d44;
-            transform: translateY(-1px);
-        }
-        button:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-        }
-        button:disabled {
-            background-color: #8c9c82;
-            cursor: not-allowed;
-            box-shadow: none;
-        }
-        p#viesti {
-            margin-top: 20px;
-            font-weight: bold;
-            min-height: 22px;
-            font-size: 1.05em;
-            color: #d9534f;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-        p#viesti.success {
-            color: #92e071;
-        }
-        p#viesti.info {
-            color: #a4d8fa;
-        }
-        #kuvaContainer {
-            margin-bottom: 15px;
-        }
+
         #promptKuva {
             max-width: 100%;
             height: auto;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-        #logoContainer {
-            width: 120px;
-            height: 120px;
+            border-radius: 8px;
             margin-bottom: 20px;
-            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+            border: 2px solid #5a7a42; 
         }
-        #logoContainer img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 5px;
-            display: block;
-            margin: 0 auto;
+
+        #kuvaTekstiLabel {
+            font-size: 1.2em;
+            margin-top: 10px; /* Alkuperäinen margin-top takaisin */
+            margin-bottom: 20px; /* Lisätty selkeyden vuoksi */
+            color: #dbe0d7; 
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
         }
-        /* Pienemmille näytöille */
-        @media (max-width: 600px) {
-            #logoContainer {
-                width: 90px;
-                height: 90px;
-            }
+
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #5a7a42;
+            border-radius: 6px;
+            background-color: #2a3520;
+            color: #d1d1d1;
+            font-size: 1em;
+            outline: none;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: #a4c973;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 8px rgba(164, 201, 115, 0.4);
+        }
+
+        button {
+            background-color: #6b9a4c; 
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        button:hover {
+            background-color: #82b260; 
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        button:disabled {
+            background-color: #4a5d3a;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        #viesti { 
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #e0e0e0;
+        }
+
+        #viesti.success { 
+            color: #a4c973; 
+            text-shadow: 0 0 5px rgba(164, 201, 115, 0.7);
         }
     </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LSBHRFCKEP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-LSBHRFCKEP'); 
+    </script>
 </head>
 <body>
 
@@ -150,119 +163,175 @@
     <script src="puzzle_data.js"></script>
 
     <script>
-        let currentStepIndex = 0;
         const inputField = document.getElementById('salasanaInput');
+        const submitButton = document.querySelector('button'); 
         const viestiElementti = document.getElementById('viesti');
-        const kysymysLabel = document.getElementById('kysymysLabel');
-        const kuvaTekstiLabel = document.getElementById('kuvaTekstiLabel');
-        const submitButton = document.querySelector('button');
         const kuvaContainer = document.getElementById('kuvaContainer');
         const promptKuva = document.getElementById('promptKuva');
+        const kuvaTekstiLabel = document.getElementById('kuvaTekstiLabel');
+        const kysymysLabel = document.getElementById('kysymysLabel');
 
-        function updateChallengeDisplay(challengeImage, challengeText) {
-            kysymysLabel.style.display = 'none'; 
-            kuvaContainer.style.display = 'none';
-            promptKuva.src = "";
-            kuvaTekstiLabel.style.display = 'none';
-            kuvaTekstiLabel.textContent = "";
 
-            if (challengeImage) {
-                promptKuva.src = challengeImage;
+        let currentStepIndex = 0;
+
+        function updateChallengeDisplay(imageFileName, textContent) {
+            // Asettaa kuvan, jos imageFileName on annettu. Muuten piilottaa kuva-alueen.
+            if (imageFileName) {
+                promptKuva.src = imageFileName;
                 kuvaContainer.style.display = 'block';
-                if (challengeText) {
-                    kuvaTekstiLabel.textContent = challengeText;
-                    kuvaTekstiLabel.style.display = 'block';
-                }
-            } else if (challengeText) {
-                kysymysLabel.textContent = challengeText; 
-                kysymysLabel.style.display = 'block';
             } else {
-                kysymysLabel.textContent = puzzleSetup.initialPrompt;
-                kysymysLabel.display = 'block';
+                kuvaContainer.style.display = 'none';
+            }
+
+            // Asettaa tekstiä, jos textContent on annettu.
+            if (textContent) {
+                // TÄRKEÄ MUUTOS: Käytetään innerHTML:ää, jos teksti voi sisältää HTML-tageja kuten <br>
+                // Tarkistetaan, sisältääkö teksti HTML-tagin, jos sisältää, käytetään innerHTML:ää.
+                // Muuten textContent on turvallisempi ja suositeltavampi.
+                if (/<[a-z][\s\S]*>/i.test(textContent)) { // Yksinkertainen regex HTML-tagin tarkistukseen
+                    kuvaTekstiLabel.innerHTML = textContent; 
+                } else {
+                    kuvaTekstiLabel.textContent = textContent;
+                }
+                kuvaTekstiLabel.style.display = 'block';
+                kysymysLabel.style.display = 'none'; 
+            } else {
+                kuvaTekstiLabel.style.display = 'none';
+                kysymysLabel.style.display = 'block'; 
+                // Aseta kysymysLabelin tekstiksi initialPrompt, jos se on ensimmäinen vaihe
+                if (currentStepIndex === 0) { 
+                    kysymysLabel.textContent = puzzleSetup.initialPrompt;
+                }
             }
         }
 
         function initializePuzzle() {
-            if (typeof puzzleSetup === 'undefined' || !puzzleSetup.steps || puzzleSetup.steps.length === 0) {
-                kysymysLabel.textContent = "Virhe: Arvoituksen dataa ei voitu ladata.";
-                viestiElementti.textContent = "Tarkista, että puzzle_data.js on olemassa ja oikein muotoiltu.";
-                inputField.disabled = true;
-                submitButton.disabled = true;
-                return; 
-            }
-            puzzleSetup.steps.forEach(step => {
-                step.wrongAttemptsMade = 0;
-            });
-
             currentStepIndex = 0;
-            const initialStepData = puzzleSetup.steps[currentStepIndex];
-            updateChallengeDisplay(initialStepData.challengeImage, initialStepData.challengeText || puzzleSetup.initialPrompt);
+            const firstStepData = puzzleSetup.steps[currentStepIndex];
             
-            viestiElementti.textContent = "";
-            viestiElementti.className = '';
+            // Päivitetty kutsu updateChallengeDisplayyn
+            // Jos ensimmäisessä vaiheessa ei ole kuvaa/tekstiä, näytetään initialPrompt
+            updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText);
+            // Korjattu logiikka, jos ensi vaiheella ei ole kuvaa/tekstiä
+            if (!firstStepData.challengeImage && !firstStepData.challengeText) {
+                kysymysLabel.textContent = puzzleSetup.initialPrompt;
+                kysymysLabel.style.display = 'block';
+                kuvaTekstiLabel.style.display = 'none';
+                kuvaContainer.style.display = 'none';
+            }
+
             inputField.value = "";
+            viestiElementti.textContent = ""; // Alustetaan viesti tyhjäksi
+            viestiElementti.className = ''; 
             inputField.disabled = false;
             submitButton.disabled = false;
             inputField.focus();
         }
 
         function tarkistaSalasana() {
-            if (typeof puzzleSetup === 'undefined') return;
-
-            const syote = inputField.value.trim().toLowerCase();
+            const userAnswer = inputField.value.trim();
             const currentStep = puzzleSetup.steps[currentStepIndex];
 
-            const expected = typeof currentStep.expectedInput === 'function' ? 
-                             currentStep.expectedInput() : 
-                             currentStep.expectedInput;
+            // expectedInput on jo suoraan merkkijono `puzzle_data.js` tiedostossa
+            const expectedAnswer = currentStep.expectedInput;
 
-            if (syote === expected.toLowerCase()) {
-                // Oikea vastaus
-                let responseMsg = typeof currentStep.responseMessage === 'function' ?
-                                    currentStep.responseMessage() :
-                                    currentStep.responseMessage;
-
-                // Lisää koodinpätkä responseMessageen, jos on Vaihe 2 tai myöhempi, eikä viimeinen vaihe
-                if (currentStepIndex >= 1 && currentStepIndex < puzzleSetup.steps.length - 1) { // Vaihe 1 on index 0, Vaihe 2 on index 1
-                    const codeStartIndex = (currentStepIndex - 1) * 2;
-                    const codeSnippet = puzzleSetup.codeString.substring(codeStartIndex, codeStartIndex + 2);
-                    responseMsg = `Koodi: ${codeSnippet} - ${responseMsg}`; // <-- MUUTETTU TÄSTÄ
+            if (userAnswer === expectedAnswer) {
+                // TÄRKEÄ MUUTOS: Käytetään innerHTML:ää myös tässä, koska responseMessage voi sisältää HTML-tageja
+                if (/<[a-z][\s\S]*>/i.test(currentStep.responseMessage)) {
+                    viestiElementti.innerHTML = currentStep.responseMessage;
+                } else {
+                    viestiElementti.textContent = currentStep.responseMessage;
                 }
+                viestiElementti.className = 'success'; // Alkuperäisen HTML:n mukainen luokka
                 
-                viestiElementti.textContent = responseMsg;
-                viestiElementti.className = 'info';
-
-                currentStep.wrongAttemptsMade = 0; 
+                currentStep.wrongAttemptsMade = 0; // Nollataan virheyritykset onnistuneen vastauksen jälkeen
 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
-                    // Viimeinen vaihe vastattu oikein
-                    updateChallengeDisplay(currentStep.challengeImage, currentStep.challengeText);
-                    viestiElementti.className = 'success';
+                    // PELIN LOPPU - ONNISTUNUT SUORITUS
+                    // Näytä viimeisen vaiheen kuva ja responseMessage (joka sisältää loppukoodin)
+                    updateChallengeDisplay(currentStep.challengeImage, currentStep.responseMessage); 
+
+                    viestiElementti.className = 'success'; 
                     inputField.disabled = true;
                     submitButton.disabled = true;
+
+                    // --- LISÄTTY GOOGLE ANALYTICS -KOODI (ONNISTUNUT LOPETUS) ---
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'puzzle_completed', {
+                            'event_category': 'Puzzle',
+                            'event_label': 'Pelattu loppuun',
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
+                            'final_step_number': currentStepIndex + 1
+                        });
+                    }
+                    // ----------------------------------------------------------
+
                 } else {
-                    // Siirry seuraavaan vaiheeseen
+                    // VAIHE ONNISTUNEESTI RATKAISTU - SIIRRY SEURAAVAAN
                     currentStepIndex++;
                     const nextChallengeData = puzzleSetup.steps[currentStepIndex];
+                    // Päivitä näyttö seuraavan vaiheen datalla
                     updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
+                    // Asetetaan viesti seuraavan vaiheen responsesta, jos se on olemassa,
+                    // muuten viestikenttä tyhjäksi. Tässä tulee olla varovainen, koska
+                    // `puzzle_data.js` sisältää `responseMessage`-kentän myös väliaikaisissa vaiheissa.
+                    // Alkuperäinen `salasana.html_toimiva_versio_300525_11.15.txt` tyhjensi inputin ja fokusoi sen, mutta ei asettanut `viestiElementti.textContent`ia uudelleen.
+                    // Pidän nyt tässä alkuperäisen HTML:n logiikan, eli edellisen vaiheen viesti jää näkyviin.
                     inputField.value = "";
                     inputField.focus();
+
+                    // --- LISÄTTY GOOGLE ANALYTICS -KOODI (VAIHE RATKAISTU) ---
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'puzzle_step_completed', {
+                            'event_category': 'Puzzle',
+                            'event_label': 'Vaihe ratkaistu',
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
+                            'step_number': currentStepIndex, 
+                            'challenge_text': nextChallengeData.challengeText || 'Salasana'
+                        });
+                    }
+                    // ----------------------------------------------------------
                 }
             } else {
                 // Väärä syöte
-                currentStep.wrongAttemptsMade++;
+                currentStep.wrongAttemptsMade = (currentStep.wrongAttemptsMade || 0) + 1; // Varmista, että oletusarvo on 0
 
                 if (currentStep.maxWrongAttempts > 0 && currentStep.wrongAttemptsMade <= currentStep.maxWrongAttempts) {
                     viestiElementti.textContent = puzzleSetup.wrongInputMessage + 
                                                   ` (${currentStep.wrongAttemptsMade}/${currentStep.maxWrongAttempts} väärää yritystä)`;
-                    viestiElementti.className = '';
+                    viestiElementti.className = ''; 
                     inputField.value = "";
                     inputField.focus();
+
+                    // --- LISÄTTY GOOGLE ANALYTICS -KOODI (VÄÄRÄ VASTAUS, MUTTA YRITYKSIÄ JÄLJELLÄ) ---
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'puzzle_wrong_answer', {
+                            'event_category': 'Puzzle',
+                            'event_label': 'Väärä vastaus',
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
+                            'step_number': currentStepIndex + 1,
+                            'attempts_left': currentStep.maxWrongAttempts - currentStep.wrongAttemptsMade
+                        });
+                    }
+                    // ----------------------------------------------------------------------
+
                 } else {
+                    // Väärin meni liian monta kertaa! Palataan alkuun.
                     viestiElementti.textContent = puzzleSetup.finalFailMessage;
                     viestiElementti.className = '';
                     
-                    initializePuzzle();
+                    // --- LISÄTTY GOOGLE ANALYTICS -KOODI (PELI Nollaantuu liian monen virheen vuoksi) ---
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'puzzle_reset_on_fail', {
+                            'event_category': 'Puzzle',
+                            'event_label': 'Peli nollautui virheiden vuoksi',
+                            'puzzle_name': 'Lahen kaupunginosat mysteeri', 
+                            'step_number_at_reset': currentStepIndex + 1
+                        });
+                    }
+                    // -------------------------------------------------------------------------
+
+                    initializePuzzle(); // Tämä johtaa siihen, että peli alkaa alusta.
                     inputField.value = "";
                     inputField.focus();
                 }
@@ -272,7 +341,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initializePuzzle();
             inputField.addEventListener('keypress', function(event) {
-                if (event.key === 'Enter' && !submitButton.disabled) {
+                if (event.key === 'Enter' && !submitButton.disabled) { 
                     tarkistaSalasana();
                 }
             });
