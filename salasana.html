@@ -4,123 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Salasanakysely Mysteeri</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start; /* Muutettu starttiin, jotta yläpuolelle jää tilaa */
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-
-            /* Maastomainen tausta */
-            background-color: #3e4a36; /* Tummanvihreä pohja */
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" height=\"100%\" viewBox=\"0 0 800 800\"><defs><filter id=\"f\" x=\"0\" y=\"0\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.7\" numOctaves=\"4\" stitchTiles=\"stitch\" result=\"noise\" /><feGaussianBlur in=\"noise\" stdDeviation=\"15\" /><feColorMatrix type=\"saturate\" values=\"0.7\" /><feBlend in=\"SourceGraphic\" in2=\"noise\" mode=\"overlay\" /></filter></defs><rect width=\"100%\" height=\"100%\" fill=\"#3e4a36\" filter=\"url(#f)\" /></svg>');
-            background-size: cover;
-            background-attachment: fixed;
-            color: #ecf0f1; /* Vaalea teksti */
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-        }
-
-        .header-logo {
-            width: 150px; /* Säädä kokoa tarpeen mukaan */
-            height: auto;
-            margin-bottom: 20px;
-        }
-
-        .container {
-            background-color: rgba(44, 62, 80, 0.9); /* Tummempi läpinäkyvä laatikko */
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        h1 {
-            color: #ecf0f1;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-        }
-
-        .challenge-image {
-            max-width: 100%;
-            height: auto;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        .challenge-text {
-            font-size: 1.1em;
-            margin-bottom: 20px;
-            color: #bdc3c7;
-        }
-
-        input[type="text"] {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #555;
-            border-radius: 5px;
-            background-color: #333;
-            color: #ecf0f1;
-            font-size: 1em;
-            box-sizing: border-box;
-        }
-
-        button {
-            background-color: #27ae60; /* Vihreä nappi */
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #2ecc71;
-        }
-
-        button:disabled {
-            background-color: #7f8c8d;
-            cursor: not-allowed;
-        }
-
-        .message {
-            margin-top: 20px;
-            font-weight: bold;
-            color: #e74c3c; /* Punainen virheviesti */
-        }
-
-        .message.success {
-            color: #2ecc71; /* Vihreä onnistumisviesti */
-        }
-
-        .attempts-left {
-            margin-top: 10px;
-            font-size: 0.9em;
-            color: #bdc3c7;
-        }
-    </style>
-</head>
+    </head>
 <body>
-    <img src="logo.png" alt="Logo" class="header-logo">
-    <div class="container">
-        <h1>Salasanapeli</h1>
-        <img id="challengeImage" class="challenge-image" src="" alt="Haastekuva" style="display:none;">
-        <p id="challengeText" class="challenge-text"></p>
-        <input type="text" id="passwordInput" placeholder="Syötä vastaus">
-        <button id="submitButton">Tarkista</button>
-        <p id="message" class="message"></p>
-        <p id="attemptsLeft" class="attempts-left" style="display:none;"></p>
+    <img id="headerLogo" src="logo.png" alt="Logo" style="max-width: 150px; height: auto; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;">
+
+    <p id="challengeText" style="text-align: center; font-size: 1.2em; margin-bottom: 20px;"></p>
+    
+    <div style="text-align: center;">
+        <img id="challengeImage" src="" alt="Haastekuva" style="display:none; max-width: 100%; height: auto; margin-bottom: 20px;">
+        <br>
+        <input type="text" id="passwordInput" placeholder="Syötä vastaus" style="padding: 8px; font-size: 1em; width: 80%; max-width: 300px;">
+        <button id="submitButton" style="padding: 8px 15px; font-size: 1em; cursor: pointer;">Tarkista</button>
+        <p id="message" style="color: red; margin-top: 10px;"></p>
+        <p id="attemptsLeft" style="font-size: 0.9em; color: grey; display: none;"></p>
     </div>
 
     <script src="puzzle_data.js"></script>
@@ -129,7 +25,7 @@
         const submitButton = document.getElementById('submitButton');
         const messageElement = document.getElementById('message');
         const challengeImageElement = document.getElementById('challengeImage');
-        const challengeTextElement = document.getElementById('challengeText');
+        const challengeTextElement = document.getElementById('challengeText'); // Tämä näyttää nyt myös initialPromptin
         const attemptsLeftElement = document.getElementById('attemptsLeft');
 
         let currentStepIndex = 0;
@@ -142,20 +38,21 @@
                 challengeImageElement.style.display = 'none';
                 challengeImageElement.src = ''; // Tyhjennä src varmuuden vuoksi
             }
-            challengeTextElement.textContent = textContent;
+            challengeTextElement.textContent = textContent; // Asettaa tekstin
         }
 
         function initializePuzzle() {
             currentStepIndex = 0;
-            const firstStepData = puzzleSetup.steps[currentStepIndex];
-            updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText || puzzleSetup.initialPrompt);
+            // Ensimmäisessä vaiheessa näytetään initialPrompt
+            updateChallengeDisplay(null, puzzleSetup.initialPrompt); // Ei kuvaa, vain teksti
             inputField.value = "";
             messageElement.textContent = "";
-            messageElement.className = 'message';
+            messageElement.style.color = 'red'; // Asetetaan oletusväri virheviesteille
             inputField.disabled = false;
             submitButton.disabled = false;
-            attemptsLeftElement.style.display = 'none'; // Piilota yritykset alussa
+            attemptsLeftElement.style.display = 'none';
             resetAttempts();
+            inputField.focus(); // Aseta kohdistus heti input-kenttään
         }
 
         function resetAttempts() {
@@ -169,7 +66,6 @@
             const currentStepData = puzzleSetup.steps[currentStepIndex];
 
             let expectedAnswer;
-            // Tarkista, onko expectedInput funktio, jotta sitä voidaan kutsua
             if (typeof currentStepData.expectedInput === 'function') {
                 expectedAnswer = currentStepData.expectedInput();
             } else {
@@ -178,11 +74,9 @@
 
             if (userAnswer === expectedAnswer) {
                 messageElement.textContent = currentStepData.responseMessage;
-                messageElement.className = 'message success';
+                messageElement.style.color = 'green'; // Vihreä väri onnistumisviestille
                 
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
-                    // Viimeinen vaihe saavutettu (eli loppuratkaisu annettu)
-                    // Loppuviesti on responseMessagessa, ja se on jo asetettu.
                     inputField.disabled = true;
                     submitButton.disabled = true;
                     attemptsLeftElement.style.display = 'none';
@@ -192,7 +86,7 @@
                     updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
                     inputField.value = "";
                     inputField.focus();
-                    attemptsLeftElement.style.display = 'none'; // Piilota yritykset oikean vastauksen jälkeen
+                    attemptsLeftElement.style.display = 'none';
                 }
             } else {
                 currentStepData.wrongAttemptsMade++;
@@ -200,19 +94,18 @@
 
                 if (attemptsRemaining > 0) {
                     messageElement.textContent = puzzleSetup.wrongInputMessage;
-                    messageElement.className = 'message';
+                    messageElement.style.color = 'red'; // Punainen väri virheviestille
                     attemptsLeftElement.textContent = `Vääriä yrityksiä jäljellä: ${attemptsRemaining}`;
                     attemptsLeftElement.style.display = 'block';
                     inputField.value = "";
                     inputField.focus();
                 } else {
                     messageElement.textContent = puzzleSetup.finalFailMessage;
-                    messageElement.className = 'message';
+                    messageElement.style.color = 'red'; // Punainen väri viimeiselle virheviestille
                     inputField.disabled = true;
                     submitButton.disabled = true;
                     attemptsLeftElement.style.display = 'none';
-                    // Palataan alkuun 3 sekunnin viiveellä
-                    setTimeout(initializePuzzle, 3000);
+                    setTimeout(initializePuzzle, 3000); // Palataan alkuun 3 sekunnin viiveellä
                 }
             }
         }
