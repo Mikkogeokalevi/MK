@@ -226,7 +226,7 @@
                 if (currentStepIndex >= 1 && currentStepIndex < puzzleSetup.steps.length - 1) { // Vaihe 1 on index 0, Vaihe 2 on index 1
                     const codeStartIndex = (currentStepIndex - 1) * 2;
                     const codeSnippet = puzzleSetup.codeString.substring(codeStartIndex, codeStartIndex + 2);
-                    responseMsg = `${codeSnippet} ${responseMsg}`;
+                    responseMsg = `Koodi: ${codeSnippet} - ${responseMsg}`; // <-- MUUTETTU TÄSTÄ
                 }
                 
                 viestiElementti.textContent = responseMsg;
