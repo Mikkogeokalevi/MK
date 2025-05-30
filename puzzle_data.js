@@ -20,7 +20,7 @@ const puzzleSetup = {
     // Loppuviestin salaus XOR-algoritmilla
     // Viesti ja avain ovat String.fromCharCode-muodossa, mutta piilotettuna anon-funktion sisään
     encryptedFinalMessage: (() => {
-        const msg = String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 110, 32, 110, 101, 114, 111, 34, 46);
+        const msg = String.fromCharCode(69, 114, 105, 110, 111, 109, 97, 105, 115, 116, 97, 32, 116, 121, 246, 116, 228, 33, 32, 79, 108, 101, 116, 32, 114, 97, 116, 107, 97, 105, 115, 115, 117, 108, 108, 117, 116, 32, 107, 97, 105, 107, 105, 32, 107, 117, 118, 97, 116, 32, 106, 97, 32, 108, 111, 112, 112, 117, 107, 121, 115, 121, 109, 121, 107, 115, 101, 110, 33, 32, 75, 105, 114, 106, 111, 105, 116, 97, 32, 99, 104, 101, 107, 107, 101, 114, 105, 105, 110, 32, 34, 103, 101, 111, 107, 228, 116, 107, 111, 105, 108, 105, 106, 228, 32, 111, 100, 32, 110, 101, 114, 111, 34, 46);
         const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // "GeoCache"
         let encrypted = [];
         for (let i = 0; i < msg.length; i++) {
@@ -200,7 +200,8 @@ const puzzleSetup = {
         },
         {
             // Viimeinen vaihe: expectedInput on codeString itself
-            expectedInput: (() => puzzleSetup.codeString)(),
+            // TÄMÄ RIVI ON KORJATTU: Kutsutaan puzzleSetup.codeString vasta, kun sitä tarvitaan.
+            expectedInput: () => puzzleSetup.codeString, 
             responseMessage: (() => {
                 const encrypted = puzzleSetup.encryptedFinalMessage;
                 const key = String.fromCharCode(71, 101, 111, 67, 97, 99, 104, 101); // "GeoCache"
