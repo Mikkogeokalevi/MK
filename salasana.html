@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lahen kaupunginosat Mysteeri</title>
+    <title>Salasanakysely Mysteeri</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -183,12 +183,11 @@
             } else {
                 // Oletus/alkutilanne, näytä initialPrompt
                 kysymysLabel.textContent = puzzleSetup.initialPrompt;
-                kysymysLabel.style.display = 'block';
+                kysymysLabel.display = 'block'; // Varmista, että näkyy
             }
         }
 
         function initializePuzzle() {
-            // Tärkeää: Tämä tarkistaa, onko puzzleSetup latautunut
             if (typeof puzzleSetup === 'undefined' || !puzzleSetup.steps || puzzleSetup.steps.length === 0) {
                 kysymysLabel.textContent = "Virhe: Arvoituksen dataa ei voitu ladata.";
                 viestiElementti.textContent = "Tarkista, että puzzle_data.js on olemassa ja oikein muotoiltu.";
@@ -196,6 +195,11 @@
                 submitButton.disabled = true;
                 return; 
             }
+            // Nollataan kaikkien vaiheiden yrityslaskurit, kun peli alkaa tai nollataan
+            puzzleSetup.steps.forEach(step => {
+                step.wrongAttemptsMade = 0;
+            });
+
             currentStepIndex = 0;
             const initialStepData = puzzleSetup.steps[currentStepIndex];
             updateChallengeDisplay(initialStepData.challengeImage, initialStepData.challengeText || puzzleSetup.initialPrompt);
@@ -212,28 +216,31 @@
             if (typeof puzzleSetup === 'undefined') return;
 
             const syote = inputField.value.trim().toLowerCase();
-            const currentStepData = puzzleSetup.steps[currentStepIndex];
+            const currentStep = puzzleSetup.steps[currentStepIndex];
 
-            // expectedInput voi olla joko suora merkkijono tai funktio
-            const expected = typeof currentStepData.expectedInput === 'function' ? 
-                             currentStepData.expectedInput() : 
-                             currentStepData.expectedInput;
-
+            const expected = typeof currentStep.expectedInput === 'function' ? 
+                             currentStep.expectedInput() : 
+                             currentStep.expectedInput;
 
             if (syote === expected.toLowerCase()) {
-                // responseMessage voi olla myös funktio
-                const responseMsg = typeof currentStepData.responseMessage === 'function' ?
-                                    currentStepData.responseMessage() :
-                                    currentStepData.responseMessage;
+                // Oikea vastaus
+                const responseMsg = typeof currentStep.responseMessage === 'function' ?
+                                    currentStep.responseMessage() :
+                                    currentStep.responseMessage;
                 viestiElementti.textContent = responseMsg;
                 viestiElementti.className = 'info';
 
+                // Nollataan tämän vaiheen väärät yritykset, kun vastaus on oikein
+                currentStep.wrongAttemptsMade = 0; 
+
                 if (currentStepIndex === puzzleSetup.steps.length - 1) {
-                    updateChallengeDisplay(currentStepData.challengeImage, currentStepData.challengeText);
+                    // Viimeinen vaihe vastattu oikein
+                    updateChallengeDisplay(currentStep.challengeImage, currentStep.challengeText);
                     viestiElementti.className = 'success';
                     inputField.disabled = true;
                     submitButton.disabled = true;
                 } else {
+                    // Siirry seuraavaan vaiheeseen
                     currentStepIndex++;
                     const nextChallengeData = puzzleSetup.steps[currentStepIndex];
                     updateChallengeDisplay(nextChallengeData.challengeImage, nextChallengeData.challengeText);
@@ -241,13 +248,31 @@
                     inputField.focus();
                 }
             } else {
-                viestiElementti.textContent = puzzleSetup.wrongInputMessage;
-                viestiElementti.className = '';
-                currentStepIndex = 0; 
-                const firstStepData = puzzleSetup.steps[currentStepIndex];
-                updateChallengeDisplay(firstStepData.challengeImage, firstStepData.challengeText || puzzleSetup.initialPrompt);
-                inputField.value = "";
-                inputField.focus();
+                // Väärä syöte
+                currentStep.wrongAttemptsMade++; // Kasvata yrityslaskuria
+
+                // Tarkista, onko sallittuja vääriä yrityksiä jäljellä.
+                // maxWrongAttempts > 0 tarkoittaa, että yrityksiä sallitaan.
+                // wrongAttemptsMade <= maxWrongAttempts tarkoittaa, että rajaa ei ole ylitetty.
+                if (currentStep.maxWrongAttempts > 0 && currentStep.wrongAttemptsMade <= currentStep.maxWrongAttempts) {
+                    // Vääriä yrityksiä sallittu ja sallittujen rajojen sisällä
+                    viestiElementti.textContent = puzzleSetup.wrongInputMessage + 
+                                                  ` (${currentStep.wrongAttemptsMade}/${currentStep.maxWrongAttempts} väärää yritystä)`;
+                    viestiElementti.className = ''; // Virheväri (punertava)
+                    inputField.value = ""; // Tyhjennä vain syöte, älä vaihda kysymystä
+                    inputField.focus();
+                    // Kysymys/kuva pysyy samana, joten updateChallengeDisplay ei tarvita tässä
+                } else {
+                    // Vääriä yrityksiä käytetty liikaa, nollataan alkuun
+                    viestiElementti.textContent = puzzleSetup.finalFailMessage; // Uusi viesti
+                    viestiElementti.className = ''; // Virheväri (punertava)
+                    
+                    // Nollataan kaikki wrongAttemptsMade-laskurit, jotta kaikki vaiheet alkavat alusta
+                    // Tämä tehdään initializePuzzle-funktiossa, joten kutsutaan sitä
+                    initializePuzzle(); // Tämä nollaa currentStepIndexin ja laskurit
+                    inputField.value = "";
+                    inputField.focus();
+                }
             }
         }
 
