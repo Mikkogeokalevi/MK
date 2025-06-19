@@ -43,7 +43,7 @@ body {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    height: 75vh;
+    height: 75vh; /* Asetetaan terminaalille korkeus */
 }
 
 #terminal::after {
@@ -57,9 +57,10 @@ body {
     pointer-events: none;
 }
 
+/* KORJATTU: Output-alue täyttää nyt saatavilla olevan tilan ja on vieritettävä */
 #output {
-    flex-grow: 1;
-    overflow-y: auto;
+    flex-grow: 1; /* Antaa tämän elementin kasvaa ja täyttää tyhjän tilan */
+    overflow-y: auto; /* Lisää vierityspalkin tarvittaessa */
     white-space: pre-wrap;
     padding-right: 10px;
     color: #F8F8F8;
@@ -75,6 +76,7 @@ body {
 .glitch-effect { animation: glitch-animation 0.5s; }
 @keyframes glitch-animation { 0% { transform: translate(0); } 10% { transform: translate(-2px, 2px); } 20% { transform: translate(2px, -2px); } 30% { transform: translate(-2px, -2px); } 40% { transform: translate(2px, 2px); } 50% { transform: translate(0); } }
 
+/* Interaktiiviset elementit (sijoitetaan nyt outputin sisään) */
 .interactive-wrapper {
     padding: 10px 0;
     text-align: center;
@@ -89,22 +91,7 @@ body {
     user-select: none;
 }
 .dial-button:hover, .clickable-wire:hover { background-color: rgba(144, 238, 144, 0.3); }
-
-/* UUSI: Piilotekstin tyyli */
-.hidden-char {
-    color: #F8F8F9; /* Lähes sama väri kuin normaali teksti */
-    background-color: rgba(144, 238, 144, 0.05); /* Lähes näkymätön taustaväri */
-}
-/* Kun teksti maalataan, piiloteksti paljastuu selvästi */
-::selection {
-    background: #90EE90;
-    color: #000;
-}
-.hidden-char::selection {
-    background: #FF4136;
-    color: #fff;
-}
-
+.clickable-wire { display: block; letter-spacing: -1px; }
 
 .input-line { display: flex; align-items: center; margin-top: 10px; flex-shrink: 0; }
 .prompt { margin-right: 10px; color: #90EE90; }
