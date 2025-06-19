@@ -79,6 +79,13 @@ body {
     padding: 10px 0;
     text-align: center;
 }
+
+/* Lisätään luokka muistipelin koodille */
+.memory-sequence {
+    font-size: 2em;
+    letter-spacing: 0.5em;
+}
+
 .dial-button, .clickable-wire {
     display: inline-block;
     border: 1px solid #90EE90;
@@ -98,26 +105,24 @@ body {
 
 @keyframes blink-cursor { from, to { border-right: 2px solid #90EE90; } 50% { border-right: 2px solid transparent; } }
 
-/* --- TÄMÄ ON KORJATTU KOHTA MOBIILILAITTEILLE (UUSI YRITYS) --- */
 @media (max-width: 600px) { 
     html, body {
         height: 100%;
         width: 100%;
         margin: 0;
         padding: 0;
-        overflow: hidden; /* Estetään koko sivun vieritys */
+        overflow: hidden;
     }
     #terminal {
         position: fixed;
-        box-sizing: border-box; /* Varmistaa, että padding ja border lasketaan osaksi kokoa */
+        box-sizing: border-box;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
         padding: 10px;
-        /* Lisätään ala-padding, joka vastaa näppäimistön korkeutta, kun se on auki */
         padding-bottom: env(keyboard-inset-height, 10px);
-        border-radius: 0; /* Koko näytön tilassa ei tarvita pyöristettyjä kulmia */
+        border-radius: 0;
         border: none;
         max-width: none;
         margin: 0;
@@ -126,6 +131,12 @@ body {
         width: 90px;
         height: 90px;
         margin-bottom: 10px;
-        flex-shrink: 0; /* Estää logoa kutistumasta liikaa */
+        flex-shrink: 0;
+    }
+
+    /* --- UUSI SÄÄNTÖ MUISTIPELIN KOODILLE MOBIILISSA --- */
+    .memory-sequence {
+        font-size: 1.6em; /* Pienennetään fonttia */
+        letter-spacing: 0.2em; /* Pienennetään merkkiväliä */
     }
 }
