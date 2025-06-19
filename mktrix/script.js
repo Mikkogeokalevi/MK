@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
 
+    // --- PÄIVITETTY MATRIX-EFEKTI ---
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -21,29 +22,43 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = fontSize + 'px monospace';
+
         for (let i = 0; i < rainDrops.length; i++) {
             let drop = rainDrops[i];
             let text;
+
             if (drop.isSpecial) {
                 text = drop.word.charAt(drop.charIndex);
-                ctx.fillStyle = '#FF4136';
-                if (Math.floor(drop.y) % 2 === 0) {
-                     if (drop.charIndex < drop.word.length -1) drop.charIndex++;
-                     else drop.isSpecial = false;
+                ctx.fillStyle = '#FF4136'; // Punainen
+                // Hitaampi päivitys erikoissanoille
+                if (Math.floor(drop.y) % 2 === 0) { 
+                    if (drop.charIndex < drop.word.length - 1) drop.charIndex++;
+                    else drop.isSpecial = false;
                 }
+                 drop.y += 0.5; // Liikkuu puolinopeudella
             } else {
                 text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillStyle = '#0F0';
+                ctx.fillStyle = '#0F0'; // Vihreä
+                drop.y++; // Normaali nopeus
             }
-            ctx.fillText(text, i * fontSize, drop.y * fontSize);
-            if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
-                rainDrops[i] = { y: 0, isSpecial: (customWords.length > 0 && Math.random() > 0.95), word: customWords[Math.floor(Math.random() * customWords.length)], charIndex: 0 };
+            
+            ctx.fillText(text, i * fontSize, drop.y);
+
+            if (drop.y > canvas.height / fontSize) {
+                // Nollaa pisara ja anna sille mahdollisuus muuttua erikoiseksi
+                const mightBecomeSpecial = Math.random() > 0.97;
+                rainDrops[i] = {
+                    y: 0,
+                    isSpecial: customWords.length > 0 && mightBecomeSpecial,
+                    word: mightBecomeSpecial ? customWords[Math.floor(Math.random() * customWords.length)] : null,
+                    charIndex: 0
+                };
             }
-            drop.y++;
         }
     }
-    const matrixInterval = setInterval(drawMatrix, 33);
+    const matrixInterval = setInterval(drawMatrix, 40); // Hidastettu hieman yleistä nopeutta
 
+    // --- Yleiset apufunktiot ---
     async function type(line) {
         const speed = 40;
         const lineDiv = document.createElement('div');
@@ -153,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await new Promise(resolve => setTimeout(resolve, 2500));
         interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
         
-        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi'.`);
+        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi' tai 'ylipääsy'.`);
         setInputState(true);
     }
     
@@ -162,14 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
             { question: [`\n--- PULMA 1/7: Anagrammi ---`, `Järjestä kirjaimet sanaksi: TORIDAKOINAT`], answer: "koordinaatit", reward: "43°..′..″N ..°..′..″W" },
             { question: [`\n--- PULMA 2/7: Numeerinen protokolla ---`, `Käännä numerot kirjaimiksi (A=1...): 14-1-22-9-7-15-9-14-20-9`], answer: "navigointi", reward: "43°04′..″N ..°..′..″W" },
             { type: 'interactive', setup: setupMemoryPuzzle, reward: "43°04′41″N ..°..′..″W" },
-            // UUSI PULMA 4
-            { question: [`\n--- PULMA 4/7: Possukarsinakoodi ---`, `Viesti on salattu Pigpen-koodilla. Pura se.`, `Viesti: >_| ⚃ > sqcup |< sqcup >`], answer: "signaali", reward: "43°04′41″N 79°..′..″W" },
-            // UUSI PULMA 5
+            { question: [`\n--- PULMA 4/7: Polybius-neliö ---`, `Viesti on koodattu 5x5 Polybius-neliöllä (I/J samassa ruudussa). Pura numerosarja:`, `11 22 15 33 44 44 24`], answer: "agentti", reward: "43°04′41″N 79°..′..″W" },
             { question: [`\n--- PULMA 5/7: "Katso ja Sano" ---`, `Agentti 'Yksi' jätti jälkeensä tämän kryptisen numerosarjan. Päättele sen logiikka ja anna seuraava rivi:`, `1`, `11`, `21`, `1211`, `111221`, `?`], answer: "312211", reward: "43°04′41″N 79°04′..″W" },
-            // UUSI PULMA 6
-            { question: [`\n--- PULMA 6/7: Steganografia ---`, `Data on korruptoitunut, mutta yksi sana on yhä luettavissa... jos katsot tarkkaan. Maalaa hiirellä alla oleva teksti tai tutki sitä muuten.`], 
-              html_payload: `Järjestelmäraportti Z-14: Kaikki y<span class="hidden-char">p</span>a<span class="hidden-char">u</span>tkistosignaalit näyttävät no<span class="hidden-char">r</span>maaleilta, mutta jotain on silti outoa. Y<span class="hidden-char">k</span>si sektori ei vas<span class="hidden-char">k</span>aa pyyntö<span class="hidden-char">i</span>hin.`,
-              answer: "purkki", reward: "43°04′41″N 79°04′30″W" },
+            { question: [`\n--- PULMA 6/7: Piilotieto ---`, `Järjestelmäraportti Z-14 on saapunut. Se näyttää päällisin puolin normaalilta, mutta jokin siinä on vialla. Vain tarkkaavainen agentti löytää piilotetun avainsanan.`], html_payload: `Järjestelmäraportti Z-14: Kaikki y<span class="hidden-char">p</span>a<span class="hidden-char">u</span>tkistosignaalit näyttävät no<span class="hidden-char">r</span>maaleilta, mutta jotain on silti outoa. Y<span class="hidden-char">k</span>si sektori ei vas<span class="hidden-char">k</span>aa pyyntö<span class="hidden-char">i</span>hin.`, answer: "purkki", reward: "43°04′41″N 79°04′30″W" },
             { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
         ];
     }
@@ -178,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInteractive();
         const puzzle = puzzles[currentPuzzle];
         await textCorruptionEffect(puzzle.question ? puzzle.question[0] : `PULMA ${currentPuzzle + 1}`);
-        if (puzzle.html_payload) { // Käsitellään pulmat, joissa on HTML-sisältöä
+        if (puzzle.html_payload) {
             for (const line of puzzle.question) await type(line);
             print({ html: puzzle.html_payload });
             setInputState(true);
