@@ -19,16 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const fontSize = 16;
     const columns = canvas.width / fontSize;
-    const rainDrops = [];
-
-    for (let x = 0; x < columns; x++) {
-        rainDrops[x] = {
-            y: Math.random() * canvas.height,
-            isSpecial: false,
-            word: null,
-            charIndex: 0
-        };
-    }
+    const rainDrops = Array(Math.floor(columns)).fill(1).map(() => ({
+        y: Math.random() * canvas.height,
+        isSpecial: false,
+        word: null,
+        charIndex: 0
+    }));
 
     function drawMatrix() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
@@ -42,7 +38,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (drop.isSpecial) {
                 text = drop.word.charAt(drop.charIndex);
-                ctx.fillStyle = '#FF4136'; // Punainen väri
+                ctx.fillStyle = '#FF4136'; 
             } else {
                 text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 ctx.fillStyle = '#0F0';
@@ -50,23 +46,20 @@ document.addEventListener('DOMContentLoaded', () => {
             
             ctx.fillText(text, i * fontSize, drop.y * fontSize);
 
-            // KORJATTU KOHTA: Erikoissanat valuvat hitaammin
             if (drop.isSpecial) {
-                // Päivitä erikoissanan indeksiä vain joka toisella piirtokerralla
                 if (Math.floor(drop.y) % 2 === 0) {
                      if (drop.charIndex < drop.word.length -1) {
                         drop.charIndex++;
                      } else {
-                        drop.isSpecial = false; // Sana loppui
+                        drop.isSpecial = false;
                      }
                 }
             }
             
             if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
-                // Nollaa pisara ja anna sille mahdollisuus muuttua erikoiseksi
                 rainDrops[i] = {
                     y: 0,
-                    isSpecial: (customWords.length > 0 && Math.random() > 0.95), // Suurennettu todennäköisyyttä hieman
+                    isSpecial: (customWords.length > 0 && Math.random() > 0.95),
                     word: customWords[Math.floor(Math.random() * customWords.length)],
                     charIndex: 0
                 };
@@ -75,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     const matrixInterval = setInterval(drawMatrix, 33);
-
 
     // --- Yleiset apufunktiot ---
     async function type(line) {
@@ -276,12 +268,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (gameState === 'PLAYING') {
             const puzzle = puzzles[currentPuzzle];
-            if (currentPuzzle === 2 && command.toLowerCase() === 'anna uusi koodi') {
+            const commandLower = command.toLowerCase();
+
+            // UUSI KOHTA: Ohituskoodin tarkistus muistipelissä
+            if (currentPuzzle === 2 && commandLower === 'ylipääsy') {
+                print(`> Järjestelmän pääkäyttäjän ohituskoodi hyväksytty.`);
+                await handleSuccess();
+                return;
+            }
+            if (currentPuzzle === 2 && commandLower === 'anna uusi koodi') {
                 await type("Generoidaan uutta turvakoodia...");
                 await setupMemoryPuzzle();
                 return;
             }
-            if (command.toLowerCase() === puzzle.answer) {
+            if (commandLower === puzzle.answer) {
                 await handleSuccess();
             } else {
                 await handleWrongAnswer();
