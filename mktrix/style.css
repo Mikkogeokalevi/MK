@@ -98,27 +98,34 @@ body {
 
 @keyframes blink-cursor { from, to { border-right: 2px solid #90EE90; } 50% { border-right: 2px solid transparent; } }
 
-/* --- TÄMÄ ON KORJATTU KOHTA MOBIILILAITTEILLE --- */
+/* --- TÄMÄ ON KORJATTU KOHTA MOBIILILAITTEILLE (UUSI YRITYS) --- */
 @media (max-width: 600px) { 
-    body { 
-        padding: 0; /* Poistetaan oletustyhjätila */
+    html, body {
+        height: 100%;
+        width: 100%;
         margin: 0;
-    } 
+        padding: 0;
+        overflow: hidden; /* Estetään koko sivun vieritys */
+    }
     #terminal {
-        position: fixed; /* Kiinnitetään näyttöön */
-        top: 10px;       /* 10px marginaali ylhäällä */
-        left: 10px;      /* 10px marginaali vasemmalla */
-        right: 10px;     /* 10px marginaali oikealla */
-        bottom: 10px;    /* 10px marginaali alhaalla */
-        height: auto;    /* Annetaan selainikkunan koon määrittää korkeus */
-        width: auto;     /* Annetaan selainikkunan koon määrittää leveys */
-        max-width: none; /* Kumotaan aiempi maksimileveys */
+        position: fixed;
+        box-sizing: border-box; /* Varmistaa, että padding ja border lasketaan osaksi kokoa */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        /* Lisätään ala-padding, joka vastaa näppäimistön korkeutta, kun se on auki */
+        padding-bottom: env(keyboard-inset-height, 10px);
+        border-radius: 0; /* Koko näytön tilassa ei tarvita pyöristettyjä kulmia */
+        border: none;
+        max-width: none;
         margin: 0;
-    } 
+    }
     .logo {
-        /* Pienennetään logoa hieman mobiilissa, jotta se ei vie liikaa tilaa */
-        width: 100px;
-        height: 100px;
-        margin-bottom: 15px;
+        width: 90px;
+        height: 90px;
+        margin-bottom: 10px;
+        flex-shrink: 0; /* Estää logoa kutistumasta liikaa */
     }
 }
