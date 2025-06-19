@@ -6,13 +6,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPuzzle = 0;
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
+    
+    const GEO_WORDS = ["agentti", "purkki", "matkalainen", "kätkö", "lokikirja", "multi", "mysteerikätkö", "tradikätkö", "mikro", "regular", "large", "geokolikko", "kätkönimi", "koordinaatit", "viheltäjä", "kätkökuvaus", "vihje", "eventti", "waypoint", "sovellus", "vaihtoesine", "geosense", "geolodju", "kätkö", "haastekätkö", "bonuskätkö", "patrol", "muggle", "kätkönomistaja", "tarkastaja", "vapaaehtoinen", "ensilöytäjä", "hymiö", "kätköpiste", "reitti", "trail", "kätkösarja", "powertrail", "attribuutti", "vaikeusaste", "maasto", "tarkkailulista", "geokartta", "satelliittikuva", "kompassi", "taskulamppu", "pinsetit", "magneettikätkö", "pulttikätkö", "puukätkö", "sijaintitarkkuus", "geochecker", "kenttäpulma", "loppupiste", "alkupiste", "pistemäärä", "päivämäärä", "metsä", "polku", "kallio", "vesistö", "silta", "puisto", "rakennus", "piilopaikka", "piilotus", "löytö", "arkistoitu", "jäädytetty", "huoltotarve", "kadonnut", "löysin", "enlöytänyt", "kirjoitahuomio", "julkaise", "peruuta", "adoptoi", "vaihtokauppa", "jästinkestävä", "geotaide", "megaeventti", "gigaeventti", "flashmob", "kätkömania", "kilpailu", "merkki", "palkinto", "merkkipaalu", "tilasto", "profiili", "kartta", "lista", "suodatus", "blogi", "foorumi", "käsineet", "reppu", "juomapullo", "eväät", "sadesuoja", "hyttysmyrkky", "ensiapulaukku", "puukko", "lapio", "köysi", "kiipeilyvarusteet", "sukellusvarusteet", "lamppu", "magneetti", "teleskooppi", "peili", "paperi", "puhelin", "tabletti", "virtapankki", "varavirta", "aurinkopaneeli", "paristo", "laturi", "usbkaapeli", "adapteri", "mobiilidata", "signaali", "kantama", "yhteys", "offlinekartat", "onlinekartat", "paikkatieto", "gpstarkkuus", "satelliitit", "sijainti", "korkeus", "pituuspiiri", "leveyspiiri", "asteet", "minuutit", "sekunnit", "desimaalit", "koordinaattimuunnos", "geometria", "topografia", "maamerkki", "kiintopiste", "referenssipiste", "lähtöpaikka", "päätepiste", "välietape", "välipiste", "kontrollipiste", "reitinvalinta", "reittisuunnittelu", "navigointi", "paikannus", "suuntima", "etäisyys", "koodi", "tunnus", "turvallisuus", "vastuu", "ympäristö", "luonto", "kivet", "pensas", "säännöt", "ohjeet", "yhteisö", "harrastus", "seikkailu", "yhteistyö", "opastus", "vaellus", "patikointi", "retkeily", "hiihto", "luistelu", "melonta", "veneily", "purjehdus", "sukellus", "kiipeily", "pyöräily", "maastopyöräily", "kävely", "juoksu"];
+    const FINNISH_ALPHABET = "abcdefghijklmnopqrstuvwxyzåäö";
 
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const customWords = ["MKTRIX", "MIKKOKALEVI"];
-    const alphabet = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const alphabet = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボпоヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const fontSize = 16;
     const columns = canvas.width / fontSize;
     const rainDrops = Array(Math.floor(columns)).fill(1).map(() => ({ y: Math.random() * canvas.height, isSpecial: false, word: null, charIndex: 0 }));
@@ -83,7 +86,9 @@ document.addEventListener('DOMContentLoaded', () => {
         countdownWrapper.appendChild(countdownElement);
         output.appendChild(countdownWrapper);
         
-        let timeLeft = 30;
+        clearInteractive();
+
+        let timeLeft = 30; 
         const countdownInterval = setInterval(() => {
             countdownElement.innerText = `...${timeLeft}...`;
             timeLeft--;
@@ -91,8 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(countdownInterval);
                 countdownElement.innerText = 'Järjestelmä aktiivinen.';
                 setTimeout(() => {
-                    clearInteractive();
-                    output.classList.remove('glitch-effect');
+                    output.removeChild(countdownWrapper);
                     setInputState(true);
                 }, 1500);
             }
@@ -130,6 +134,39 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(matrixInterval);
         }
     }
+
+    async function setupAnagramPuzzle() {
+        clearInteractive();
+        const word = GEO_WORDS[Math.floor(Math.random() * GEO_WORDS.length)];
+        puzzles[0].answer = word.toLowerCase();
+
+        let scrambledWord = word.split('').sort(() => 0.5 - Math.random()).join('');
+        while (scrambledWord.toLowerCase() === word.toLowerCase()) {
+            scrambledWord = word.split('').sort(() => 0.5 - Math.random()).join('');
+        }
+
+        await type(`\n--- PULMA 1/7: Anagrammi ---`);
+        await type(`Järjestä kirjaimet sanaksi: ${scrambledWord.toUpperCase()}`);
+        await type("Jos sana on liian vaikea, kirjoita 'anna uusi sana'.");
+        setInputState(true);
+    }
+    
+    async function setupNumericPuzzle() {
+        clearInteractive();
+        const word = GEO_WORDS[Math.floor(Math.random() * GEO_WORDS.length)];
+        puzzles[1].answer = word.toLowerCase();
+
+        const numericSequence = word.toLowerCase().split('').map(char => {
+            const index = FINNISH_ALPHABET.indexOf(char);
+            return index !== -1 ? index + 1 : '?';
+        }).join('-');
+
+        await type(`\n--- PULMA 2/7: Numeerinen protokolla ---`);
+        await type(`Käännä numerot kirjaimiksi (A=1, B=2, ..., Ä=28, Ö=29):`);
+        await type(numericSequence);
+        await type("Jos numerosarja on liian vaikea, kirjoita 'anna uusi sana'.");
+        setInputState(true);
+    }
     
     async function setupMemoryPuzzle() {
         clearInteractive();
@@ -153,58 +190,211 @@ document.addEventListener('DOMContentLoaded', () => {
         await new Promise(resolve => setTimeout(resolve, 2500));
         interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
         
-        // KORJATTU KOHTA: Ohituskoodi on poistettu julkisesta ohjeesta.
         await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi'.`);
         setInputState(true);
     }
-    
-    async function setupCipherDisk() {
+
+    async function setupPasswordCracker() {
         clearInteractive();
-        await type(`\n--- PULMA 6/7: Koodikiekko ---`);
-        await type(`Viesti on salattu Caesar-kiekolla. Etsi oikea siirtymä ja pura avainsana: PBZFR`);
-        setInputState(true); // Salli kirjoittaminen heti
+        
+        const validWords = GEO_WORDS.filter(w => w.length === 7);
+        const word = validWords[Math.floor(Math.random() * validWords.length)];
+        
+        puzzles[3].answer = word.toLowerCase();
+        puzzles[3].guesses = [];
+
+        await type(`\n--- PULMA 4/7: Salasananmurtaja ---`);
+        await type(`Järjestelmän palomuuri vaatii 7-kirjaimisen salasanan.`);
+        await type("Vihje: Salasana on geokätköilyyn liittyvä termi.");
+        await type("Palaute arvauksestasi annetaan väreillä:");
+        print({html: `<div><span class="highlight">VIHREÄ</span>: Oikea kirjain ja oikealla paikalla.</div>`});
+        print({html: `<div><span class="error">KELTAINEN</span>: Oikea kirjain, mutta väärällä paikalla.</div>`});
+        await type("Yritysten määrää ei ole rajoitettu.");
+        await type("Jos haluat uuden salasanan, kirjoita 'anna uusi salasana'.");
+        await type(`Syötä ensimmäinen arvauksesi.`);
+        setInputState(true);
+    }
+
+    // --- KORJATTU SALASANAN TARKISTUSLOGIIKKA ---
+    async function processPasswordGuess(guess) {
+        const puzzle = puzzles[3];
+        const answer = puzzle.answer;
+
+        if (guess.length !== answer.length) {
+            print({html: `<span class="error">Virhe: Salasanan on oltava ${answer.length} kirjaimen pituinen.</span>`});
+            setInputState(true);
+            return;
+        }
+
+        puzzle.guesses.push(guess);
+
+        const result = new Array(answer.length).fill({status: 'incorrect'});
+        const answerLetters = answer.split('');
+
+        // 1. Kierros: Etsitään täysin oikeat (vihreät)
+        for (let i = 0; i < guess.length; i++) {
+            if (guess[i] === answer[i]) {
+                result[i] = { char: guess[i], status: 'correct' };
+                answerLetters[i] = null; // "Käytetään" kirjain, ettei sitä voi käyttää enää keltaisena
+            }
+        }
+
+        // 2. Kierros: Etsitään väärässä paikassa olevat (keltaiset)
+        for (let i = 0; i < guess.length; i++) {
+            if (result[i].status === 'correct') {
+                continue; // Ohitetaan jo löydetyt vihreät
+            }
+
+            const misplacedIndex = answerLetters.indexOf(guess[i]);
+            if (misplacedIndex !== -1) {
+                result[i] = { char: guess[i], status: 'misplaced' };
+                answerLetters[misplacedIndex] = null; // "Käytetään" tämäkin kirjain
+            } else {
+                result[i] = { char: guess[i], status: 'incorrect' };
+            }
+        }
+        
+        const resultHtml = result.map(item => {
+            if (item.status === 'correct') return `<span class="highlight">${item.char.toUpperCase()}</span>`;
+            if (item.status === 'misplaced') return `<span class="error">${item.char.toUpperCase()}</span>`;
+            return item.char.toUpperCase();
+        }).join('');
+
+        print({html: `<div style="letter-spacing: 0.5em;">${resultHtml}</div>`});
+
+        if (guess === answer) {
+            await type("SALASANA MURRETTU!");
+            await handleSuccess();
+        } else {
+            await type("Arvaa uudelleen.");
+            setInputState(true);
+        }
+    }
+
+    async function setupPatternPuzzle() {
+        clearInteractive();
+        await type(`\n--- PULMA 5/7: Kuviomuisti ---`);
+        await type(`Järjestelmä näyttää 4 symbolin sarjan. Toista se.`);
+
+        const symbols = [
+            { symbol: '▲', name: 'kolmio', color: '#FF4136' },
+            { symbol: '●', name: 'ympyrä', color: '#0074D9' },
+            { symbol: '■', name: 'neliö', color: '#2ECC40' },
+            { symbol: '♦', name: 'ruutu', color: '#FFDC00' }
+        ];
+        
+        let sequence = [];
+        let answerSequence = [];
+
+        for (let i = 0; i < 4; i++) {
+            const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+            sequence.push(randomSymbol);
+            answerSequence.push(randomSymbol.name);
+        }
+        puzzles[4].answer = answerSequence.join("");
 
         const interactiveWrapper = document.createElement('div');
         interactiveWrapper.className = 'interactive-wrapper';
+        const sequenceDisplay = document.createElement('div');
+        sequenceDisplay.style.fontSize = '4em';
+        sequenceDisplay.style.height = '1.2em';
+        sequenceDisplay.style.textAlign = 'center';
+        interactiveWrapper.appendChild(sequenceDisplay);
         output.appendChild(interactiveWrapper);
+        output.scrollTop = output.scrollHeight;
+        
+        await new Promise(resolve => setTimeout(resolve, 2000));
 
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let shift = 0;
-
-        function updateDisk() {
-            const shiftedChar = alphabet.charAt((0 + shift + 26) % 26);
-            interactiveWrapper.innerHTML = `
-                <div>Kiekon asetus:</div>
-                <div style="font-size: 2em; margin: 10px;">
-                    <span class="dial-button" id="disk-left">[<]</span>
-                    <span id="disk-value" style="margin: 0 20px;">A -> ${shiftedChar}</span>
-                    <span class="dial-button" id="disk-right">[>]</span>
-                </div>
-                <div>Kirjoita purettu sana alla olevaan komentoriviin.</div>`;
-            document.getElementById('disk-left').onclick = () => { shift--; updateDisk(); };
-            document.getElementById('disk-right').onclick = () => { shift++; updateDisk(); };
+        for(const item of sequence) {
+            sequenceDisplay.innerText = item.symbol;
+            sequenceDisplay.style.color = item.color;
+            await new Promise(resolve => setTimeout(resolve, 900));
+            sequenceDisplay.innerText = '';
+            await new Promise(resolve => setTimeout(resolve, 250));
         }
-        updateDisk();
+
+        sequenceDisplay.remove();
+        await type(`Syötä symbolien nimet peräkkäin ilman välejä (esim. kolmioneliöympyrä).`);
+        await type(`Jos et nähnyt sarjaa, kirjoita 'anna kuvat uudelleen'.`);
+        setInputState(true);
+    }
+
+    async function setupCorruptionPuzzle() {
+        clearInteractive();
+        await type(`\n--- PULMA 6/7: Datavirran analysointi ---`);
+        await type(`Signaali on pahasti korruptoitunut. Vain yksi datapaketti on ehjä.`);
+        await type(`Tunnista symboli, joka esiintyy datavirrassa vain yhden kerran.`);
+
+        const charPool = "AZX$#*|&!?%".split('');
+        const answerChar = charPool[Math.floor(Math.random() * charPool.length)];
+        puzzles[5].answer = answerChar.toLowerCase();
+
+        let decoyPool = charPool.filter(c => c.toLowerCase() !== answerChar.toLowerCase());
+        let stream = [];
+        stream.push(answerChar);
+
+        const streamLength = 61;
+        while (stream.length < streamLength) {
+            let decoy = decoyPool[Math.floor(Math.random() * decoyPool.length)];
+            stream.push(decoy, decoy);
+        }
+        
+        stream = stream.sort(() => 0.5 - Math.random());
+
+        const interactiveWrapper = document.createElement('div');
+        interactiveWrapper.className = 'interactive-wrapper';
+        const streamDisplay = document.createElement('div');
+        streamDisplay.style.fontSize = '1.5em';
+        streamDisplay.style.lineHeight = '1.6em';
+        streamDisplay.style.wordBreak = 'break-all';
+        streamDisplay.style.textAlign = 'center';
+        streamDisplay.style.color = '#FF4136';
+        interactiveWrapper.appendChild(streamDisplay);
+        output.appendChild(interactiveWrapper);
+        
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        streamDisplay.innerText = stream.join('');
+        output.scrollTop = output.scrollHeight;
+        
+        await new Promise(resolve => setTimeout(resolve, 500));
+        await type(`\nSyötä uniikki symboli.`);
+        await type(`Jos haluat uuden datavirran, kirjoita 'anna datavirta uudelleen'.`);
+        setInputState(true);
     }
 
     function initializePuzzles() {
         puzzles = [
-            { question: [`\n--- PULMA 1/7: Anagrammi ---`, `Järjestä kirjaimet sanaksi: TORIDAKOINAT`], answer: "koordinaatit", reward: "43°..′..″N ..°..′..″W" },
-            { question: [`\n--- PULMA 2/7: Numeerinen protokolla ---`, `Käännä numerot kirjaimiksi (A=1...): 14-1-22-9-7-15-9-14-20-9`], answer: "navigointi", reward: "43°04′..″N ..°..′..″W" },
-            { type: 'interactive', setup: setupMemoryPuzzle, reward: "43°04′41″N ..°..′..″W" },
-            { question: [`\n--- PULMA 4/7: Morse-koodi ---`, `Viesti on katkonainen. Käytä kansainvälistä standardia sen purkamiseen:`, `...- .- .- .-. .-`], answer: "vaara", reward: "43°04′41″N 79°..′..″W" },
-            { question: [`\n--- PULMA 5/7: "Katso ja Sano" ---`, `Agentti 'Yksi' jätti jälkeensä tämän kryptisen numerosarjan. Päättele sen logiikka ja anna seuraava rivi:`, `1`, `11`, `21`, `1211`, `111221`, `?`], answer: "312211", reward: "43°04′41″N 79°04′..″W" },
-            { type: 'interactive', setup: setupCipherDisk, answer: "agentti", reward: "43°04′41″N 79°04′30″W" },
+            { type: 'interactive', setup: setupAnagramPuzzle, answer: "" },
+            { type: 'interactive', setup: setupNumericPuzzle, answer: "" },
+            { type: 'interactive', setup: setupMemoryPuzzle, answer: "" },
+            { type: 'interactive', setup: setupPasswordCracker, answer: "" },
+            { type: 'interactive', setup: setupPatternPuzzle, answer: "" },
+            { type: 'interactive', setup: setupCorruptionPuzzle, answer: "" },
             { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
         ];
+        puzzles.forEach((puzzle, index) => {
+            const rewards = [
+                "43°..′..″N ..°..′..″W",
+                "43°04′..″N ..°..′..″W",
+                "43°04′41″N ..°..′..″W",
+                "43°04′41″N 79°..′..″W",
+                "43°04′41″N 79°04′..″W",
+                "43°04′41″N 79°04′30″W"
+            ];
+            if (index < rewards.length) {
+                puzzle.reward = rewards[index];
+            }
+        });
     }
     
     async function displayPuzzle() {
         clearInteractive();
         const puzzle = puzzles[currentPuzzle];
         await textCorruptionEffect(puzzle.question ? puzzle.question[0] : `PULMA ${currentPuzzle + 1}`);
-        if (puzzle.type === 'interactive') await puzzle.setup();
-        else {
+        if (puzzle.type === 'interactive') {
+            await puzzle.setup();
+        } else {
             for (const line of puzzle.question) await type(line);
             setInputState(true);
         }
@@ -234,13 +424,62 @@ document.addEventListener('DOMContentLoaded', () => {
         if (gameState === 'PLAYING') {
             const puzzle = puzzles[currentPuzzle];
             const cmd = command.toLowerCase();
-            if (currentPuzzle === 2 && (cmd === 'anna uusi koodi' || cmd === 'ylipääsy')) {
-                if(cmd === 'ylipääsy') { print(`> Järjestelmän pääkäyttäjän ohituskoodi hyväksytty.`); await handleSuccess(); }
-                else { await type("Generoidaan uutta turvakoodia..."); await setupMemoryPuzzle(); }
+
+            if (currentPuzzle === 3) {
+                if (cmd === 'ohitus4') {
+                    print(`> Testausohitus (4) suoritettu.`);
+                    await handleSuccess();
+                } else if (cmd === 'anna uusi salasana') {
+                    await type("Generoidaan uutta salasanaa...");
+                    await setupPasswordCracker();
+                } else {
+                    await processPasswordGuess(cmd);
+                }
                 return;
             }
-            if (cmd === puzzle.answer) await handleSuccess();
-            else await handleWrongAnswer();
+
+            if (cmd === `ohitus${currentPuzzle + 1}`) {
+                print(`> Testausohitus (${currentPuzzle + 1}) suoritettu.`);
+                await handleSuccess();
+                return;
+            }
+             if (currentPuzzle === 2 && cmd === 'ylipääsy') {
+                print("> Pääkäyttäjän ohitus hyväksytty.");
+                await handleSuccess();
+                return;
+            }
+
+            if ((currentPuzzle === 0 || currentPuzzle === 1) && cmd === 'anna uusi sana') {
+                 if (currentPuzzle === 0) {
+                    await type("Generoidaan uutta anagrammia...");
+                    await setupAnagramPuzzle();
+                 } else {
+                    await type("Generoidaan uutta numerosarjaa...");
+                    await setupNumericPuzzle();
+                 }
+                 return;
+            }
+            if (currentPuzzle === 2 && cmd === 'anna uusi koodi') {
+                await type("Generoidaan uutta turvakoodia...");
+                await setupMemoryPuzzle();
+                return;
+            }
+            if (currentPuzzle === 4 && cmd === 'anna kuvat uudelleen') {
+                await type("Generoidaan uutta kuvasarjaa...");
+                await setupPatternPuzzle();
+                return;
+            }
+            if (currentPuzzle === 5 && cmd === 'anna datavirta uudelleen') {
+                await type("Generoidaan uutta datavirtaa...");
+                await setupCorruptionPuzzle();
+                return;
+            }
+            
+            if (cmd === puzzle.answer) {
+                await handleSuccess();
+            } else {
+                await handleWrongAnswer();
+            }
         }
     }
 
