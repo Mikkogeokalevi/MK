@@ -1,18 +1,16 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Elementtien alustus ---
     const output = document.getElementById('output');
     const input = document.getElementById('input');
     const interactiveContainer = document.getElementById('interactive-container');
-    const canvas = document.getElementById('matrix-canvas');
-    const ctx = canvas.getContext('2d');
 
-    // --- Muuttujien alustus ---
     let agentName = '';
     let currentPuzzle = 0;
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
 
-    // --- Matrix-efektin koodi ---
+    // --- Matrix-efekti ---
+    const canvas = document.getElementById('matrix-canvas');
+    const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const customWords = ["MKTRIX", "MIKKOKALEVI"];
@@ -56,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
             await new Promise(resolve => setTimeout(resolve, speed));
         }
     }
-
     function print(line) {
         const lineDiv = document.createElement('div');
         if (typeof line === 'string') lineDiv.innerText = line;
@@ -64,21 +61,40 @@ document.addEventListener('DOMContentLoaded', () => {
         output.appendChild(lineDiv);
         output.scrollTop = output.scrollHeight;
     }
-    
     function setInputState(enabled) {
         input.disabled = !enabled;
         if (enabled) input.focus();
     }
-
     function clearInteractive() { interactiveContainer.innerHTML = ''; }
 
+    // --- PÄIVITETTY RANGAISTUSFUNKTIO LASKURILLA ---
     async function handleWrongAnswer() {
         setInputState(false);
         print({html: `<span class="error">VIRHE, AGENTTI ${agentName.toUpperCase()}. Järjestelmä lukittu...</span>`});
         output.classList.add('glitch-effect');
-        await new Promise(resolve => setTimeout(resolve, 3000));
-        output.classList.remove('glitch-effect');
-        setInputState(true);
+        
+        // Luodaan laskurille oma elementti
+        const countdownElement = document.createElement('div');
+        countdownElement.className = 'error'; // Käytetään samaa väriä
+        interactiveContainer.appendChild(countdownElement);
+        
+        let timeLeft = 30;
+        
+        // Käynnistetään intervalli, joka päivittää laskuria
+        const countdownInterval = setInterval(() => {
+            countdownElement.innerText = `...${timeLeft}...`;
+            timeLeft--;
+
+            if (timeLeft < 0) {
+                clearInterval(countdownInterval); // Pysäytetään laskuri
+                countdownElement.innerText = 'Järjestelmä aktiivinen.';
+                setTimeout(() => {
+                    clearInteractive();
+                    output.classList.remove('glitch-effect');
+                    setInputState(true);
+                }, 1500); // Annetaan "aktiivinen"-viestin näkyä hetken
+            }
+        }, 2000); // 2 sekunnin välein
     }
     
     async function textCorruptionEffect(text) {
@@ -109,7 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
             await type("------------------------------------");
             print({html: "<div class='final'>LOISTAVAA! TEHTÄVÄ SUORITETTU!</div>"});
             await type("------------------------------------");
-            clearInterval(matrixInterval); // Lopetetaan Matrix-efekti, kun peli on ohi
+            clearInterval(matrixInterval);
         }
     }
     
