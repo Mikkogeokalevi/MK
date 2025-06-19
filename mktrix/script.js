@@ -371,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { type: 'interactive', setup: setupPasswordCracker, answer: "" },
             { type: 'interactive', setup: setupPatternPuzzle, answer: "" },
             { type: 'interactive', setup: setupCorruptionPuzzle, answer: "" },
-            { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
+            { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu.. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
         ];
         puzzles.forEach((puzzle, index) => {
             const rewards = [
