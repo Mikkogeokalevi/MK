@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentPuzzle = 0;
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
-    let isInputLocked = false; // Uusi muuttuja näppäimistön hallintaan
+    let isInputLocked = false;
     
     const GEO_WORDS = ["agentti", "purkki", "matkalainen", "kätkö", "lokikirja", "multi", "mysteerikätkö", "tradikätkö", "mikro", "regular", "large", "geokolikko", "kätkönimi", "koordinaatit", "viheltäjä", "kätkökuvaus", "vihje", "eventti", "waypoint", "sovellus", "vaihtoesine", "geosense", "geolodju", "kätkö", "haastekätkö", "bonuskätkö", "patrol", "muggle", "kätkönomistaja", "tarkastaja", "vapaaehtoinen", "ensilöytäjä", "hymiö", "kätköpiste", "reitti", "trail", "kätkösarja", "powertrail", "attribuutti", "vaikeusaste", "maasto", "tarkkailulista", "geokartta", "satelliittikuva", "kompassi", "taskulamppu", "pinsetit", "magneettikätkö", "pulttikätkö", "puukätkö", "sijaintitarkkuus", "geochecker", "kenttäpulma", "loppupiste", "alkupiste", "pistemäärä", "päivämäärä", "metsä", "polku", "kallio", "vesistö", "silta", "puisto", "rakennus", "piilopaikka", "piilotus", "löytö", "arkistoitu", "jäädytetty", "huoltotarve", "kadonnut", "löysin", "enlöytänyt", "kirjoitahuomio", "julkaise", "peruuta", "adoptoi", "vaihtokauppa", "jästinkestävä", "geotaide", "megaeventti", "gigaeventti", "flashmob", "kätkömania", "kilpailu", "merkki", "palkinto", "merkkipaalu", "tilasto", "profiili", "kartta", "lista", "suodatus", "blogi", "foorumi", "käsineet", "reppu", "juomapullo", "eväät", "sadesuoja", "hyttysmyrkky", "ensiapulaukku", "puukko", "lapio", "köysi", "kiipeilyvarusteet", "sukellusvarusteet", "lamppu", "magneetti", "teleskooppi", "peili", "paperi", "puhelin", "tabletti", "virtapankki", "varavirta", "aurinkopaneeli", "paristo", "laturi", "usbkaapeli", "adapteri", "mobiilidata", "signaali", "kantama", "yhteys", "offlinekartat", "onlinekartat", "paikkatieto", "gpstarkkuus", "satelliitit", "sijainti", "korkeus", "pituuspiiri", "leveyspiiri", "asteet", "minuutit", "sekunnit", "desimaalit", "koordinaattimuunnos", "geometria", "topografia", "maamerkki", "kiintopiste", "referenssipiste", "lähtöpaikka", "päätepiste", "välietape", "välipiste", "kontrollipiste", "reitinvalinta", "reittisuunnittelu", "navigointi", "paikannus", "suuntima", "etäisyys", "koodi", "tunnus", "turvallisuus", "vastuu", "ympäristö", "luonto", "kivet", "pensas", "säännöt", "ohjeet", "yhteisö", "harrastus", "seikkailu", "yhteistyö", "opastus", "vaellus", "patikointi", "retkeily", "hiihto", "luistelu", "melonta", "veneily", "purjehdus", "sukellus", "kiipeily", "pyöräily", "maastopyöräily", "kävely", "juoksu"];
     const FINNISH_ALPHABET = "abcdefghijklmnopqrstuvwxyzåäö";
@@ -48,10 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const matrixInterval = setInterval(drawMatrix, 33);
 
-    // --- UUSI, KESKITETTY VIERITYSFUNKTIO ---
     function scrollToBottom() {
-        // Asetetaan pieni aikakatkaisu varmistamaan, että selain on ehtinyt renderöidä uuden sisällön
-        // ennen vieritystä. Tämä tekee toiminnosta luotettavamman.
         setTimeout(() => {
             output.scrollTop = output.scrollHeight;
         }, 0);
@@ -63,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         output.appendChild(lineDiv);
         for (let i = 0; i < line.length; i++) {
             lineDiv.innerHTML += line.charAt(i);
-            scrollToBottom(); // Vieritetään jokaisen merkin jälkeen
+            scrollToBottom();
             await new Promise(resolve => setTimeout(resolve, speed));
         }
     }
@@ -72,14 +69,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof line === 'string') lineDiv.innerText = line;
         else lineDiv.innerHTML = line.html;
         output.appendChild(lineDiv);
-        scrollToBottom(); // Vieritetään kun koko rivi on lisätty
+        scrollToBottom();
     }
     
-    // --- UUSI FUNKTIO NÄPPÄIMISTÖN HALLINTAAN ---
     function setInputState(enabled) {
-        isInputLocked = !enabled; // Asetetaan lukitustila
+        isInputLocked = !enabled;
         if (enabled) {
-            input.focus(); // Varmistetaan, että kenttä on aktiivinen
+            input.focus();
         }
     }
 
@@ -197,12 +193,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const interactiveWrapper = document.createElement('div');
         interactiveWrapper.className = 'interactive-wrapper';
-        interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">${sequence.split('').join(' ')}</div>`;
+        // Annetaan tälle oma luokka CSS-kohdennusta varten
+        interactiveWrapper.innerHTML = `<div class="memory-sequence">${sequence.split('').join(' ')}</div>`;
         output.appendChild(interactiveWrapper);
         scrollToBottom();
 
         await new Promise(resolve => setTimeout(resolve, 2500));
-        interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
+        const sequenceDiv = interactiveWrapper.querySelector('.memory-sequence');
+        if(sequenceDiv) {
+            sequenceDiv.innerHTML = '█ █ █ █ █ █';
+        }
         scrollToBottom();
         
         await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi'.`);
@@ -494,10 +494,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- PÄIVITETTY SYÖTTÖLOGIIKKA ---
     input.addEventListener('keydown', async (event) => {
         if (event.key === 'Enter') {
-            if (isInputLocked) return; // Estetään syöttö, jos peli on lukittu
+            if (isInputLocked) return;
             const command = input.value.trim();
             if(command === '' && gameState !== 'AWAITING_NAME') return;
             await handleInput(command);
