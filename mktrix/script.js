@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
 
-    // --- PÄIVITETTY MATRIX-EFEKTI ---
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -22,43 +21,29 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = fontSize + 'px monospace';
-
         for (let i = 0; i < rainDrops.length; i++) {
             let drop = rainDrops[i];
             let text;
-
             if (drop.isSpecial) {
                 text = drop.word.charAt(drop.charIndex);
-                ctx.fillStyle = '#FF4136'; // Punainen
-                // Hitaampi päivitys erikoissanoille
-                if (Math.floor(drop.y) % 2 === 0) { 
-                    if (drop.charIndex < drop.word.length - 1) drop.charIndex++;
-                    else drop.isSpecial = false;
+                ctx.fillStyle = '#FF4136';
+                if (Math.floor(drop.y) % 2 === 0) {
+                     if (drop.charIndex < drop.word.length -1) drop.charIndex++;
+                     else drop.isSpecial = false;
                 }
-                 drop.y += 0.5; // Liikkuu puolinopeudella
             } else {
                 text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillStyle = '#0F0'; // Vihreä
-                drop.y++; // Normaali nopeus
+                ctx.fillStyle = '#0F0';
             }
-            
-            ctx.fillText(text, i * fontSize, drop.y);
-
-            if (drop.y > canvas.height / fontSize) {
-                // Nollaa pisara ja anna sille mahdollisuus muuttua erikoiseksi
-                const mightBecomeSpecial = Math.random() > 0.97;
-                rainDrops[i] = {
-                    y: 0,
-                    isSpecial: customWords.length > 0 && mightBecomeSpecial,
-                    word: mightBecomeSpecial ? customWords[Math.floor(Math.random() * customWords.length)] : null,
-                    charIndex: 0
-                };
+            ctx.fillText(text, i * fontSize, drop.y * fontSize);
+            if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
+                rainDrops[i] = { y: 0, isSpecial: (customWords.length > 0 && Math.random() > 0.95), word: customWords[Math.floor(Math.random() * customWords.length)], charIndex: 0 };
             }
+            drop.y++;
         }
     }
-    const matrixInterval = setInterval(drawMatrix, 40); // Hidastettu hieman yleistä nopeutta
+    const matrixInterval = setInterval(drawMatrix, 33);
 
-    // --- Yleiset apufunktiot ---
     async function type(line) {
         const speed = 40;
         const lineDiv = document.createElement('div');
@@ -168,18 +153,48 @@ document.addEventListener('DOMContentLoaded', () => {
         await new Promise(resolve => setTimeout(resolve, 2500));
         interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
         
-        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi' tai 'ylipääsy'.`);
+        // KORJATTU KOHTA: Ohituskoodi on poistettu julkisesta ohjeesta.
+        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi'.`);
         setInputState(true);
     }
     
+    async function setupCipherDisk() {
+        clearInteractive();
+        await type(`\n--- PULMA 6/7: Koodikiekko ---`);
+        await type(`Viesti on salattu Caesar-kiekolla. Etsi oikea siirtymä ja pura avainsana: PBZFR`);
+        setInputState(true); // Salli kirjoittaminen heti
+
+        const interactiveWrapper = document.createElement('div');
+        interactiveWrapper.className = 'interactive-wrapper';
+        output.appendChild(interactiveWrapper);
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let shift = 0;
+
+        function updateDisk() {
+            const shiftedChar = alphabet.charAt((0 + shift + 26) % 26);
+            interactiveWrapper.innerHTML = `
+                <div>Kiekon asetus:</div>
+                <div style="font-size: 2em; margin: 10px;">
+                    <span class="dial-button" id="disk-left">[<]</span>
+                    <span id="disk-value" style="margin: 0 20px;">A -> ${shiftedChar}</span>
+                    <span class="dial-button" id="disk-right">[>]</span>
+                </div>
+                <div>Kirjoita purettu sana alla olevaan komentoriviin.</div>`;
+            document.getElementById('disk-left').onclick = () => { shift--; updateDisk(); };
+            document.getElementById('disk-right').onclick = () => { shift++; updateDisk(); };
+        }
+        updateDisk();
+    }
+
     function initializePuzzles() {
         puzzles = [
             { question: [`\n--- PULMA 1/7: Anagrammi ---`, `Järjestä kirjaimet sanaksi: TORIDAKOINAT`], answer: "koordinaatit", reward: "43°..′..″N ..°..′..″W" },
             { question: [`\n--- PULMA 2/7: Numeerinen protokolla ---`, `Käännä numerot kirjaimiksi (A=1...): 14-1-22-9-7-15-9-14-20-9`], answer: "navigointi", reward: "43°04′..″N ..°..′..″W" },
             { type: 'interactive', setup: setupMemoryPuzzle, reward: "43°04′41″N ..°..′..″W" },
-            { question: [`\n--- PULMA 4/7: Polybius-neliö ---`, `Viesti on koodattu 5x5 Polybius-neliöllä (I/J samassa ruudussa). Pura numerosarja:`, `11 22 15 33 44 44 24`], answer: "agentti", reward: "43°04′41″N 79°..′..″W" },
+            { question: [`\n--- PULMA 4/7: Morse-koodi ---`, `Viesti on katkonainen. Käytä kansainvälistä standardia sen purkamiseen:`, `...- .- .- .-. .-`], answer: "vaara", reward: "43°04′41″N 79°..′..″W" },
             { question: [`\n--- PULMA 5/7: "Katso ja Sano" ---`, `Agentti 'Yksi' jätti jälkeensä tämän kryptisen numerosarjan. Päättele sen logiikka ja anna seuraava rivi:`, `1`, `11`, `21`, `1211`, `111221`, `?`], answer: "312211", reward: "43°04′41″N 79°04′..″W" },
-            { question: [`\n--- PULMA 6/7: Piilotieto ---`, `Järjestelmäraportti Z-14 on saapunut. Se näyttää päällisin puolin normaalilta, mutta jokin siinä on vialla. Vain tarkkaavainen agentti löytää piilotetun avainsanan.`], html_payload: `Järjestelmäraportti Z-14: Kaikki y<span class="hidden-char">p</span>a<span class="hidden-char">u</span>tkistosignaalit näyttävät no<span class="hidden-char">r</span>maaleilta, mutta jotain on silti outoa. Y<span class="hidden-char">k</span>si sektori ei vas<span class="hidden-char">k</span>aa pyyntö<span class="hidden-char">i</span>hin.`, answer: "purkki", reward: "43°04′41″N 79°04′30″W" },
+            { type: 'interactive', setup: setupCipherDisk, answer: "agentti", reward: "43°04′41″N 79°04′30″W" },
             { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
         ];
     }
@@ -188,13 +203,8 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInteractive();
         const puzzle = puzzles[currentPuzzle];
         await textCorruptionEffect(puzzle.question ? puzzle.question[0] : `PULMA ${currentPuzzle + 1}`);
-        if (puzzle.html_payload) {
-            for (const line of puzzle.question) await type(line);
-            print({ html: puzzle.html_payload });
-            setInputState(true);
-        } else if (puzzle.type === 'interactive') {
-            await puzzle.setup();
-        } else {
+        if (puzzle.type === 'interactive') await puzzle.setup();
+        else {
             for (const line of puzzle.question) await type(line);
             setInputState(true);
         }
