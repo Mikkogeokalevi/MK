@@ -1,75 +1,49 @@
 document.addEventListener('DOMContentLoaded', () => {
     const output = document.getElementById('output');
     const input = document.getElementById('input');
-    const interactiveContainer = document.getElementById('interactive-container');
 
     let agentName = '';
     let currentPuzzle = 0;
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
 
-    // --- Matrix-efekti ---
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-
     const customWords = ["MKTRIX", "MIKKOKALEVI"];
     const alphabet = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    
     const fontSize = 16;
     const columns = canvas.width / fontSize;
-    const rainDrops = Array(Math.floor(columns)).fill(1).map(() => ({
-        y: Math.random() * canvas.height,
-        isSpecial: false,
-        word: null,
-        charIndex: 0
-    }));
+    const rainDrops = Array(Math.floor(columns)).fill(1).map(() => ({ y: Math.random() * canvas.height, isSpecial: false, word: null, charIndex: 0 }));
 
     function drawMatrix() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
         ctx.font = fontSize + 'px monospace';
-
         for (let i = 0; i < rainDrops.length; i++) {
             let drop = rainDrops[i];
             let text;
-
             if (drop.isSpecial) {
                 text = drop.word.charAt(drop.charIndex);
-                ctx.fillStyle = '#FF4136'; 
+                ctx.fillStyle = '#FF4136';
+                if (Math.floor(drop.y) % 2 === 0) {
+                     if (drop.charIndex < drop.word.length -1) drop.charIndex++;
+                     else drop.isSpecial = false;
+                }
             } else {
                 text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 ctx.fillStyle = '#0F0';
             }
-            
             ctx.fillText(text, i * fontSize, drop.y * fontSize);
-
-            if (drop.isSpecial) {
-                if (Math.floor(drop.y) % 2 === 0) {
-                     if (drop.charIndex < drop.word.length -1) {
-                        drop.charIndex++;
-                     } else {
-                        drop.isSpecial = false;
-                     }
-                }
-            }
-            
             if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
-                rainDrops[i] = {
-                    y: 0,
-                    isSpecial: (customWords.length > 0 && Math.random() > 0.95),
-                    word: customWords[Math.floor(Math.random() * customWords.length)],
-                    charIndex: 0
-                };
+                rainDrops[i] = { y: 0, isSpecial: (customWords.length > 0 && Math.random() > 0.95), word: customWords[Math.floor(Math.random() * customWords.length)], charIndex: 0 };
             }
             drop.y++;
         }
     }
     const matrixInterval = setInterval(drawMatrix, 33);
 
-    // --- Yleiset apufunktiot ---
     async function type(line) {
         const speed = 40;
         const lineDiv = document.createElement('div');
@@ -92,23 +66,27 @@ document.addEventListener('DOMContentLoaded', () => {
         input.disabled = !enabled;
         if (enabled) input.focus();
     }
-    function clearInteractive() { interactiveContainer.innerHTML = ''; }
+    function clearInteractive() {
+        const interactive = output.querySelector('.interactive-wrapper');
+        if (interactive) interactive.remove();
+    }
 
     async function handleWrongAnswer() {
         setInputState(false);
         print({html: `<span class="error">VIRHE, AGENTTI ${agentName.toUpperCase()}. Järjestelmä lukittu...</span>`});
         output.classList.add('glitch-effect');
         
+        const countdownWrapper = document.createElement('div');
+        countdownWrapper.className = 'interactive-wrapper';
         const countdownElement = document.createElement('div');
         countdownElement.className = 'error';
-        interactiveContainer.appendChild(countdownElement);
+        countdownWrapper.appendChild(countdownElement);
+        output.appendChild(countdownWrapper);
         
         let timeLeft = 30;
-        
         const countdownInterval = setInterval(() => {
             countdownElement.innerText = `...${timeLeft}...`;
             timeLeft--;
-
             if (timeLeft < 0) {
                 clearInterval(countdownInterval);
                 countdownElement.innerText = 'Järjestelmä aktiivinen.';
@@ -122,9 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     async function textCorruptionEffect(text) {
-        const chars = 'AZX#@$*!?%/|';
         const lineDiv = document.createElement('div');
         output.appendChild(lineDiv);
+        const chars = 'AZX#@$*!?%/|';
         for (let i = 0; i < 3; i++) {
             let garbage = '';
             for (let j = 0; j < text.length; j++) {
@@ -139,12 +117,9 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleSuccess() {
         setInputState(false);
         const puzzle = puzzles[currentPuzzle];
-        
         print({html: `<span class="highlight">OIKEA VASTAUS, AGENTTI ${agentName.toUpperCase()}.</span>`});
         currentPuzzle++;
-        
         if (puzzle.reward) await type(`Koordinaatit päivitetty: ${puzzle.reward}`);
-        
         if (currentPuzzle < puzzles.length) {
             await displayPuzzle();
         } else {
@@ -169,48 +144,48 @@ document.addEventListener('DOMContentLoaded', () => {
         await type(`\n--- PULMA 3/7: Muistipeli ---`);
         await type(`Toista 6-merkkinen aakkosnumeerinen koodi...`);
         await new Promise(resolve => setTimeout(resolve, 1500));
-        interactiveContainer.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">${sequence.split('').join(' ')}</div>`;
+        
+        const interactiveWrapper = document.createElement('div');
+        interactiveWrapper.className = 'interactive-wrapper';
+        interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">${sequence.split('').join(' ')}</div>`;
+        output.appendChild(interactiveWrapper);
+        output.scrollTop = output.scrollHeight;
+
         await new Promise(resolve => setTimeout(resolve, 2500));
-        interactiveContainer.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
-        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi'.`);
+        interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
+        
+        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi' tai 'ylipääsy'.`);
         setInputState(true);
     }
     
-    async function setupDialPuzzle() {
+    async function setupCipherDisk() {
         clearInteractive();
-        const now = new Date();
-        const targetValue = now.getMonth() + 1 + now.getDate();
-        puzzles[4].answer = targetValue.toString();
+        await type(`\n--- PULMA 6/7: Koodikiekko ---`);
+        await type(`Viesti on salattu Caesar-kiekolla. Etsi oikea siirtymä ja pura avainsana: PBZFR`);
+        setInputState(false);
 
-        await type(`\n--- PULMA 5/7: Taajuusmodulaattori ---`);
-        await type(`Järjestelmän kellopulssi on epäsynkassa. Aseta kalibrointitaajuus kuluvan KUUKAUDEN NUMERO + PÄIVÄN NUMERO.`);
-        setInputState(false);
-        interactiveContainer.innerHTML = `
-            <div style="font-size: 2em; margin: 10px;"><span class="dial-button" id="dial-minus">[-]</span> <span id="dial-value" style="margin: 0 20px;">1</span> <span class="dial-button" id="dial-plus">[+]</span></div>
-            <div><span class="dial-button" id="dial-confirm">[VAHVISTA]</span></div>`;
-        let currentValue = 1;
-        document.getElementById('dial-minus').onclick = () => { currentValue--; document.getElementById('dial-value').innerText = currentValue; };
-        document.getElementById('dial-plus').onclick = () => { currentValue++; document.getElementById('dial-value').innerText = currentValue; };
-        document.getElementById('dial-confirm').onclick = () => { (currentValue === targetValue) ? handleSuccess() : handleWrongAnswer(); };
-    }
-    
-    async function setupWirePuzzle() {
-        clearInteractive();
-        await type(`\n--- PULMA 6/7: Purkujärjestelmä ---`);
-        await type(`Tämä vaatii tarkkuutta, agentti ${agentName.toUpperCase()}.`);
-        await type(`Lue ohjeet huolellisesti ja katkaise oikea johto.`);
-        print({html: `<div style="border: 1px solid #90EE90; padding: 5px; margin-top: 10px; text-align: left;"><b>Purkuohjeisto v1.2:</b><br>- Jos punaisia johtoja on enemmän kuin yksi, katkaise keltainen johto.<br>- Jos ei ole keltaista johtoa, katkaise toinen sininen johto.<br>- Muussa tapauksessa katkaise ensimmäinen johto.</div>`});
-        
-        setInputState(false);
-        const wires = [{ c: "sininen", t: "[---SININEN----]" }, { c: "punainen", t: "[---PUNAINEN---]" }, { c: "punainen", t: "[---PUNAINEN---]" }, { c: "sininen", t: "[---SININEN----]" }, { c: "keltainen", t: "[---KELTAINEN--]" }];
-        puzzles[5].answer = "keltainen";
-        
-        wires.forEach(wire => {
-            const el = document.createElement('div');
-            el.className = 'clickable-wire'; el.innerText = wire.t;
-            el.onclick = () => { (wire.c === puzzles[5].answer) ? handleSuccess() : handleWrongAnswer(); };
-            interactiveContainer.appendChild(el);
-        });
+        const interactiveWrapper = document.createElement('div');
+        interactiveWrapper.className = 'interactive-wrapper';
+        output.appendChild(interactiveWrapper);
+
+        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        let shift = 0;
+
+        function updateDisk() {
+            const shiftedChar = alphabet.charAt((0 + shift + 26) % 26);
+            interactiveWrapper.innerHTML = `
+                <div>Kiekon asetus:</div>
+                <div style="font-size: 2em; margin: 10px;">
+                    <span class="dial-button" id="disk-left">[<]</span>
+                    <span id="disk-value" style="margin: 0 20px;">A -> ${shiftedChar}</span>
+                    <span class="dial-button" id="disk-right">[>]</span>
+                </div>
+                <div>Kirjoita purettu sana alla olevaan komentoriviin.</div>`;
+            document.getElementById('disk-left').onclick = () => { shift--; updateDisk(); };
+            document.getElementById('disk-right').onclick = () => { shift++; updateDisk(); };
+        }
+        updateDisk();
+        setInputState(true);
     }
 
     function initializePuzzles() {
@@ -218,9 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
             { question: [`\n--- PULMA 1/7: Anagrammi ---`, `Järjestä kirjaimet sanaksi: TORIDAKOINAT`], answer: "koordinaatit", reward: "43°..′..″N ..°..′..″W" },
             { question: [`\n--- PULMA 2/7: Numeerinen protokolla ---`, `Käännä numerot kirjaimiksi (A=1...): 14-1-22-9-7-15-9-14-20-9`], answer: "navigointi", reward: "43°04′..″N ..°..′..″W" },
             { type: 'interactive', setup: setupMemoryPuzzle, reward: "43°04′41″N ..°..′..″W" },
-            { question: [`\n--- PULMA 4/7: Kuviopäättely ---`, `Signaalissa on toistuva kuvio. Päättele seuraava osa sekvenssissä:`, `A1-B2-C3`, `D4-E5-F6`, `G7-H8-I9`, `?-?-?`], answer: "j10-k11-l12", reward: "43°04′41″N 79°..′..″W" },
-            { question: [`\n--- PULMA 5/7: Logiikkapulma ---`, `Kolme agenttia (A, B, C) piilotti kukin yhden esineen (Avain, Kartta, Kompassi). Päättele vihjeiden avulla, minkä esineen agentti C piilotti.`, `Vihje 1: Agentti A ei piilottanut Avainta.`, `Vihje 2: Agentti B piilotti Kompassin.` ], answer: "avain", reward: "43°04′41″N 79°04′..″W" },
-            { type: 'interactive', setup: setupWirePuzzle, reward: "43°04′41″N 79°04′30″W" },
+            { question: [`\n--- PULMA 4/7: Morse-koodi ---`, `Viesti on katkonainen. Käytä kansainvälistä standardia sen purkamiseen:`, `...- .- .- .-. .-`], answer: "vaara", reward: "43°04′41″N 79°..′..″W" },
+            { question: [`\n--- PULMA 5/7: "Katso ja Sano" ---`, `Agentti 'Yksi' jätti jälkeensä tämän kryptisen numerosarjan. Päättele sen logiikka ja anna seuraava rivi:`, `1`, `11`, `21`, `1211`, `111221`, `?`], answer: "312211", reward: "43°04′41″N 79°04′..″W" },
+            { type: 'interactive', setup: setupCipherDisk, answer: "agentti", reward: "43°04′41″N 79°04′30″W" },
             { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
         ];
     }
@@ -229,13 +204,9 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInteractive();
         const puzzle = puzzles[currentPuzzle];
         await textCorruptionEffect(puzzle.question ? puzzle.question[0] : `PULMA ${currentPuzzle + 1}`);
-
-        if (puzzle.type === 'interactive') {
-            await puzzle.setup();
-        } else {
-            for (const line of puzzle.question) {
-                await type(line);
-            }
+        if (puzzle.type === 'interactive') await puzzle.setup();
+        else {
+            for (const line of puzzle.question) await type(line);
             setInputState(true);
         }
     }
@@ -244,14 +215,11 @@ document.addEventListener('DOMContentLoaded', () => {
         print(`> ${command}`);
         input.value = '';
         setInputState(false);
-
         if (gameState === 'AWAITING_NAME') {
             agentName = command || "Tuntematon";
             if (agentName.length > 2) customWords.push(agentName.toUpperCase());
-            
             gameState = 'PLAYING';
             initializePuzzles();
-            
             await type("Yhdistetään MIKKO-GEO-KALEVI-verkkoon...");
             await new Promise(resolve => setTimeout(resolve, 500));
             await type("Vastaanotetaan signaalia... OK");
@@ -261,31 +229,19 @@ document.addEventListener('DOMContentLoaded', () => {
             await type("Ladataan Ällös Operaatio ...");
             await type("------------------------------------");
             await type(`TERVETULOA, AGENTTI ${agentName.toUpperCase()}.`);
-            
             await displayPuzzle();
             return;
         }
-
         if (gameState === 'PLAYING') {
             const puzzle = puzzles[currentPuzzle];
-            const commandLower = command.toLowerCase();
-
-            // UUSI KOHTA: Ohituskoodin tarkistus muistipelissä
-            if (currentPuzzle === 2 && commandLower === 'ylipääsy') {
-                print(`> Järjestelmän pääkäyttäjän ohituskoodi hyväksytty.`);
-                await handleSuccess();
+            const cmd = command.toLowerCase();
+            if (currentPuzzle === 2 && (cmd === 'anna uusi koodi' || cmd === 'ylipääsy')) {
+                if(cmd === 'ylipääsy') { print(`> Järjestelmän pääkäyttäjän ohituskoodi hyväksytty.`); await handleSuccess(); }
+                else { await type("Generoidaan uutta turvakoodia..."); await setupMemoryPuzzle(); }
                 return;
             }
-            if (currentPuzzle === 2 && commandLower === 'anna uusi koodi') {
-                await type("Generoidaan uutta turvakoodia...");
-                await setupMemoryPuzzle();
-                return;
-            }
-            if (commandLower === puzzle.answer) {
-                await handleSuccess();
-            } else {
-                await handleWrongAnswer();
-            }
+            if (cmd === puzzle.answer) await handleSuccess();
+            else await handleWrongAnswer();
         }
     }
 
@@ -303,6 +259,5 @@ document.addEventListener('DOMContentLoaded', () => {
         await type("SYÖTÄ GEOKÄTKÖILY NIMESI...");
         setInputState(true);
     }
-
     main();
 });
