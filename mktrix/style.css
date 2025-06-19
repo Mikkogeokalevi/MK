@@ -43,7 +43,7 @@ body {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    height: 75vh; /* Asetetaan terminaalille korkeus */
+    height: 75vh; /* Oletuskorkeus isommilla näytöillä */
 }
 
 #terminal::after {
@@ -57,10 +57,9 @@ body {
     pointer-events: none;
 }
 
-/* KORJATTU: Output-alue täyttää nyt saatavilla olevan tilan ja on vieritettävä */
 #output {
-    flex-grow: 1; /* Antaa tämän elementin kasvaa ja täyttää tyhjän tilan */
-    overflow-y: auto; /* Lisää vierityspalkin tarvittaessa */
+    flex-grow: 1;
+    overflow-y: auto;
     white-space: pre-wrap;
     padding-right: 10px;
     color: #F8F8F8;
@@ -76,7 +75,6 @@ body {
 .glitch-effect { animation: glitch-animation 0.5s; }
 @keyframes glitch-animation { 0% { transform: translate(0); } 10% { transform: translate(-2px, 2px); } 20% { transform: translate(2px, -2px); } 30% { transform: translate(-2px, -2px); } 40% { transform: translate(2px, 2px); } 50% { transform: translate(0); } }
 
-/* Interaktiiviset elementit (sijoitetaan nyt outputin sisään) */
 .interactive-wrapper {
     padding: 10px 0;
     text-align: center;
@@ -100,4 +98,14 @@ body {
 
 @keyframes blink-cursor { from, to { border-right: 2px solid #90EE90; } 50% { border-right: 2px solid transparent; } }
 
-@media (max-width: 600px) { body { padding: 10px; font-size: 14px; } #terminal { height: 85vh; } }
+/* --- TÄMÄ ON KORJATTU KOHTA MOBIILILAITTEILLE --- */
+@media (max-width: 600px) { 
+    body { 
+        padding: 10px; 
+        font-size: 14px; 
+    } 
+    #terminal { 
+        /* Asetetaan terminaalin korkeus pienemmäksi mobiilinäytöillä */
+        height: 70vh; 
+    } 
+}
