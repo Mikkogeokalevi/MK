@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
 
-    // --- PÄIVITETTY MATRIX-EFEKTI ---
+    // --- UUSI JA PARANNETTU MATRIX-EFEKTI ---
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -19,7 +19,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const fontSize = 16;
     const columns = canvas.width / fontSize;
-    const rainDrops = Array(Math.floor(columns)).fill(1);
+    const rainDrops = [];
+
+    for (let x = 0; x < columns; x++) {
+        // Jokainen sadepisara on nyt objekti, joka voi olla "erikoinen"
+        rainDrops[x] = {
+            y: Math.random() * canvas.height,
+            isSpecial: false,
+            word: null,
+            charIndex: 0
+        };
+    }
 
     function drawMatrix() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
@@ -28,28 +38,46 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.font = fontSize + 'px monospace';
 
         for (let i = 0; i < rainDrops.length; i++) {
+            let drop = rainDrops[i];
             let text;
-            // Pieni todennäköisyys valita oma sana
-            if (customWords.length > 0 && Math.random() > 0.995) {
-                const word = customWords[Math.floor(Math.random() * customWords.length)];
-                text = word.charAt(Math.floor(Math.random() * word.length)).toUpperCase();
-                // KORJATTU KOHTA: Vaihdetaan väri punaiseksi omille sanoille
-                ctx.fillStyle = '#FF4136'; 
+
+            if (drop.isSpecial) {
+                // Piirrä seuraava kirjain erikoissanasta
+                text = drop.word.charAt(drop.charIndex);
+                drop.charIndex++;
+                ctx.fillStyle = '#FF4136'; // Punainen väri
+                // Jos sana loppui, muuta takaisin normaaliksi pisaraksi
+                if (drop.charIndex >= drop.word.length) {
+                    drop.isSpecial = false;
+                }
             } else {
+                // Normaali satunnainen merkki
                 text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                 // Varmistetaan, että väri palautuu vihreäksi
-                ctx.fillStyle = '#0F0';
+                ctx.fillStyle = '#0F0'; // Vihreä väri
             }
             
-            ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+            ctx.fillText(text, i * fontSize, drop.y * fontSize);
 
-            if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                rainDrops[i] = 0;
+            // Lähetä pisara takaisin ylös, kun se poistuu ruudulta
+            if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
+                rainDrops[i] = {
+                    y: 0,
+                    isSpecial: false,
+                    word: null,
+                    charIndex: 0
+                };
+                
+                // Pieni todennäköisyys muuttaa pisara erikoiseksi, kun se alkaa alusta
+                if (customWords.length > 0 && Math.random() > 0.98) {
+                    rainDrops[i].isSpecial = true;
+                    rainDrops[i].word = customWords[Math.floor(Math.random() * customWords.length)];
+                }
             }
-            rainDrops[i]++;
+            drop.y++;
         }
     }
     const matrixInterval = setInterval(drawMatrix, 33);
+
 
     // --- Yleiset apufunktiot ---
     async function type(line) {
