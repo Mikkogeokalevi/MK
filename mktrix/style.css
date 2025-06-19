@@ -1,4 +1,4 @@
-/* Perusasetukset. */
+/* Perusasetukset */
 body {
     background-color: #000;
     color: #F8F8F8;
@@ -101,11 +101,24 @@ body {
 /* --- TÄMÄ ON KORJATTU KOHTA MOBIILILAITTEILLE --- */
 @media (max-width: 600px) { 
     body { 
-        padding: 10px; 
-        font-size: 14px; 
+        padding: 0; /* Poistetaan oletustyhjätila */
+        margin: 0;
     } 
-    #terminal { 
-        /* Asetetaan terminaalin korkeus pienemmäksi mobiilinäytöillä */
-        height: 70vh; 
+    #terminal {
+        position: fixed; /* Kiinnitetään näyttöön */
+        top: 10px;       /* 10px marginaali ylhäällä */
+        left: 10px;      /* 10px marginaali vasemmalla */
+        right: 10px;     /* 10px marginaali oikealla */
+        bottom: 10px;    /* 10px marginaali alhaalla */
+        height: auto;    /* Annetaan selainikkunan koon määrittää korkeus */
+        width: auto;     /* Annetaan selainikkunan koon määrittää leveys */
+        max-width: none; /* Kumotaan aiempi maksimileveys */
+        margin: 0;
     } 
+    .logo {
+        /* Pienennetään logoa hieman mobiilissa, jotta se ei vie liikaa tilaa */
+        width: 100px;
+        height: 100px;
+        margin-bottom: 15px;
+    }
 }
