@@ -153,48 +153,23 @@ document.addEventListener('DOMContentLoaded', () => {
         await new Promise(resolve => setTimeout(resolve, 2500));
         interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
         
-        // KORJATTU KOHTA: Ohituskoodi on poistettu julkisesta ohjeesta.
         await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi'.`);
         setInputState(true);
     }
     
-    async function setupCipherDisk() {
-        clearInteractive();
-        await type(`\n--- PULMA 6/7: Koodikiekko ---`);
-        await type(`Viesti on salattu Caesar-kiekolla. Etsi oikea siirtymä ja pura avainsana: PBZFR`);
-        setInputState(true); // Salli kirjoittaminen heti
-
-        const interactiveWrapper = document.createElement('div');
-        interactiveWrapper.className = 'interactive-wrapper';
-        output.appendChild(interactiveWrapper);
-
-        const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        let shift = 0;
-
-        function updateDisk() {
-            const shiftedChar = alphabet.charAt((0 + shift + 26) % 26);
-            interactiveWrapper.innerHTML = `
-                <div>Kiekon asetus:</div>
-                <div style="font-size: 2em; margin: 10px;">
-                    <span class="dial-button" id="disk-left">[<]</span>
-                    <span id="disk-value" style="margin: 0 20px;">A -> ${shiftedChar}</span>
-                    <span class="dial-button" id="disk-right">[>]</span>
-                </div>
-                <div>Kirjoita purettu sana alla olevaan komentoriviin.</div>`;
-            document.getElementById('disk-left').onclick = () => { shift--; updateDisk(); };
-            document.getElementById('disk-right').onclick = () => { shift++; updateDisk(); };
-        }
-        updateDisk();
-    }
-
     function initializePuzzles() {
         puzzles = [
             { question: [`\n--- PULMA 1/7: Anagrammi ---`, `Järjestä kirjaimet sanaksi: TORIDAKOINAT`], answer: "koordinaatit", reward: "43°..′..″N ..°..′..″W" },
             { question: [`\n--- PULMA 2/7: Numeerinen protokolla ---`, `Käännä numerot kirjaimiksi (A=1...): 14-1-22-9-7-15-9-14-20-9`], answer: "navigointi", reward: "43°04′..″N ..°..′..″W" },
             { type: 'interactive', setup: setupMemoryPuzzle, reward: "43°04′41″N ..°..′..″W" },
-            { question: [`\n--- PULMA 4/7: Morse-koodi ---`, `Viesti on katkonainen. Käytä kansainvälistä standardia sen purkamiseen:`, `...- .- .- .-. .-`], answer: "vaara", reward: "43°04′41″N 79°..′..″W" },
+            // UUSI PULMA 4
+            { question: [`\n--- PULMA 4/7: Possukarsinakoodi ---`, `Viesti on salattu Pigpen-koodilla. Pura se.`, `Viesti: >_| ⚃ > sqcup |< sqcup >`], answer: "signaali", reward: "43°04′41″N 79°..′..″W" },
+            // UUSI PULMA 5
             { question: [`\n--- PULMA 5/7: "Katso ja Sano" ---`, `Agentti 'Yksi' jätti jälkeensä tämän kryptisen numerosarjan. Päättele sen logiikka ja anna seuraava rivi:`, `1`, `11`, `21`, `1211`, `111221`, `?`], answer: "312211", reward: "43°04′41″N 79°04′..″W" },
-            { type: 'interactive', setup: setupCipherDisk, answer: "agentti", reward: "43°04′41″N 79°04′30″W" },
+            // UUSI PULMA 6
+            { question: [`\n--- PULMA 6/7: Steganografia ---`, `Data on korruptoitunut, mutta yksi sana on yhä luettavissa... jos katsot tarkkaan. Maalaa hiirellä alla oleva teksti tai tutki sitä muuten.`], 
+              html_payload: `Järjestelmäraportti Z-14: Kaikki y<span class="hidden-char">p</span>a<span class="hidden-char">u</span>tkistosignaalit näyttävät no<span class="hidden-char">r</span>maaleilta, mutta jotain on silti outoa. Y<span class="hidden-char">k</span>si sektori ei vas<span class="hidden-char">k</span>aa pyyntö<span class="hidden-char">i</span>hin.`,
+              answer: "purkki", reward: "43°04′41″N 79°04′30″W" },
             { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
         ];
     }
@@ -203,8 +178,13 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInteractive();
         const puzzle = puzzles[currentPuzzle];
         await textCorruptionEffect(puzzle.question ? puzzle.question[0] : `PULMA ${currentPuzzle + 1}`);
-        if (puzzle.type === 'interactive') await puzzle.setup();
-        else {
+        if (puzzle.html_payload) { // Käsitellään pulmat, joissa on HTML-sisältöä
+            for (const line of puzzle.question) await type(line);
+            print({ html: puzzle.html_payload });
+            setInputState(true);
+        } else if (puzzle.type === 'interactive') {
+            await puzzle.setup();
+        } else {
             for (const line of puzzle.question) await type(line);
             setInputState(true);
         }
