@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
 
-    // --- UUSI JA PARANNETTU MATRIX-EFEKTI ---
+    // --- Matrix-efekti ---
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const rainDrops = [];
 
     for (let x = 0; x < columns; x++) {
-        // Jokainen sadepisara on nyt objekti, joka voi olla "erikoinen"
         rainDrops[x] = {
             y: Math.random() * canvas.height,
             isSpecial: false,
@@ -42,36 +41,35 @@ document.addEventListener('DOMContentLoaded', () => {
             let text;
 
             if (drop.isSpecial) {
-                // Piirrä seuraava kirjain erikoissanasta
                 text = drop.word.charAt(drop.charIndex);
-                drop.charIndex++;
                 ctx.fillStyle = '#FF4136'; // Punainen väri
-                // Jos sana loppui, muuta takaisin normaaliksi pisaraksi
-                if (drop.charIndex >= drop.word.length) {
-                    drop.isSpecial = false;
-                }
             } else {
-                // Normaali satunnainen merkki
                 text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
-                ctx.fillStyle = '#0F0'; // Vihreä väri
+                ctx.fillStyle = '#0F0';
             }
             
             ctx.fillText(text, i * fontSize, drop.y * fontSize);
 
-            // Lähetä pisara takaisin ylös, kun se poistuu ruudulta
+            // KORJATTU KOHTA: Erikoissanat valuvat hitaammin
+            if (drop.isSpecial) {
+                // Päivitä erikoissanan indeksiä vain joka toisella piirtokerralla
+                if (Math.floor(drop.y) % 2 === 0) {
+                     if (drop.charIndex < drop.word.length -1) {
+                        drop.charIndex++;
+                     } else {
+                        drop.isSpecial = false; // Sana loppui
+                     }
+                }
+            }
+            
             if (drop.y * fontSize > canvas.height && Math.random() > 0.975) {
+                // Nollaa pisara ja anna sille mahdollisuus muuttua erikoiseksi
                 rainDrops[i] = {
                     y: 0,
-                    isSpecial: false,
-                    word: null,
+                    isSpecial: (customWords.length > 0 && Math.random() > 0.95), // Suurennettu todennäköisyyttä hieman
+                    word: customWords[Math.floor(Math.random() * customWords.length)],
                     charIndex: 0
                 };
-                
-                // Pieni todennäköisyys muuttaa pisara erikoiseksi, kun se alkaa alusta
-                if (customWords.length > 0 && Math.random() > 0.98) {
-                    rainDrops[i].isSpecial = true;
-                    rainDrops[i].word = customWords[Math.floor(Math.random() * customWords.length)];
-                }
             }
             drop.y++;
         }
@@ -149,9 +147,12 @@ document.addEventListener('DOMContentLoaded', () => {
     async function handleSuccess() {
         setInputState(false);
         const puzzle = puzzles[currentPuzzle];
+        
         print({html: `<span class="highlight">OIKEA VASTAUS, AGENTTI ${agentName.toUpperCase()}.</span>`});
         currentPuzzle++;
+        
         if (puzzle.reward) await type(`Koordinaatit päivitetty: ${puzzle.reward}`);
+        
         if (currentPuzzle < puzzles.length) {
             await displayPuzzle();
         } else {
