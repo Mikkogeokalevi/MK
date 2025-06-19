@@ -131,7 +131,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // --- Interaktiiviset pulmat ---
     async function setupMemoryPuzzle() {
         clearInteractive();
         const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -154,7 +153,8 @@ document.addEventListener('DOMContentLoaded', () => {
         await new Promise(resolve => setTimeout(resolve, 2500));
         interactiveWrapper.innerHTML = `<div style="font-size: 2em; letter-spacing: 0.5em;">█ █ █ █ █ █</div>`;
         
-        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi' tai 'ylipääsy'.`);
+        // KORJATTU KOHTA: Ohituskoodi on poistettu julkisesta ohjeesta.
+        await type(`Syötä koodi. Jos unohdit, kirjoita 'anna uusi koodi'.`);
         setInputState(true);
     }
     
@@ -162,7 +162,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInteractive();
         await type(`\n--- PULMA 6/7: Koodikiekko ---`);
         await type(`Viesti on salattu Caesar-kiekolla. Etsi oikea siirtymä ja pura avainsana: PBZFR`);
-        setInputState(false);
+        setInputState(true); // Salli kirjoittaminen heti
 
         const interactiveWrapper = document.createElement('div');
         interactiveWrapper.className = 'interactive-wrapper';
@@ -185,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('disk-right').onclick = () => { shift++; updateDisk(); };
         }
         updateDisk();
-        setInputState(true);
     }
 
     function initializePuzzles() {
