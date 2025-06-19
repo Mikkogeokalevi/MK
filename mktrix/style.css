@@ -104,30 +104,33 @@ body {
 
 @keyframes blink-cursor { from, to { border-right: 2px solid #90EE90; } 50% { border-right: 2px solid transparent; } }
 
-/* --- TÄMÄ ON KORJATTU KOHTA MOBIILILAITTEILLE (UUSI YRITYS) --- */
+/* --- VIIMEISTELTY MOBIILIASOTTELU --- */
 @media (max-width: 600px) { 
     body {
-        /* Määritellään body flex-containeriksi, joka keskittää terminaalin */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px; /* Pieni tila reunoilla, jotta tausta näkyy */
-        box-sizing: border-box;
-        height: 100vh;
-        height: -webkit-fill-available; /* Varmistus iOS-laitteille */
+        padding: 0; /* Varmuuden vuoksi poistetaan padding */
     }
 
     #terminal {
-        position: relative; /* Poistetaan fixed-asema */
-        height: 95%; /* Terminaali vie 95% näytön korkeudesta */
-        width: 100%; /* Ja 100% leveydestä (miinus body-padding) */
+        position: fixed; /* Kiinnitetään näyttöön */
+        top: 10px;       /* 10px tilaa yläreunasta */
+        left: 10px;      /* 10px tilaa vasemmasta reunasta */
+        right: 10px;     /* 10px tilaa oikeasta reunasta */
+        bottom: 10px;    /* 10px tilaa alareunasta */
+        
+        /* Nollataan aiemmat, mahdollisesti ristiriitaiset säännöt */
+        height: auto;
+        width: auto;
+        max-width: none;
         margin: 0;
-        /* Oletusarvoiset reunat ja pyöristykset palaavat automaattisesti käyttöön */
+
+        /* Palautetaan reunat ja pyöristykset näkyviin */
+        border: 3px solid #36451C;
+        border-radius: 12px;
     }
 
     .logo {
-        width: 90px;
-        height: 90px;
+        width: 80px;
+        height: 80px;
         margin-bottom: 10px;
         flex-shrink: 0;
     }
