@@ -8,13 +8,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let gameState = 'AWAITING_NAME';
     let puzzles = [];
 
-    // --- Matrix-efekti ---
+    // --- PÄIVITETTY MATRIX-EFEKTI ---
     const canvas = document.getElementById('matrix-canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+
     const customWords = ["MKTRIX", "MIKKOKALEVI"];
     const alphabet = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    
     const fontSize = 16;
     const columns = canvas.width / fontSize;
     const rainDrops = Array(Math.floor(columns)).fill(1);
@@ -22,19 +24,25 @@ document.addEventListener('DOMContentLoaded', () => {
     function drawMatrix() {
         ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.fillStyle = '#0F0';
+        
         ctx.font = fontSize + 'px monospace';
+
         for (let i = 0; i < rainDrops.length; i++) {
             let text;
+            // Pieni todennäköisyys valita oma sana
             if (customWords.length > 0 && Math.random() > 0.995) {
                 const word = customWords[Math.floor(Math.random() * customWords.length)];
                 text = word.charAt(Math.floor(Math.random() * word.length)).toUpperCase();
-                ctx.fillStyle = '#90EE90';
+                // KORJATTU KOHTA: Vaihdetaan väri punaiseksi omille sanoille
+                ctx.fillStyle = '#FF4136'; 
             } else {
                 text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                 // Varmistetaan, että väri palautuu vihreäksi
                 ctx.fillStyle = '#0F0';
             }
+            
             ctx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+
             if (rainDrops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                 rainDrops[i] = 0;
             }
@@ -61,40 +69,38 @@ document.addEventListener('DOMContentLoaded', () => {
         output.appendChild(lineDiv);
         output.scrollTop = output.scrollHeight;
     }
+    
     function setInputState(enabled) {
         input.disabled = !enabled;
         if (enabled) input.focus();
     }
     function clearInteractive() { interactiveContainer.innerHTML = ''; }
 
-    // --- PÄIVITETTY RANGAISTUSFUNKTIO LASKURILLA ---
     async function handleWrongAnswer() {
         setInputState(false);
         print({html: `<span class="error">VIRHE, AGENTTI ${agentName.toUpperCase()}. Järjestelmä lukittu...</span>`});
         output.classList.add('glitch-effect');
         
-        // Luodaan laskurille oma elementti
         const countdownElement = document.createElement('div');
-        countdownElement.className = 'error'; // Käytetään samaa väriä
+        countdownElement.className = 'error';
         interactiveContainer.appendChild(countdownElement);
         
         let timeLeft = 30;
         
-        // Käynnistetään intervalli, joka päivittää laskuria
         const countdownInterval = setInterval(() => {
             countdownElement.innerText = `...${timeLeft}...`;
             timeLeft--;
 
             if (timeLeft < 0) {
-                clearInterval(countdownInterval); // Pysäytetään laskuri
+                clearInterval(countdownInterval);
                 countdownElement.innerText = 'Järjestelmä aktiivinen.';
                 setTimeout(() => {
                     clearInteractive();
                     output.classList.remove('glitch-effect');
                     setInputState(true);
-                }, 1500); // Annetaan "aktiivinen"-viestin näkyä hetken
+                }, 1500);
             }
-        }, 2000); // 2 sekunnin välein
+        }, 2000);
     }
     
     async function textCorruptionEffect(text) {
