@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const puzzle = puzzles[currentPuzzle];
         print({html: `<span class="highlight">OIKEA VASTAUS, AGENTTI ${agentName.toUpperCase()}.</span>`});
         currentPuzzle++;
-        if (puzzle && puzzle.reward) { // Tarkistus, että puzzle on olemassa
+        if (puzzle && puzzle.reward) {
              await type(`Koordinaatit päivitetty: ${puzzle.reward}`);
         }
         if (currentPuzzle < puzzles.length) {
@@ -184,7 +184,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     async function setupMemoryPuzzle() {
         clearInteractive();
-        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        // --- KORJATTU MERKKIJOUKKO: O ja 0 poistettu ---
+        const chars = 'ABCDEFGHIJKLMNPQRSTUVWXYZ123456789';
         let sequence = '';
         for (let i = 0; i < 6; i++) {
             sequence += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -391,13 +392,14 @@ document.addEventListener('DOMContentLoaded', () => {
             { type: 'interactive', setup: setupCorruptionPuzzle, answer: "" },
             { question: [`\n--- LOPULLINEN HAASTE ---`, `Koordinaatit purettu. Tiedät paikan. Missä olemme?`], answer: "niagaran putouksilla" }
         ];
+        // --- PÄIVITETTY PALKINTOJEN JAKOTAPA ---
         puzzles.forEach((puzzle, index) => {
             const rewards = [
                 "43°..′..″N ..°..′..″W",
-                "43°04′..″N ..°..′..″W",
-                "43°04′41″N ..°..′..″W",
-                "43°04′41″N 79°..′..″W",
-                "43°04′41″N 79°04′..″W",
+                "..°..′..″N 79°..′..″W",
+                "..°04′..″N ..°..′..″W",
+                "..°..′..″N ..°..′30″W",
+                "..°..′41″N ..°..′..″W",
                 "43°04′41″N 79°04′30″W"
             ];
             if (index < rewards.length) {
@@ -516,6 +518,5 @@ document.addEventListener('DOMContentLoaded', () => {
         setInputState(true);
     }
     
-    // Käynnistetään peli, kun kaikki on valmista
     main();
 });
