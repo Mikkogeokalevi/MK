@@ -471,4 +471,48 @@ document.addEventListener('DOMContentLoaded', () => {
                     await type("Generoidaan uutta anagrammia...");
                     await setupAnagramPuzzle();
                  } else {
-                    await type
+                    await type("Generoidaan uutta numerosarjaa...");
+                    await setupNumericPuzzle();
+                 }
+                 return;
+            }
+            if (currentPuzzle === 2 && cmd === 'anna uusi koodi') {
+                await type("Generoidaan uutta turvakoodia...");
+                await setupMemoryPuzzle();
+                return;
+            }
+            if (currentPuzzle === 4 && cmd === 'anna kuvat uudelleen') {
+                await type("Generoidaan uutta kuvasarjaa...");
+                await setupPatternPuzzle();
+                return;
+            }
+            if (currentPuzzle === 5 && cmd === 'anna datavirta uudelleen') {
+                await type("Generoidaan uutta datavirtaa...");
+                await setupCorruptionPuzzle();
+                return;
+            }
+            
+            if (cmd === puzzle.answer) {
+                await handleSuccess();
+            } else {
+                await handleWrongAnswer();
+            }
+        }
+    }
+
+    input.addEventListener('keydown', async (event) => {
+        if (event.key === 'Enter') {
+            if (isInputLocked) return;
+            const command = input.value.trim();
+            if(command === '' && gameState !== 'AWAITING_NAME') return;
+            await handleInput(command);
+        }
+    });
+
+    async function main() {
+        setInputState(false);
+        await type("SYÖTÄ GEOKÄTKÖILY NIMESI...");
+        setInputState(true);
+    }
+    main();
+});
