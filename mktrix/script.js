@@ -106,7 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 clearInterval(countdownInterval);
                 countdownElement.innerText = 'Järjestelmä aktiivinen.';
                 setTimeout(() => {
-                    output.removeChild(countdownWrapper);
+                    if(output.contains(countdownWrapper)) {
+                        output.removeChild(countdownWrapper);
+                    }
                     setInputState(true);
                 }, 1500);
             }
@@ -133,7 +135,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const puzzle = puzzles[currentPuzzle];
         print({html: `<span class="highlight">OIKEA VASTAUS, AGENTTI ${agentName.toUpperCase()}.</span>`});
         currentPuzzle++;
-        if (puzzle.reward) await type(`Koordinaatit päivitetty: ${puzzle.reward}`);
+        if (puzzle && puzzle.reward) { // Tarkistus, että puzzle on olemassa
+             await type(`Koordinaatit päivitetty: ${puzzle.reward}`);
+        }
         if (currentPuzzle < puzzles.length) {
             await displayPuzzle();
         } else {
@@ -330,7 +334,6 @@ document.addEventListener('DOMContentLoaded', () => {
         setInputState(true);
     }
 
-    // --- KORJATTU PULMA 6 ---
     async function setupCorruptionPuzzle() {
         clearInteractive();
         await type(`\n--- PULMA 6/7: Datavirran analysointi ---`);
@@ -366,11 +369,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         await new Promise(resolve => setTimeout(resolve, 2000));
         
-        // Palautettu toimiva "kirjoitusefekti" datavirralle
         for (const char of stream) {
             streamDisplay.innerText += char;
-            // Vieritys ei ole välttämätön loopin sisällä, jos se on lopussa
-            await new Promise(resolve => setTimeout(resolve, 15));
+            await new Promise(resolve => setTimeout(resolve, 20));
         }
         scrollToBottom();
         
@@ -492,7 +493,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
-            if (cmd === puzzle.answer) {
+            if (puzzle && cmd === puzzle.answer) {
                 await handleSuccess();
             } else {
                 await handleWrongAnswer();
@@ -514,5 +515,7 @@ document.addEventListener('DOMContentLoaded', () => {
         await type("SYÖTÄ GEOKÄTKÖILY NIMESI...");
         setInputState(true);
     }
+    
+    // Käynnistetään peli, kun kaikki on valmista
     main();
 });
