@@ -211,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
     async function setupPasswordCracker() {
         clearInteractive();
         
-        // --- UUSI, KURATOITU SANALISTA VAIN TÄTÄ PULMAA VARTEN ---
         const passwordWords = ["agentti", "eventti", "vesistö", "peruuta", "adoptoi", "tilasto", "foorumi", "puhelin", "paristo", "korkeus", "säännöt", "yhteisö", "opastus", "vaellus", "melonta", "veneily", "arkisto", "piilotus", "etsintä"];
         const word = passwordWords[Math.floor(Math.random() * passwordWords.length)];
         
@@ -331,6 +330,7 @@ document.addEventListener('DOMContentLoaded', () => {
         setInputState(true);
     }
 
+    // --- KORJATTU PULMA 6 ---
     async function setupCorruptionPuzzle() {
         clearInteractive();
         await type(`\n--- PULMA 6/7: Datavirran analysointi ---`);
@@ -362,10 +362,16 @@ document.addEventListener('DOMContentLoaded', () => {
         streamDisplay.style.textAlign = 'center';
         streamDisplay.style.color = '#FF4136';
         interactiveWrapper.appendChild(streamDisplay);
+        output.appendChild(interactiveWrapper);
         
         await new Promise(resolve => setTimeout(resolve, 2000));
         
-        streamDisplay.innerText = stream.join('');
+        // Palautettu toimiva "kirjoitusefekti" datavirralle
+        for (const char of stream) {
+            streamDisplay.innerText += char;
+            // Vieritys ei ole välttämätön loopin sisällä, jos se on lopussa
+            await new Promise(resolve => setTimeout(resolve, 15));
+        }
         scrollToBottom();
         
         await new Promise(resolve => setTimeout(resolve, 500));
@@ -465,48 +471,4 @@ document.addEventListener('DOMContentLoaded', () => {
                     await type("Generoidaan uutta anagrammia...");
                     await setupAnagramPuzzle();
                  } else {
-                    await type("Generoidaan uutta numerosarjaa...");
-                    await setupNumericPuzzle();
-                 }
-                 return;
-            }
-            if (currentPuzzle === 2 && cmd === 'anna uusi koodi') {
-                await type("Generoidaan uutta turvakoodia...");
-                await setupMemoryPuzzle();
-                return;
-            }
-            if (currentPuzzle === 4 && cmd === 'anna kuvat uudelleen') {
-                await type("Generoidaan uutta kuvasarjaa...");
-                await setupPatternPuzzle();
-                return;
-            }
-            if (currentPuzzle === 5 && cmd === 'anna datavirta uudelleen') {
-                await type("Generoidaan uutta datavirtaa...");
-                await setupCorruptionPuzzle();
-                return;
-            }
-            
-            if (cmd === puzzle.answer) {
-                await handleSuccess();
-            } else {
-                await handleWrongAnswer();
-            }
-        }
-    }
-
-    input.addEventListener('keydown', async (event) => {
-        if (event.key === 'Enter') {
-            if (isInputLocked) return;
-            const command = input.value.trim();
-            if(command === '' && gameState !== 'AWAITING_NAME') return;
-            await handleInput(command);
-        }
-    });
-
-    async function main() {
-        setInputState(false);
-        await type("SYÖTÄ GEOKÄTKÖILY NIMESI...");
-        setInputState(true);
-    }
-    main();
-});
+                    await type
