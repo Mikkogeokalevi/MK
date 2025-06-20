@@ -193,7 +193,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const interactiveWrapper = document.createElement('div');
         interactiveWrapper.className = 'interactive-wrapper';
-        // Annetaan tälle oma luokka CSS-kohdennusta varten
         interactiveWrapper.innerHTML = `<div class="memory-sequence">${sequence.split('').join(' ')}</div>`;
         output.appendChild(interactiveWrapper);
         scrollToBottom();
@@ -212,8 +211,9 @@ document.addEventListener('DOMContentLoaded', () => {
     async function setupPasswordCracker() {
         clearInteractive();
         
-        const validWords = GEO_WORDS.filter(w => w.length === 7);
-        const word = validWords[Math.floor(Math.random() * validWords.length)];
+        // --- UUSI, KURATOITU SANALISTA VAIN TÄTÄ PULMAA VARTEN ---
+        const passwordWords = ["agentti", "eventti", "vesistö", "peruuta", "adoptoi", "tilasto", "foorumi", "puhelin", "paristo", "korkeus", "säännöt", "yhteisö", "opastus", "vaellus", "melonta", "veneily", "arkisto", "piilotus", "etsintä"];
+        const word = passwordWords[Math.floor(Math.random() * passwordWords.length)];
         
         puzzles[3].answer = word.toLowerCase();
         puzzles[3].guesses = [];
